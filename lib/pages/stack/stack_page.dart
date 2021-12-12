@@ -69,14 +69,14 @@ class StackPageController extends State<StackPage> {
       textFields: [
         DialogTextField(
           hintText: L10n.of(context)!.front,
-          maxLines: 4,
+          maxLines: 2,
           validator: (s) => s != null && s.isNotEmpty
               ? null
               : L10n.of(context)!.pleaseFillOut,
         ),
         DialogTextField(
           hintText: L10n.of(context)!.back,
-          maxLines: 4,
+          maxLines: 2,
           validator: (s) => s != null && s.isNotEmpty
               ? null
               : L10n.of(context)!.pleaseFillOut,
@@ -125,7 +125,7 @@ class StackPageController extends State<StackPage> {
         DialogTextField(
           hintText: L10n.of(context)!.front,
           initialText: card.front,
-          maxLines: 4,
+          maxLines: 2,
           validator: (s) => s != null && s.isNotEmpty
               ? null
               : L10n.of(context)!.pleaseFillOut,
@@ -133,7 +133,7 @@ class StackPageController extends State<StackPage> {
         DialogTextField(
           hintText: L10n.of(context)!.back,
           initialText: card.back,
-          maxLines: 4,
+          maxLines: 2,
           validator: (s) => s != null && s.isNotEmpty
               ? null
               : L10n.of(context)!.pleaseFillOut,
