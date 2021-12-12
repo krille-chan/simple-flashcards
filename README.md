@@ -17,6 +17,5 @@ flutter run
 ```sh
 flutter build apk --release # Android
 flutter build ios --release # iOS
-flutter build web --release # Web
 flutter build linux --release # Linux Desktop
 ```
