@@ -1,0 +1,80 @@
+image:
+  name: cirrusci/flutter
+
+stages:
+- coverage
+- release
+- deploy
+
+.prepareandroid: &prepareandroid |-
+  cd android
+  echo $FDROID_KEY | base64 --decode --ignore-garbage > key.jks
+  echo "storePassword=${FDROID_KEY_PASS}" >> key.properties
+  echo "keyPassword=${FDROID_KEY_PASS}" >> key.properties
+  echo "keyAlias=key" >> key.properties
+  echo "storeFile=../key.jks" >> key.properties
+  echo $PLAYSTORE_DEPLOY_KEY >> keys.json
+  bundle install
+  bundle update fastlane
+  bundle exec fastlane set_build_code_internal
+  cd ..
+
+
+code_analyze:
+  stage: coverage
+  script:
+    - flutter pub get
+    - flutter format lib/ test/ --set-exit-if-changed
+    - flutter pub run import_sorter:main --no-comments --exit-if-changed
+    - flutter analyze
+
+test:
+  stage: coverage
+  script: [flutter test]
+
+build_apk_debug:
+  stage: coverage
+  before_script: [*prepareandroid]
+  script:
+    - flutter pub get
+    - flutter build apk
+  artifacts:
+    when: on_success
+    paths:
+      - build/app/outputs/apk/debug/app-release.apk
+  except:
+    - main
+    - tags
+
+build_apk:
+  stage: coverage
+  before_script: [*prepareandroid]
+  script:
+    - flutter pub get
+    - flutter build apk --release
+  artifacts:
+    when: on_success
+    paths:
+      - build/app/outputs/apk/release/app-release.apk
+  only:
+    - main
+    - tags
+
+build_appbundle:
+  stage: coverage
+  before_script: [*prepareandroid]
+  script:
+    - flutter pub get
+    - flutter build appbundle --target-platform android-arm,android-arm64,android-x64
+    - mkdir -p build/android
+    - cp build/app/outputs/bundle/release/app-release.aab build/android/
+    - cd android
+    - bundle exec fastlane deploy_internal_test
+    - cd ..
+  artifacts:
+    when: on_success
+    paths:
+      - build/app/outputs/bundle/release/app-release.aab
+  resource_group: playstore_release
+  only:
+    - main

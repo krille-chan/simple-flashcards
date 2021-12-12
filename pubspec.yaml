@@ -1,0 +1,40 @@
+name: simple_flashcards
+description: Minimalistic flashcards app for all platforms
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+dependencies:
+  adaptive_dialog: ^1.2.0
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  hive: ^2.0.4
+  intl: ^0.17.0
+  provider: ^6.0.1
+  hive_flutter: ^1.1.0
+  package_info: ^2.0.2
+  file_picker_cross: ^4.5.0
+  url_launcher: ^6.0.17
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+  import_sorter: ^4.6.0
+  flutter_launcher_icons: ^0.9.2
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/logo.png"
+  
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/images/

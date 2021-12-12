@@ -1,0 +1,53 @@
+{
+    "stacks": "Stacks",
+    "simpleFlashcards": "Simple Flashcards",
+    "createNewStack": "Create new stack",
+    "newStack": "New stack",
+    "name": "Name",
+    "countCards": "{count} cards",
+    "@countCards": {
+        "type": "text",
+        "placeholders": {
+        "count": {}
+        }
+    },
+    "longPressToReorder": "Long press to reorder",
+    "areYouSure": "Are you sure?",
+    "deleteStack": "Delete stack",
+    "yes": "Yes",
+    "cancel": "Cancel",
+    "startLearning": "Start learning",
+    "addNewFlashCard": "Add new flash card",
+    "front": "Front",
+    "back": "Back",
+    "pleaseFillOut": "Please fill out",
+    "welcomeText": "Welcome to Simple Flashcards. Create your first flashcards stack, add some cards and start learning with fun!",
+    "editStack": "Edit stack",
+    "ok": "Okay",
+    "editFlashCard": "Edit flashcard",
+    "deleteFlashCard": "Delete flashcard",
+    "settings": "Settings",
+    "about": "About",
+    "importStacks": "Import stacks",
+    "exportStacks": "Export stacks",
+    "website": "Website",
+    "help": "Help",
+    "oopsSomethingWentWrong": "Oops... something went wrong",
+    "cardsLeft": "Cards left: {count}",
+    "@cardsLeft": {
+        "type": "text",
+        "placeholders": {
+        "count": {}
+        }
+    },
+    "learnDescription": "Swipe 👉 right if you know the answer or swipe 👈 left if not. Tap 👆 on the card to flip it.",
+    "allCardsFinished": "All cards finished",
+    "repeatAllCards": "Repeat all cards",
+    "repeatNotKnownCards": "Repeat {count} not known cards",
+    "@repeatNotKnownCards": {
+        "type": "text",
+        "placeholders": {
+        "count": {}
+        }
+    }
+}
