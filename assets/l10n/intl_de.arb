@@ -1,0 +1,53 @@
+{
+    "stacks": "Stapel",
+    "simpleFlashcards": "Simple Flashcards",
+    "createNewStack": "Neuen Stapel erstellen",
+    "newStack": "Neuer Stapel",
+    "name": "Name",
+    "countCards": "{count} Karten",
+    "@countCards": {
+        "type": "text",
+        "placeholders": {
+        "count": {}
+        }
+    },
+    "longPressToReorder": "Gedrückt halten zum anordnen",
+    "areYouSure": "Bist du sicher?",
+    "deleteStack": "Stapel löschen",
+    "yes": "Ja",
+    "cancel": "Abbrechen",
+    "startLearning": "Mit Lernen anfangen",
+    "addNewFlashCard": "Neue Karteikarte hinzufügen",
+    "front": "Vorderseite",
+    "back": "Rückseite",
+    "pleaseFillOut": "Bitte ausfüllen",
+    "welcomeText": "Willkommen bei Simple Flashcards. Erstelle deinen ersten Karteikartenstapel, füge ein paar Karten hinzu und fange an, mit Spaß zu Lernen!",
+    "editStack": "Stapel bearbeiten",
+    "ok": "Okay",
+    "editFlashCard": "Karteikarte bearbeiten",
+    "deleteFlashCard": "Karteikarte löschen",
+    "settings": "Einstellungen",
+    "about": "Über",
+    "importStacks": "Stapel importieren",
+    "exportStacks": "Stapel exportieren",
+    "website": "Website",
+    "help": "Hilfe",
+    "oopsSomethingWentWrong": "Hoppla ... Da ist etwas schiefgelaufen",
+    "cardsLeft": "Karten übrig: {count}",
+    "@cardsLeft": {
+        "type": "text",
+        "placeholders": {
+        "count": {}
+        }
+    },
+    "learnDescription": "Wische nach 👉 rechts, wenn du die Antwort kennst. Wische nach 👈 links wenn nicht. Tippe 👆 auf die Karte, um sie umzudrehen.",
+    "allCardsFinished": "Alle Karten abgeschlossen",
+    "repeatAllCards": "Alle Karten wiederholen",
+    "repeatNotKnownCards": "Wiederhole {count} nicht gewusste Karten",
+    "@repeatNotKnownCards": {
+        "type": "text",
+        "placeholders": {
+        "count": {}
+        }
+    }
+}
