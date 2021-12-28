@@ -54,7 +54,8 @@ class SettingsPageController extends State<SettingsPage> {
 
   void exportStacks() async {
     final file = await SimpleFlashcards.of(context).exportToFile();
-    FilePickerCross(file).exportToStorage();
+    FilePickerCross(file, path: './simple-flashcards-export.json')
+        .exportToStorage();
   }
 
   void openWebsite() => launch(AppConstants.applicationWebsite);
