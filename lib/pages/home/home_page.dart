@@ -23,7 +23,7 @@ class HomePageController extends State<HomePage> {
       title: L10n.of(context)!.createNewStack,
       textFields: [DialogTextField(hintText: L10n.of(context)!.name)],
     );
-    if (name == null) return;
+    if (name == null || name.isEmpty) return;
     SimpleFlashcards.of(context).createStack(name.single);
   }
 

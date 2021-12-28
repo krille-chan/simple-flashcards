@@ -1,0 +1,33 @@
+name: simple-flashcards
+base: core18
+version: git
+summary: Minimalistic flashcards app for all platforms
+description: |
+  Simple Flashcards is a minimalistic flashcards app for all platforms.
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+
+parts:
+  simple-flashcards:
+    plugin: dump
+    source: ./build/linux/x64/release/bundle/
+
+apps:
+  simple-flashcards:
+    extensions:
+      - gnome-3-28
+    command: simple-flashcards
+    plugs:
+      - desktop
+      - desktop-legacy
+      - gsettings
+      - opengl
+      - wayland
+      - x11
+      - network
+      - home
+      

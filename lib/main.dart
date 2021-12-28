@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:simple_flashcards/config/app_constants.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/home/home_page.dart';
-import 'config/app_themes.dart';
+import 'package:yaru/yaru.dart';
 
 void main() async {
   final simpleFlashcards = await SimpleFlashcards.init();
@@ -22,8 +22,8 @@ class SimpleFlashcardsApp extends StatelessWidget {
     return MaterialApp(
       title: AppConstants.appName,
       home: const HomePage(),
-      theme: AppThemes.light,
-      darkTheme: AppThemes.dark,
+      theme: yaruLight,
+      darkTheme: yaruDark,
       localizationsDelegates: L10n.localizationsDelegates,
       supportedLocales: L10n.supportedLocales,
       builder: simpleFlashcards.builder,

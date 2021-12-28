@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
@@ -8,6 +7,7 @@ import 'package:simple_flashcards/models/flash_card.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/session/session_page.dart';
 import 'package:simple_flashcards/pages/stack/stack_page_view.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 
 class StackPage extends StatefulWidget {
   final String stackName;
@@ -103,13 +103,13 @@ class StackPageController extends State<StackPage> {
             key: FlashCardAction.edit,
             isDefaultAction: true,
             label: L10n.of(context)!.editFlashCard,
-            icon: CupertinoIcons.pen,
+            icon: YaruIcons.insert_text,
           ),
           SheetAction(
             key: FlashCardAction.delete,
             isDestructiveAction: true,
             label: L10n.of(context)!.deleteFlashCard,
-            icon: CupertinoIcons.delete,
+            icon: YaruIcons.trash,
           ),
         ]);
     if (action == null) return;

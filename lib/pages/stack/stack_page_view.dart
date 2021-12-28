@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import 'package:simple_flashcards/pages/stack/stack_page.dart';
 import 'package:simple_flashcards/utils/string_color.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 
 class StackPageView extends StatelessWidget {
   final StackPageController controller;
@@ -47,7 +48,7 @@ class StackPageView extends StatelessWidget {
               L10n.of(context)!.countCards(controller.cards.length.toString()),
             ),
             trailing: IconButton(
-              icon: const Icon(CupertinoIcons.pen),
+              icon: const Icon(YaruIcons.insert_text),
               onPressed: controller.editName,
             ),
             onTap: controller.editName,
@@ -57,7 +58,9 @@ class StackPageView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Material(
-                  color: Theme.of(context).secondaryHeaderColor,
+                  color: Theme.of(context).colorScheme.surface,
+                  elevation: 2,
+                  clipBehavior: Clip.hardEdge,
                   borderRadius: BorderRadius.circular(16),
                   child: ListView.builder(
                     itemCount: controller.cards.length + 1,
@@ -65,10 +68,10 @@ class StackPageView extends StatelessWidget {
                       if (i == 0) {
                         return ListTile(
                           leading: CircleAvatar(
-                            child: Icon(
-                              CupertinoIcons.add,
-                              color: Theme.of(context).primaryColor,
-                            ),
+                            backgroundColor: Theme.of(context)
+                                .floatingActionButtonTheme
+                                .backgroundColor,
+                            child: const Icon(YaruIcons.plus),
                           ),
                           title: Text(L10n.of(context)!.addNewFlashCard),
                           onTap: controller.addFlashCard,
@@ -77,6 +80,7 @@ class StackPageView extends StatelessWidget {
                       i--;
                       return ListTile(
                         leading: CircleAvatar(
+                          backgroundColor: Colors.transparent,
                           child: Icon(
                             CupertinoIcons.doc_append,
                             color: Theme.of(context).textTheme.subtitle1?.color,
