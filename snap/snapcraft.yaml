@@ -20,7 +20,7 @@ apps:
   simple-flashcards:
     extensions:
       - gnome-3-28
-    command: simple-flashcards
+    command: simple_flashcards
     plugs:
       - desktop
       - desktop-legacy

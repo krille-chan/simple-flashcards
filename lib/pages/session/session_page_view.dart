@@ -64,19 +64,7 @@ class SessionPageView extends StatelessWidget {
                         builder: (context, data, ___) => AnimatedOpacity(
                               opacity: data.isEmpty ? 0.66 : 1,
                               duration: const Duration(milliseconds: 500),
-                              child: Container(
-                                width: 128,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    colors: [
-                                      Colors.red,
-                                      Theme.of(context).scaffoldBackgroundColor
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              child: Container(width: 128),
                             ),
                         onWillAccept: (_) => true,
                         onAccept: (_) => controller.cardNotKnown()),
@@ -89,19 +77,7 @@ class SessionPageView extends StatelessWidget {
                       builder: (context, data, ___) => AnimatedOpacity(
                         opacity: data.isEmpty ? 0.66 : 1,
                         duration: const Duration(milliseconds: 500),
-                        child: Container(
-                          width: 128,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [
-                                Theme.of(context).scaffoldBackgroundColor,
-                                Colors.green,
-                              ],
-                            ),
-                          ),
-                        ),
+                        child: Container(width: 128),
                       ),
                       onWillAccept: (_) => true,
                       onAccept: (_) => controller.cardKnown(),

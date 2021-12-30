@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 
 import 'package:simple_flashcards/models/flash_card.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/session/session_page.dart';
 import 'package:simple_flashcards/pages/stack/stack_page_view.dart';
-import 'package:yaru_icons/yaru_icons.dart';
 
 class StackPage extends StatefulWidget {
   final String stackName;

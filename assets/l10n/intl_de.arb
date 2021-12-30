@@ -49,5 +49,7 @@
         "placeholders": {
         "count": {}
         }
-    }
+    },
+    "known": "Gewusst 👉",
+    "notKnown": "👈 Nicht gewusst"
 }

@@ -13,40 +13,70 @@ class CardWidget extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         maxWidth: 400,
-        maxHeight: 400,
+        maxHeight: 600,
       ),
       child: Material(
         elevation: 10,
-        child: InkWell(
-          onTap: controller.flip,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppBar(
-                automaticallyImplyLeading: false,
-                elevation: 0,
-                backgroundColor: Theme.of(context).secondaryHeaderColor,
-                title: Text(
-                  controller.flipped
-                      ? L10n.of(context)!.back
-                      : L10n.of(context)!.front,
+        borderRadius: BorderRadius.circular(12),
+        clipBehavior: Clip.hardEdge,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AppBar(
+              automaticallyImplyLeading: false,
+              elevation: 0,
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
+              title: Text(
+                controller.flipped
+                    ? L10n.of(context)!.back
+                    : L10n.of(context)!.front,
+              ),
+            ),
+            Expanded(
+              child: InkWell(
+                onTap: controller.flip,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView(shrinkWrap: true, children: [
+                      SelectableText(
+                        controller.flipped
+                            ? controller.cards.first.back
+                            : controller.cards.first.front,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 32),
+                      ),
+                    ]),
+                  ),
                 ),
               ),
-              Expanded(
-                child: Center(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    controller.flipped
-                        ? controller.cards.first.back
-                        : controller.cards.first.front,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 32),
+            ),
+            Row(
+              children: [
+                TextButton(
+                  onPressed: controller.cardNotKnown,
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16),
                   ),
-                )),
-              ),
-            ],
-          ),
+                  child: Text(
+                    L10n.of(context)!.notKnown,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: controller.cardKnown,
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16),
+                  ),
+                  child: Text(
+                    L10n.of(context)!.known,
+                    style: const TextStyle(color: Colors.green),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

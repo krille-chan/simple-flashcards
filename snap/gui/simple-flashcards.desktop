@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Simple Flashcards
+GenericName=Minimalistic flashcards app for all platforms
+Comment=Minimalistic flashcards app for all platforms
+Exec=simple-flashcards
+Icon=${SNAP}/meta/gui/simple-flashcards.png
+Terminal=false
+Type=Application
+Categories=Education

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 
 import 'package:simple_flashcards/pages/settings/settings_page.dart';
-import 'package:yaru_icons/yaru_icons.dart';
 
 class SettingsPageView extends StatelessWidget {
   final SettingsPageController controller;

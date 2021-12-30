@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:yaru_icons/yaru_icons.dart';
 
 import 'package:simple_flashcards/pages/home/home_page.dart';
 import 'package:simple_flashcards/utils/string_color.dart';
-import 'package:yaru_icons/yaru_icons.dart';
 
 class HomePageView extends StatelessWidget {
   final HomePageController controller;

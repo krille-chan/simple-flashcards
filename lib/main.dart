@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:yaru/yaru.dart';
 
 import 'package:simple_flashcards/config/app_constants.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/home/home_page.dart';
-import 'package:yaru/yaru.dart';
 
 void main() async {
   final simpleFlashcards = await SimpleFlashcards.init();
