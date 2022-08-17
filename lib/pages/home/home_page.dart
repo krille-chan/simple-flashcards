@@ -18,13 +18,14 @@ class HomePage extends StatefulWidget {
 
 class HomePageController extends State<HomePage> {
   void createStackAction() async {
+    final simpleFlashcards = SimpleFlashcards.of(context);
     final name = await showTextInputDialog(
       context: context,
       title: L10n.of(context)!.createNewStack,
       textFields: [DialogTextField(hintText: L10n.of(context)!.name)],
     );
     if (name == null || name.isEmpty) return;
-    SimpleFlashcards.of(context).createStack(name.single);
+    simpleFlashcards.createStack(name.single);
   }
 
   void goToSettings() => Navigator.of(context).push(

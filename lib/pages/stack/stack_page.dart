@@ -19,6 +19,8 @@ class StackPage extends StatefulWidget {
 
 class StackPageController extends State<StackPage> {
   void deleteStackAction() async {
+    final simpleFlashcards = SimpleFlashcards.of(context);
+    final navigator = Navigator.of(context);
     final confirm = await showOkCancelAlertDialog(
       context: context,
       title: L10n.of(context)!.areYouSure,
@@ -27,8 +29,7 @@ class StackPageController extends State<StackPage> {
       cancelLabel: L10n.of(context)!.cancel,
     );
     if (confirm != OkCancelResult.ok) return;
-    final simpleFlashcards = SimpleFlashcards.of(context);
-    Navigator.of(context).pop();
+    navigator.pop();
     simpleFlashcards.deleteStack(widget.stackName);
   }
 
@@ -43,6 +44,8 @@ class StackPageController extends State<StackPage> {
       );
 
   void editName() async {
+    final simpleFlashcards = SimpleFlashcards.of(context);
+    final navigator = Navigator.of(context);
     final input = await showTextInputDialog(
       context: context,
       title: L10n.of(context)!.editStack,
@@ -56,13 +59,14 @@ class StackPageController extends State<StackPage> {
       cancelLabel: L10n.of(context)!.cancel,
     );
     if (input == null) return;
-    SimpleFlashcards.of(context).editStackName(widget.stackName, input.single);
-    Navigator.of(context).pushAndRemoveUntil(
+    simpleFlashcards.editStackName(widget.stackName, input.single);
+    navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => StackPage(input.single)),
         (route) => route.isFirst);
   }
 
   void addFlashCard() async {
+    final simpleFlashcards = SimpleFlashcards.of(context);
     final textInput = await showTextInputDialog(
       context: context,
       title: L10n.of(context)!.addNewFlashCard,
@@ -84,7 +88,7 @@ class StackPageController extends State<StackPage> {
       ],
     );
     if (textInput == null) return;
-    SimpleFlashcards.of(context).addCardToStack(
+    simpleFlashcards.addCardToStack(
       widget.stackName,
       textInput.first,
       textInput.last,
@@ -92,6 +96,8 @@ class StackPageController extends State<StackPage> {
   }
 
   void editCard(int index) async {
+    final simpleFlashcards = SimpleFlashcards.of(context);
+    final l10n = L10n.of(context)!;
     final card = cards[index];
     String front = card.front;
     final action = await showModalActionSheet<FlashCardAction>(
@@ -114,16 +120,15 @@ class StackPageController extends State<StackPage> {
         ]);
     if (action == null) return;
     if (action == FlashCardAction.delete) {
-      await SimpleFlashcards.of(context)
-          .deleteCardFromStack(widget.stackName, front);
+      await simpleFlashcards.deleteCardFromStack(widget.stackName, front);
       return;
     }
     final textInput = await showTextInputDialog(
       context: context,
-      title: L10n.of(context)!.editFlashCard,
+      title: l10n.editFlashCard,
       textFields: [
         DialogTextField(
-          hintText: L10n.of(context)!.front,
+          hintText: l10n.front,
           initialText: card.front,
           maxLines: 2,
           validator: (s) => s != null && s.isNotEmpty
@@ -131,7 +136,7 @@ class StackPageController extends State<StackPage> {
               : L10n.of(context)!.pleaseFillOut,
         ),
         DialogTextField(
-          hintText: L10n.of(context)!.back,
+          hintText: l10n.back,
           initialText: card.back,
           maxLines: 2,
           validator: (s) => s != null && s.isNotEmpty
@@ -142,7 +147,7 @@ class StackPageController extends State<StackPage> {
     );
     if (textInput == null) return;
     if (textInput.first != front) {
-      SimpleFlashcards.of(context).editCardFront(
+      simpleFlashcards.editCardFront(
         widget.stackName,
         front,
         textInput.first,
@@ -150,7 +155,7 @@ class StackPageController extends State<StackPage> {
       front = textInput.first;
     }
     if (textInput.last != card.back) {
-      SimpleFlashcards.of(context).editCardBack(
+      simpleFlashcards.editCardBack(
         widget.stackName,
         front,
         textInput.last,

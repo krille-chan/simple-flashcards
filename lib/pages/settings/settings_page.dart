@@ -34,20 +34,22 @@ class SettingsPageController extends State<SettingsPage> {
   }
 
   void importStacks() async {
+    final simpleFlashcards = SimpleFlashcards.of(context);
+    final navigator = Navigator.of(context);
     try {
       final picked = await FilePickerCross.importFromStorage(
         type: FileTypeCross.custom,
         fileExtension: 'json',
       );
       final data = String.fromCharCodes(picked.toUint8List());
-      await SimpleFlashcards.of(context).importFromJson(jsonDecode(data));
+      simpleFlashcards.importFromJson(jsonDecode(data));
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(L10n.of(context)!.oopsSomethingWentWrong),
       ));
       rethrow;
     }
-    Navigator.of(context).popUntil((route) => route.isFirst);
+    navigator.popUntil((route) => route.isFirst);
   }
 
   bool get canExport => SimpleFlashcards.of(context).stacks.isNotEmpty;
