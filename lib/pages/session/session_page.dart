@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:simple_flashcards/models/flash_card.dart';
-import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/session/session_page_view.dart';
 
 class SessionPage extends StatefulWidget {
-  final String stackName;
-  const SessionPage(this.stackName, {Key? key}) : super(key: key);
+  final List<FlashCard> flashCards;
+  const SessionPage(this.flashCards, {Key? key}) : super(key: key);
 
   @override
   SessionPageController createState() => SessionPageController();
@@ -25,10 +24,7 @@ class SessionPageController extends State<SessionPage> {
   @override
   void initState() {
     super.initState();
-    final stack = SimpleFlashcards.of(context).getStack(widget.stackName);
-    final initialCards = stack?.cards ?? [];
-    initialCards.shuffle();
-    cards.addAll(initialCards.take(maxCards));
+    cards.addAll(widget.flashCards);
   }
 
   void cardKnown() => setState(() {
@@ -42,9 +38,8 @@ class SessionPageController extends State<SessionPage> {
       });
 
   void repeatAllCards() {
-    final stack = SimpleFlashcards.of(context).getStack(widget.stackName);
     setState(() {
-      cards.addAll(stack?.cards ?? []);
+      cards.addAll(widget.flashCards);
     });
   }
 

@@ -84,12 +84,15 @@ class SessionPageView extends StatelessWidget {
                     ),
                   ),
                   Center(
-                    child: Draggable<bool>(
-                      data: true,
-                      feedback: CardWidget(controller),
-                      childWhenDragging: Container(),
-                      axis: Axis.horizontal,
-                      child: CardWidget(controller),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Draggable<bool>(
+                        data: true,
+                        feedback: CardWidget(controller),
+                        childWhenDragging: Container(),
+                        axis: Axis.horizontal,
+                        child: CardWidget(controller),
+                      ),
                     ),
                   ),
                 ],

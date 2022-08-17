@@ -34,13 +34,43 @@ class StackPageController extends State<StackPage> {
 
   List<FlashCard> get cards =>
       (SimpleFlashcards.of(context).getStack(widget.stackName)?.cards ?? [])
-        ..sort((b, a) => b.front.compareTo(a.front));
+        ..sort((a, b) => a.id.compareTo(b.id));
 
-  void startSession() => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => SessionPage(widget.stackName),
-        ),
-      );
+  void toggle(int id, bool selected) {
+    SimpleFlashcards.of(context)
+        .editCardSelected(widget.stackName, id, selected);
+  }
+
+  void toggleAll() {
+    final simpleFlashcards = SimpleFlashcards.of(context);
+    final selected = cards.where((c) => c.selected);
+    if (selected.isNotEmpty) {
+      for (final card in selected) {
+        simpleFlashcards.editCardSelected(
+          widget.stackName,
+          card.id,
+          false,
+        );
+      }
+    } else {
+      for (final card in cards) {
+        simpleFlashcards.editCardSelected(
+          widget.stackName,
+          card.id,
+          true,
+        );
+      }
+    }
+  }
+
+  void startSession() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => SessionPage(
+            cards.where((card) => card.selected).toList()..shuffle()),
+      ),
+    );
+  }
 
   void editName() async {
     final simpleFlashcards = SimpleFlashcards.of(context);
@@ -148,7 +178,7 @@ class StackPageController extends State<StackPage> {
     if (textInput.first != front) {
       simpleFlashcards.editCardFront(
         widget.stackName,
-        front,
+        card.id,
         textInput.first,
       );
       front = textInput.first;
@@ -156,7 +186,7 @@ class StackPageController extends State<StackPage> {
     if (textInput.last != card.back) {
       simpleFlashcards.editCardBack(
         widget.stackName,
-        front,
+        card.id,
         textInput.last,
       );
     }

@@ -94,7 +94,15 @@ class SimpleFlashcards {
     String back,
   ) async {
     final stack = getStack(stackName)!;
-    stack.cards.add(FlashCard(front: front, back: back));
+    final id = stack.cards
+            .fold<int>(0, (prev, card) => card.id > prev ? card.id : prev) +
+        1;
+    stack.cards.add(FlashCard(
+      front: front,
+      back: back,
+      selected: true,
+      id: id,
+    ));
     await stacksBox.put(stackName, stack.toJson());
   }
 
@@ -104,19 +112,42 @@ class SimpleFlashcards {
     await stacksBox.put(stackName, stack.toJson());
   }
 
-  Future<void> editCardFront(
-      String stackName, String front, String newFront) async {
+  Future<void> editCardFront(String stackName, int id, String newFront) async {
     final stack = getStack(stackName)!;
-    final card = stack.cards.singleWhere((card) => card.front == front);
-    stack.cards.removeWhere((card) => card.front == front);
-    stack.cards.add(FlashCard(front: newFront, back: card.back));
+    final card = stack.cards.singleWhere((card) => card.id == id);
+    stack.cards.removeWhere((card) => card.id == id);
+    stack.cards.add(FlashCard(
+      front: newFront,
+      back: card.back,
+      id: card.id,
+      selected: card.selected,
+    ));
     await stacksBox.put(stackName, stack.toJson());
   }
 
-  Future<void> editCardBack(String stackName, String front, String back) async {
+  Future<void> editCardBack(String stackName, int id, String newBack) async {
     final stack = getStack(stackName)!;
-    stack.cards.removeWhere((card) => card.front == front);
-    stack.cards.add(FlashCard(front: front, back: back));
+    final card = stack.cards.singleWhere((card) => card.id == id);
+    stack.cards.removeWhere((card) => card.id == id);
+    stack.cards.add(FlashCard(
+      front: card.front,
+      back: newBack,
+      id: card.id,
+      selected: card.selected,
+    ));
+    await stacksBox.put(stackName, stack.toJson());
+  }
+
+  Future<void> editCardSelected(String stackName, int id, bool selected) async {
+    final stack = getStack(stackName)!;
+    final card = stack.cards.singleWhere((card) => card.id == id);
+    stack.cards.removeWhere((card) => card.id == id);
+    stack.cards.add(FlashCard(
+      front: card.front,
+      back: card.back,
+      id: card.id,
+      selected: selected,
+    ));
     await stacksBox.put(stackName, stack.toJson());
   }
 

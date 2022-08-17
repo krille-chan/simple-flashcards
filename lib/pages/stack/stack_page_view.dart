@@ -18,16 +18,23 @@ class StackPageView extends StatelessWidget {
         title: Text(name),
         actions: [
           IconButton(
-            icon: const Icon(CupertinoIcons.delete),
+            icon: const Icon(Icons.check_box_outlined),
+            onPressed: controller.toggleAll,
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete_outlined),
             onPressed: controller.deleteStackAction,
-          )
+          ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.school_outlined),
-        onPressed: controller.cards.isEmpty ? null : controller.startSession,
-        label: Text(L10n.of(context)!.startLearning),
-      ),
+      floatingActionButton: controller.cards.any((c) => c.selected)
+          ? FloatingActionButton.extended(
+              icon: const Icon(Icons.school_outlined),
+              onPressed:
+                  controller.cards.isEmpty ? null : controller.startSession,
+              label: Text(L10n.of(context)!.startLearning),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Column(
         children: [
@@ -84,17 +91,15 @@ class StackPageView extends StatelessWidget {
                         );
                       }
                       i--;
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          child: Icon(
-                            CupertinoIcons.doc_append,
-                            color: Theme.of(context).textTheme.subtitle1?.color,
-                          ),
+                      return InkWell(
+                        onLongPress: () => controller.editCard(i),
+                        child: CheckboxListTile(
+                          onChanged: (b) => controller.toggle(
+                              controller.cards[i].id, b ?? true),
+                          value: controller.cards[i].selected,
+                          title: Text(controller.cards[i].front),
+                          subtitle: Text(controller.cards[i].back),
                         ),
-                        title: Text(controller.cards[i].front),
-                        subtitle: Text(controller.cards[i].back),
-                        onTap: () => controller.editCard(i),
                       );
                     },
                   ),
