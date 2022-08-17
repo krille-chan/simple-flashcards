@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
-import 'package:fast_csv/fast_csv.dart' as csv;
 import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -129,14 +128,18 @@ class SimpleFlashcards {
   }
 
   Future<void> importFromCsv(String name, String data) async {
-    final rows = csv.parse(data);
+    final rows = data.split('\n');
 
     await createStack(name);
 
-    for (final cardRow in rows) {
+    for (final cardRowStr in rows) {
+      final cardRow = cardRowStr.split(',');
       if (cardRow.length < 2) continue;
       final front = cardRow.first;
-      final back = cardRow.sublist(1, cardRow.length).join('\n');
+      final back = cardRow
+          .sublist(1, cardRow.length)
+          .where((s) => s.isNotEmpty)
+          .join('\n');
       await addCardToStack(name, front, back);
     }
   }
