@@ -34,7 +34,7 @@ class StackPageController extends State<StackPage> {
 
   List<FlashCard> get cards =>
       (SimpleFlashcards.of(context).getStack(widget.stackName)?.cards ?? [])
-        ..sort((a, b) => a.id.compareTo(b.id));
+        ..sort((a, b) => b.id.compareTo(a.id));
 
   void toggle(int id, bool selected) {
     SimpleFlashcards.of(context)
