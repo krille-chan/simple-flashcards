@@ -35,10 +35,8 @@ class SettingsPageController extends State<SettingsPage> {
     final simpleFlashcards = SimpleFlashcards.of(context);
     final navigator = Navigator.of(context);
     try {
-      final picked = await FilePickerCross.importFromStorage(
-        type: FileTypeCross.custom,
-        fileExtension: 'csv',
-      );
+      final picked =
+          await FilePickerCross.importFromStorage(type: FileTypeCross.any);
       final data = String.fromCharCodes(picked.toUint8List());
       simpleFlashcards.importFromCsv(
           picked.fileName ?? 'import ${DateTime.now().toIso8601String()}',
