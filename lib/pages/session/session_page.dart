@@ -20,11 +20,15 @@ class SessionPageController extends State<SessionPage> {
 
   void flip() => setState(() => flipped = !flipped);
 
+  static const int maxCards = 10;
+
   @override
   void initState() {
     super.initState();
     final stack = SimpleFlashcards.of(context).getStack(widget.stackName);
-    cards.addAll(stack?.cards ?? []);
+    final initialCards = stack?.cards ?? [];
+    initialCards.shuffle();
+    cards.addAll(initialCards.take(maxCards));
   }
 
   void cardKnown() => setState(() {

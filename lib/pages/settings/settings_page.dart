@@ -54,9 +54,9 @@ class SettingsPageController extends State<SettingsPage> {
 
   bool get canExport => SimpleFlashcards.of(context).stacks.isNotEmpty;
 
-  void openWebsite() => launch(AppConstants.applicationWebsite);
+  void openWebsite() => launchUrl(Uri.parse(AppConstants.applicationWebsite));
 
-  void openIssueSite() => launch(AppConstants.issueUrl);
+  void openIssueSite() => launchUrl(Uri.parse(AppConstants.issueUrl));
 
   @override
   Widget build(BuildContext context) => SettingsPageView(this);
