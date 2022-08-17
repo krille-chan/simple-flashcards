@@ -95,12 +95,16 @@ class SessionPageView extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(height: 1),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 L10n.of(context)!.learnDescription,
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onBackground
+                        .withOpacity(0.5)),
               ),
             ),
           ],

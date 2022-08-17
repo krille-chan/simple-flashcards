@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:yaru_icons/yaru_icons.dart';
 
 import 'package:simple_flashcards/pages/stack/stack_page.dart';
 import 'package:simple_flashcards/utils/string_color.dart';
@@ -24,17 +23,14 @@ class StackPageView extends StatelessWidget {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.school_outlined),
+        onPressed: controller.cards.isEmpty ? null : controller.startSession,
+        label: Text(L10n.of(context)!.startLearning),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: ElevatedButton(
-              onPressed:
-                  controller.cards.isEmpty ? null : controller.startSession,
-              child: Text(L10n.of(context)!.startLearning),
-            ),
-          ),
-          const Divider(height: 1),
           ListTile(
             leading: CircleAvatar(
               backgroundColor: name.color,
@@ -48,7 +44,7 @@ class StackPageView extends StatelessWidget {
               L10n.of(context)!.countCards(controller.cards.length.toString()),
             ),
             trailing: IconButton(
-              icon: const Icon(YaruIcons.insert_text),
+              icon: const Icon(Icons.edit_outlined),
               onPressed: controller.editName,
             ),
             onTap: controller.editName,
@@ -58,22 +54,32 @@ class StackPageView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Material(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.surfaceVariant,
                   elevation: 2,
                   clipBehavior: Clip.hardEdge,
                   borderRadius: BorderRadius.circular(16),
                   child: ListView.builder(
                     itemCount: controller.cards.length + 1,
+                    padding: const EdgeInsets.only(bottom: 32, top: 8),
                     itemBuilder: (_, i) {
                       if (i == 0) {
                         return ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: Theme.of(context)
-                                .floatingActionButtonTheme
-                                .backgroundColor,
-                            child: const Icon(YaruIcons.plus),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.onBackground,
+                            child: Icon(
+                              Icons.add_outlined,
+                              color: Theme.of(context).colorScheme.background,
+                            ),
                           ),
-                          title: Text(L10n.of(context)!.addNewFlashCard),
+                          title: Text(
+                            L10n.of(context)!.addNewFlashCard,
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
+                            ),
+                          ),
                           onTap: controller.addFlashCard,
                         );
                       }

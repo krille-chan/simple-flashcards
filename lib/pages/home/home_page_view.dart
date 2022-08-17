@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:yaru_icons/yaru_icons.dart';
 
 import 'package:simple_flashcards/pages/home/home_page.dart';
 import 'package:simple_flashcards/utils/string_color.dart';
@@ -19,7 +18,7 @@ class HomePageView extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: controller.goToSettings,
-            icon: const Icon(YaruIcons.settings),
+            icon: const Icon(Icons.settings_outlined),
           )
         ],
       ),
@@ -68,7 +67,7 @@ class HomePageView extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: controller.createStackAction,
         label: Text(L10n.of(context)!.newStack),
-        icon: const Icon(YaruIcons.plus),
+        icon: const Icon(Icons.add_outlined),
       ),
     );
   }

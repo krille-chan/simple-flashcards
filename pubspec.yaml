@@ -1,6 +1,6 @@
 name: simple_flashcards
 description: Minimalistic flashcards app for all platforms
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0+1
 
 environment:
@@ -17,8 +17,7 @@ dependencies:
   package_info: ^2.0.2
   file_picker_cross: ^4.5.0
   url_launcher: ^6.0.17
-  yaru: ^0.3.3
-  yaru_icons: ^0.2.1
+  dynamic_color: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -34,7 +33,7 @@ flutter_icons:
   ios: true
   remove_alpha_ios: true
   image_path: "assets/images/logo.png"
-  
+
 flutter:
   generate: true
   uses-material-design: true

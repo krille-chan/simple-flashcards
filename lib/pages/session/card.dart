@@ -17,6 +17,8 @@ class CardWidget extends StatelessWidget {
       ),
       child: Material(
         elevation: 10,
+        shadowColor:
+            Theme.of(context).colorScheme.onBackground.withOpacity(0.2),
         borderRadius: BorderRadius.circular(12),
         clipBehavior: Clip.hardEdge,
         child: Column(
@@ -25,16 +27,19 @@ class CardWidget extends StatelessWidget {
             AppBar(
               automaticallyImplyLeading: false,
               elevation: 0,
-              backgroundColor: Theme.of(context).secondaryHeaderColor,
+              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
               title: Text(
                 controller.flipped
                     ? L10n.of(context)!.back
                     : L10n.of(context)!.front,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
             ),
             Expanded(
               child: InkWell(
                 onTap: controller.flip,
+                onLongPress: controller.flip,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

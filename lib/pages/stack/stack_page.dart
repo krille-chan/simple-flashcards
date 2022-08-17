@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:yaru_icons/yaru_icons.dart';
 
 import 'package:simple_flashcards/models/flash_card.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
@@ -109,13 +108,13 @@ class StackPageController extends State<StackPage> {
             key: FlashCardAction.edit,
             isDefaultAction: true,
             label: L10n.of(context)!.editFlashCard,
-            icon: YaruIcons.insert_text,
+            icon: Icons.edit_outlined,
           ),
           SheetAction(
             key: FlashCardAction.delete,
             isDestructiveAction: true,
             label: L10n.of(context)!.deleteFlashCard,
-            icon: YaruIcons.trash,
+            icon: Icons.delete_outlined,
           ),
         ]);
     if (action == null) return;

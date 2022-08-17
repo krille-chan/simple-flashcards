@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:yaru_icons/yaru_icons.dart';
 
 import 'package:simple_flashcards/pages/settings/settings_page.dart';
 
@@ -27,28 +26,28 @@ class SettingsPageView extends StatelessWidget {
           const Divider(height: 1),
           if (controller.canExport)
             ListTile(
-              leading: const Icon(YaruIcons.share),
+              leading: Icon(Icons.adaptive.share_outlined),
               title: Text(L10n.of(context)!.exportStacks),
               onTap: controller.exportStacks,
             ),
           ListTile(
-            leading: const Icon(YaruIcons.download),
+            leading: const Icon(Icons.download_outlined),
             title: Text(L10n.of(context)!.importStacks),
             onTap: controller.importStacks,
           ),
           const Divider(height: 1),
           ListTile(
-            leading: const Icon(YaruIcons.desktop_remote),
+            leading: const Icon(Icons.web_outlined),
             title: Text(L10n.of(context)!.website),
             onTap: controller.openWebsite,
           ),
           ListTile(
-            leading: const Icon(YaruIcons.question),
+            leading: const Icon(Icons.help_outlined),
             title: Text(L10n.of(context)!.help),
             onTap: controller.openIssueSite,
           ),
           ListTile(
-            leading: const Icon(YaruIcons.information),
+            leading: const Icon(Icons.info_outlined),
             title: Text(L10n.of(context)!.about),
             onTap: controller.aboutAction,
           ),

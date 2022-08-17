@@ -8,7 +8,5 @@ abstract class AppConstants {
   static const double borderRadius = 12.0;
   static const String privacyUrl = '$applicationWebsite/-/blob/main/PRIVACY.md';
   static const String issueUrl = '$applicationWebsite/issues';
-  static const Color primaryColor = Color(0xFF5625BA);
-  static const Color primaryColorLight = Color(0xFFCCBDEA);
-  static const Color secondaryColor = Color(0xFF41a2bc);
+  static const Color primaryColor = Colors.blueAccent;
 }
