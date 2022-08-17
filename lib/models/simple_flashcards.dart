@@ -130,7 +130,6 @@ class SimpleFlashcards {
 
   Future<void> importFromCsv(String name, String data) async {
     final rows = csv.parse(data);
-    print('Import ${rows.length} cards...');
 
     await createStack(name);
 
@@ -138,7 +137,6 @@ class SimpleFlashcards {
       if (cardRow.length < 2) continue;
       final front = cardRow.first;
       final back = cardRow.sublist(1, cardRow.length).join('\n');
-      print('Import card $front > $back');
       await addCardToStack(name, front, back);
     }
   }
