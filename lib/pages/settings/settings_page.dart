@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:file_picker_cross/file_picker_cross.dart';
@@ -37,9 +39,13 @@ class SettingsPageController extends State<SettingsPage> {
     try {
       final picked =
           await FilePickerCross.importFromStorage(type: FileTypeCross.any);
-      final data = String.fromCharCodes(picked.toUint8List());
+      final data = utf8.decode(
+        picked.toUint8List(),
+        allowMalformed: true,
+      );
       simpleFlashcards.importFromCsv(
-          picked.fileName ?? 'import ${DateTime.now().toIso8601String()}',
+          picked.fileName?.split('.').first ??
+              'import ${DateTime.now().toIso8601String()}',
           data);
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
