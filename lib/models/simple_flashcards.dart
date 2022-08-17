@@ -1,8 +1,9 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
+import 'package:fast_csv/fast_csv.dart' as csv;
+import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -118,16 +119,27 @@ class SimpleFlashcards {
     await stacksBox.put(stackName, stack.toJson());
   }
 
-  Map<String, dynamic> exportToJson() =>
-      {'stacks': stacks.map((s) => s.toJson()).toList()};
+  void exportStack(String name) async {
+    final stack = getStack(name)!;
+    final csvData =
+        stack.cards.map((card) => '"${card.front}","${card.back}"').join('\n');
+    final csvBytes = Uint8List.fromList(csvData.codeUnits);
 
-  Future<void> importFromJson(Map<String, dynamic> json) async {
-    await stacksBox.clear();
-    await stacksBox.putAll(json['stacks']);
+    FilePickerCross(csvBytes, path: './$name.csv').exportToStorage();
   }
 
-  Future<Uint8List> exportToFile() async {
-    final json = exportToJson();
-    return Uint8List.fromList(jsonEncode(json).codeUnits);
+  Future<void> importFromCsv(String name, String data) async {
+    final rows = csv.parse(data);
+    print('Import ${rows.length} cards...');
+
+    await createStack(name);
+
+    for (final cardRow in rows) {
+      if (cardRow.length < 2) continue;
+      final front = cardRow.first;
+      final back = cardRow.sublist(1, cardRow.length).join('\n');
+      print('Import card $front > $back');
+      await addCardToStack(name, front, back);
+    }
   }
 }

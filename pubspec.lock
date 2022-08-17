@@ -127,6 +127,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  fast_csv:
+    dependency: "direct main"
+    description:
+      name: fast_csv
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.44"
   ffi:
     dependency: transitive
     description:

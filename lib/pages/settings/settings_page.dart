@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import 'package:file_picker_cross/file_picker_cross.dart';
@@ -39,10 +37,12 @@ class SettingsPageController extends State<SettingsPage> {
     try {
       final picked = await FilePickerCross.importFromStorage(
         type: FileTypeCross.custom,
-        fileExtension: 'json',
+        fileExtension: 'csv',
       );
       final data = String.fromCharCodes(picked.toUint8List());
-      simpleFlashcards.importFromJson(jsonDecode(data));
+      simpleFlashcards.importFromCsv(
+          picked.fileName ?? 'import ${DateTime.now().toIso8601String()}',
+          data);
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(L10n.of(context)!.oopsSomethingWentWrong),
@@ -53,12 +53,6 @@ class SettingsPageController extends State<SettingsPage> {
   }
 
   bool get canExport => SimpleFlashcards.of(context).stacks.isNotEmpty;
-
-  void exportStacks() async {
-    final file = await SimpleFlashcards.of(context).exportToFile();
-    FilePickerCross(file, path: './simple-flashcards-export.json')
-        .exportToStorage();
-  }
 
   void openWebsite() => launch(AppConstants.applicationWebsite);
 

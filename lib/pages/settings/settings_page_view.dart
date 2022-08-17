@@ -24,12 +24,6 @@ class SettingsPageView extends StatelessWidget {
             ),
           )),
           const Divider(height: 1),
-          if (controller.canExport)
-            ListTile(
-              leading: Icon(Icons.adaptive.share_outlined),
-              title: Text(L10n.of(context)!.exportStacks),
-              onTap: controller.exportStacks,
-            ),
           ListTile(
             leading: const Icon(Icons.download_outlined),
             title: Text(L10n.of(context)!.importStacks),

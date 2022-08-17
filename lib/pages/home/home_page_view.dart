@@ -62,6 +62,8 @@ class HomePageView extends StatelessWidget {
                       .countCards(controller.stacks[i].cards.length.toString()),
                 ),
                 onTap: () => controller.goToStack(controller.stacks[i].name),
+                onLongPress: () =>
+                    controller.stackContextMenu(controller.stacks[i].name),
               ),
             ),
       floatingActionButton: FloatingActionButton.extended(
