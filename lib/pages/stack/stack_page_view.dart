@@ -116,7 +116,7 @@ class StackPageView extends StatelessWidget {
                                   card.selected
                                       ? Icons.check_circle
                                       : Icons.check_circle_outline,
-                                  color: card.selected
+                                  color: card.selected && card.canLevelUp
                                       ? Theme.of(context).colorScheme.primary
                                       : null,
                                 ),
