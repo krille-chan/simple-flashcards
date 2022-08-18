@@ -19,6 +19,10 @@ class StackPageView extends StatelessWidget {
         title: Text(L10n.of(context)!.stack),
         actions: [
           IconButton(
+            icon: Icon(Icons.adaptive.share_outlined),
+            onPressed: controller.exportStack,
+          ),
+          IconButton(
             icon: const Icon(Icons.check_box_outlined),
             onPressed: controller.toggleAll,
           ),

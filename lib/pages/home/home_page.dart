@@ -34,23 +34,6 @@ class HomePageController extends State<HomePage> {
         ),
       );
 
-  void stackContextMenu(String name) async {
-    final simpleFlashcards = SimpleFlashcards.of(context);
-    final stackAction = await showModalActionSheet(
-      context: context,
-      actions: [
-        SheetAction(
-            label: L10n.of(context)!.exportStacks, key: StackActions.export),
-      ],
-      cancelLabel: L10n.of(context)!.cancel,
-    );
-    if (stackAction == null) return;
-
-    if (stackAction == StackActions.export) {
-      simpleFlashcards.exportStack(name);
-    }
-  }
-
   void goToStack(String name) => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => StackPage(name),
@@ -74,5 +57,3 @@ class HomePageController extends State<HomePage> {
         builder: (_, __) => HomePageView(this),
       );
 }
-
-enum StackActions { export }

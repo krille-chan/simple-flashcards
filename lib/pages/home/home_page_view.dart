@@ -61,12 +61,15 @@ class HomePageView extends StatelessWidget {
                             style: const TextStyle(fontSize: 28),
                           ),
                   ),
+                  trailing: ReorderableDragStartListener(
+                    index: i,
+                    child: const Icon(Icons.drag_handle),
+                  ),
                   title: Text(stack.name),
                   subtitle: Text(
                     L10n.of(context)!.countCards(stack.cards.length.toString()),
                   ),
                   onTap: () => controller.goToStack(stack.name),
-                  onLongPress: () => controller.stackContextMenu(stack.name),
                 );
               },
             ),

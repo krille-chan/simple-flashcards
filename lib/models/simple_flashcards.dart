@@ -54,19 +54,15 @@ class SimpleFlashcards {
     if (newIndex > oldIndex) newIndex--;
     final oldStack = stacks[oldIndex];
     final newStack = stacks[newIndex];
-    await stacksBox.put(
+    final newSortOrder =
+        newIndex > oldIndex ? newStack.sortOrder - 1 : newStack.sortOrder + 1;
+    stacksBox.put(
         oldStack.name,
         CardStack(
           name: oldStack.name,
           cards: oldStack.cards,
-          sortOrder: newStack.sortOrder,
-        ).toJson());
-    await stacksBox.put(
-        newStack.name,
-        CardStack(
-          name: newStack.name,
-          cards: newStack.cards,
-          sortOrder: oldStack.sortOrder,
+          sortOrder: newSortOrder,
+          emoji: oldStack.emoji,
         ).toJson());
   }
 

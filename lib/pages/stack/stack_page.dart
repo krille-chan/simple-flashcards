@@ -65,6 +65,9 @@ class StackPageController extends State<StackPage> {
     }
   }
 
+  void exportStack() =>
+      SimpleFlashcards.of(context).exportStack(widget.stackName);
+
   void startSession() {
     final selectedCards = cards.where((card) => card.selected).toList();
     selectedCards.shuffle();
