@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
+import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/stack/stack_page.dart';
-import 'package:simple_flashcards/utils/string_color.dart';
 
 class StackPageView extends StatelessWidget {
   final StackPageController controller;
@@ -13,9 +13,10 @@ class StackPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final name = controller.widget.stackName;
+    final emoji = SimpleFlashcards.of(context).getStack(name)?.emoji;
     return Scaffold(
       appBar: AppBar(
-        title: Text(name),
+        title: Text(L10n.of(context)!.stack),
         actions: [
           IconButton(
             icon: const Icon(Icons.check_box_outlined),
@@ -40,11 +41,13 @@ class StackPageView extends StatelessWidget {
         children: [
           ListTile(
             leading: CircleAvatar(
-              backgroundColor: name.color,
-              child: const Icon(
-                CupertinoIcons.square_stack_fill,
-                color: Colors.white,
-              ),
+              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+              child: emoji == null
+                  ? const Icon(CupertinoIcons.square_stack_fill)
+                  : Text(
+                      emoji,
+                      style: const TextStyle(fontSize: 28),
+                    ),
             ),
             title: Text(name),
             subtitle: Text(

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import 'package:simple_flashcards/pages/home/home_page.dart';
-import 'package:simple_flashcards/utils/string_color.dart';
 
 class HomePageView extends StatelessWidget {
   final HomePageController controller;
@@ -47,24 +46,29 @@ class HomePageView extends StatelessWidget {
           : ReorderableListView.builder(
               onReorder: controller.onReorder,
               itemCount: controller.stacks.length,
-              itemBuilder: (context, i) => ListTile(
-                key: Key(controller.stacks[i].name),
-                leading: CircleAvatar(
-                  backgroundColor: controller.stacks[i].name.color,
-                  child: const Icon(
-                    CupertinoIcons.square_stack_fill,
-                    color: Colors.white,
+              itemBuilder: (context, i) {
+                final stack = controller.stacks[i];
+                final emoji = stack.emoji;
+                return ListTile(
+                  key: Key(stack.name),
+                  leading: CircleAvatar(
+                    backgroundColor:
+                        Theme.of(context).colorScheme.surfaceVariant,
+                    child: emoji == null
+                        ? const Icon(CupertinoIcons.square_stack_fill)
+                        : Text(
+                            emoji,
+                            style: const TextStyle(fontSize: 28),
+                          ),
                   ),
-                ),
-                title: Text(controller.stacks[i].name),
-                subtitle: Text(
-                  L10n.of(context)!
-                      .countCards(controller.stacks[i].cards.length.toString()),
-                ),
-                onTap: () => controller.goToStack(controller.stacks[i].name),
-                onLongPress: () =>
-                    controller.stackContextMenu(controller.stacks[i].name),
-              ),
+                  title: Text(stack.name),
+                  subtitle: Text(
+                    L10n.of(context)!.countCards(stack.cards.length.toString()),
+                  ),
+                  onTap: () => controller.goToStack(stack.name),
+                  onLongPress: () => controller.stackContextMenu(stack.name),
+                );
+              },
             ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: controller.createStackAction,

@@ -51,5 +51,7 @@
         }
     },
     "known": "Gewusst 👉",
-    "notKnown": "👈 Nicht gewusst"
+    "notKnown": "👈 Nicht gewusst",
+    "save": "Save",
+    "stack": "Stapel"
 }

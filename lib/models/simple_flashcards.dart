@@ -85,6 +85,19 @@ class SimpleFlashcards {
           name: newName,
           cards: stack.cards,
           sortOrder: stack.sortOrder,
+          emoji: stack.emoji,
+        ).toJson());
+  }
+
+  Future<void> editStackEmoji(String name, String? emoji) async {
+    final stack = getStack(name)!;
+    await stacksBox.put(
+        name,
+        CardStack(
+          name: stack.name,
+          cards: stack.cards,
+          sortOrder: stack.sortOrder,
+          emoji: emoji,
         ).toJson());
   }
 

@@ -6,7 +6,9 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:simple_flashcards/models/flash_card.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/session/session_page.dart';
+import 'package:simple_flashcards/pages/stack/stack_edit_bottom_sheet.dart';
 import 'package:simple_flashcards/pages/stack/stack_page_view.dart';
+import 'edit_stack_input.dart';
 
 class StackPage extends StatefulWidget {
   final String stackName;
@@ -75,23 +77,25 @@ class StackPageController extends State<StackPage> {
   void editName() async {
     final simpleFlashcards = SimpleFlashcards.of(context);
     final navigator = Navigator.of(context);
-    final input = await showTextInputDialog(
+
+    final input = await showModalBottomSheet<EditStackInput>(
       context: context,
-      title: L10n.of(context)!.editStack,
-      textFields: [
-        DialogTextField(
-          hintText: L10n.of(context)!.name,
-          initialText: widget.stackName,
-        )
-      ],
-      okLabel: L10n.of(context)!.ok,
-      cancelLabel: L10n.of(context)!.cancel,
+      builder: (c) => StackEditBottomSheet(
+        currentName: widget.stackName,
+      ),
     );
+
     if (input == null) return;
-    simpleFlashcards.editStackName(widget.stackName, input.single);
-    navigator.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => StackPage(input.single)),
-        (route) => route.isFirst);
+    final emoji = input.emoji;
+    if (emoji != null) {
+      await simpleFlashcards.editStackEmoji(widget.stackName, input.emoji);
+    }
+    if (widget.stackName != input.name) {
+      await simpleFlashcards.editStackName(widget.stackName, input.name);
+      navigator.pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => StackPage(input.name)),
+          (route) => route.isFirst);
+    }
   }
 
   void addFlashCard() async {
