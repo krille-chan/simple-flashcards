@@ -94,14 +94,36 @@ class StackPageView extends StatelessWidget {
                         );
                       }
                       i--;
+                      final card = controller.cards[i];
                       return InkWell(
-                        onLongPress: () => controller.editCard(i),
-                        child: CheckboxListTile(
-                          onChanged: (b) => controller.toggle(
-                              controller.cards[i].id, b ?? true),
-                          value: controller.cards[i].selected,
-                          title: Text(controller.cards[i].front),
-                          subtitle: Text(controller.cards[i].back),
+                        child: ListTile(
+                          trailing: SizedBox(
+                            height: 32,
+                            width: 32,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                CircularProgressIndicator(
+                                  value: card.level / 10,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.background,
+                                ),
+                                Icon(
+                                  card.selected
+                                      ? Icons.check_circle
+                                      : Icons.check_circle_outline,
+                                  color: card.selected
+                                      ? Theme.of(context).colorScheme.primary
+                                      : null,
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () =>
+                              controller.toggle(card.id, !card.selected),
+                          onLongPress: () => controller.editCard(i),
+                          title: Text(card.front),
+                          subtitle: Text(card.back),
                         ),
                       );
                     },

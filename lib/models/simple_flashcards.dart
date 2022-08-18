@@ -134,6 +134,8 @@ class SimpleFlashcards {
       back: card.back,
       id: card.id,
       selected: card.selected,
+      level: card.level,
+      lastLevelUp: card.lastLevelUp,
     ));
     await stacksBox.put(stackName, stack.toJson());
   }
@@ -147,6 +149,8 @@ class SimpleFlashcards {
       back: newBack,
       id: card.id,
       selected: card.selected,
+      level: card.level,
+      lastLevelUp: card.lastLevelUp,
     ));
     await stacksBox.put(stackName, stack.toJson());
   }
@@ -160,6 +164,23 @@ class SimpleFlashcards {
       back: card.back,
       id: card.id,
       selected: selected,
+      level: card.level,
+      lastLevelUp: card.lastLevelUp,
+    ));
+    await stacksBox.put(stackName, stack.toJson());
+  }
+
+  Future<void> editCardLevel(String stackName, int id, int level) async {
+    final stack = getStack(stackName)!;
+    final card = stack.cards.singleWhere((card) => card.id == id);
+    stack.cards.removeWhere((card) => card.id == id);
+    stack.cards.add(FlashCard(
+      front: card.front,
+      back: card.back,
+      id: card.id,
+      selected: card.selected,
+      level: level,
+      lastLevelUp: DateTime.now(),
     ));
     await stacksBox.put(stackName, stack.toJson());
   }
