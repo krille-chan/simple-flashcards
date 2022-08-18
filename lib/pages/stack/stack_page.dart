@@ -70,13 +70,12 @@ class StackPageController extends State<StackPage> {
 
   void startSession() {
     final selectedCards = cards.where((card) => card.selected).toList();
-    selectedCards.shuffle();
     selectedCards.sort((a, b) => a.canLevelUp && b.canLevelUp
         ? a.level.compareTo(b.level)
         : b.canLevelUp
             ? 1
             : -1);
-    final learningCards = selectedCards.take(30).toList();
+    final learningCards = selectedCards.take(20).toList();
     learningCards.shuffle();
     Navigator.of(context).push(
       MaterialPageRoute(
