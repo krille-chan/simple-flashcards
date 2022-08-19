@@ -71,7 +71,7 @@ class StackPageController extends State<StackPage> {
   void startSession() {
     final selectedCards = cards.where((card) => card.selected).toList();
     selectedCards.sort((a, b) => a.canLevelUp && b.canLevelUp
-        ? a.level.compareTo(b.level)
+        ? b.level.compareTo(a.level)
         : a.canLevelUp
             ? -1
             : 1);
