@@ -73,8 +73,8 @@ class StackPageController extends State<StackPage> {
     selectedCards.sort((a, b) => a.canLevelUp && b.canLevelUp
         ? a.level.compareTo(b.level)
         : a.canLevelUp
-            ? 1
-            : -1);
+            ? -1
+            : 1);
     final learningCards = selectedCards.take(20).toList();
     learningCards.shuffle();
     Navigator.of(context).push(
