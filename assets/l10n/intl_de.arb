@@ -40,7 +40,7 @@
         "count": {}
         }
     },
-    "learnDescription": "Wische nach 👉 rechts, wenn du die Antwort kennst. Wische nach 👈 links wenn nicht. Tippe 👆 auf die Karte, um sie umzudrehen.",
+    "learnDescription": "Tippe nach 👉 rechts, wenn du die Antwort kennst. Tippe nach 👈 links wenn nicht. Tippe 👆 auf die Karte, um sie umzudrehen.",
     "allCardsFinished": "Alle Karten abgeschlossen",
     "repeatAllCards": "Alle Karten wiederholen",
     "repeatNotKnownCards": "Wiederhole {count} nicht gewusste Karten",

@@ -54,48 +54,9 @@ class SessionPageView extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    child: DragTarget(
-                        builder: (context, data, ___) => AnimatedOpacity(
-                              opacity: data.isEmpty ? 0.66 : 1,
-                              duration: const Duration(milliseconds: 500),
-                              child: Container(width: 128),
-                            ),
-                        onWillAccept: (_) => true,
-                        onAccept: (_) => controller.cardNotKnown()),
-                  ),
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    child: DragTarget(
-                      builder: (context, data, ___) => AnimatedOpacity(
-                        opacity: data.isEmpty ? 0.66 : 1,
-                        duration: const Duration(milliseconds: 500),
-                        child: Container(width: 128),
-                      ),
-                      onWillAccept: (_) => true,
-                      onAccept: (_) => controller.cardKnown(),
-                    ),
-                  ),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Draggable<bool>(
-                        data: true,
-                        feedback: CardWidget(controller),
-                        childWhenDragging: Container(),
-                        axis: Axis.horizontal,
-                        child: CardWidget(controller),
-                      ),
-                    ),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CardWidget(controller),
               ),
             ),
             Padding(

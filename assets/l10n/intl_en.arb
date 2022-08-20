@@ -40,7 +40,7 @@
         "count": {}
         }
     },
-    "learnDescription": "Swipe 👉 right if you know the answer or swipe 👈 left if not. Tap 👆 on the card to flip it.",
+    "learnDescription": "Tap 👉 right if you know the answer or tap 👈 left if not. Tap 👆 on the card to flip it.",
     "allCardsFinished": "All cards finished",
     "repeatAllCards": "Repeat all cards",
     "repeatNotKnownCards": "Repeat {count} not known cards",
