@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:simple_flashcards/config/app_constants.dart';
+import 'package:simple_flashcards/config/settings_keys.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/settings/settings_page_view.dart';
 
@@ -61,6 +63,33 @@ class SettingsPageController extends State<SettingsPage> {
   void openWebsite() => launchUrl(Uri.parse(AppConstants.applicationWebsite));
 
   void openIssueSite() => launchUrl(Uri.parse(AppConstants.issueUrl));
+
+  void setCardsPerSession() async {
+    final l10n = L10n.of(context)!;
+    final preferences = SimpleFlashcards.of(context).preferences;
+    final value = await showTextInputDialog(
+      context: context,
+      textFields: [
+        DialogTextField(
+          validator: (v) {
+            if (v == null) return null;
+            final i = int.tryParse(v);
+            if (i != null && i > 0) return null;
+
+            return 'Please enter a number over 0';
+          },
+          hintText: l10n.cardsPerSession,
+          initialText: (preferences.getInt(SettingsKeys.cardsPerSessionKey) ??
+                  SettingsKeys.defaultCardsPerSessionKey)
+              .toString(),
+        )
+      ],
+    );
+    if (value == null) return;
+    await preferences.setInt(
+        SettingsKeys.cardsPerSessionKey, int.parse(value.single));
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) => SettingsPageView(this);

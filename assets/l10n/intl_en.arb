@@ -53,5 +53,6 @@
     "known": "Known 👉",
     "notKnown": "👈 Not known",
     "save": "Save",
-    "stack": "Stack"
+    "stack": "Stack",
+    "cardsPerSession": "Cards per session"
 }

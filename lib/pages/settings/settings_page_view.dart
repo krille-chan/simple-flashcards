@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
+import 'package:simple_flashcards/config/settings_keys.dart';
+import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/settings/settings_page.dart';
 
 class SettingsPageView extends StatelessWidget {
@@ -23,6 +25,17 @@ class SettingsPageView extends StatelessWidget {
               height: 128,
             ),
           )),
+          const Divider(height: 1),
+          ListTile(
+            leading: const Icon(Icons.numbers_outlined),
+            title: Text(L10n.of(context)!.cardsPerSession),
+            subtitle: Text((SimpleFlashcards.of(context)
+                        .preferences
+                        .getInt(SettingsKeys.cardsPerSessionKey) ??
+                    SettingsKeys.defaultCardsPerSessionKey)
+                .toString()),
+            onTap: controller.setCardsPerSession,
+          ),
           const Divider(height: 1),
           ListTile(
             leading: const Icon(Icons.download_outlined),

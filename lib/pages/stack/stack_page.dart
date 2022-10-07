@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
+import 'package:simple_flashcards/config/settings_keys.dart';
 import 'package:simple_flashcards/models/flash_card.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/session/session_page.dart';
@@ -75,7 +76,11 @@ class StackPageController extends State<StackPage> {
         : a.canLevelUp
             ? -1
             : 1);
-    final learningCards = selectedCards.take(20).toList();
+    final cardsPerSession = SimpleFlashcards.of(context)
+            .preferences
+            .getInt(SettingsKeys.cardsPerSessionKey) ??
+        SettingsKeys.defaultCardsPerSessionKey;
+    final learningCards = selectedCards.take(cardsPerSession).toList();
     learningCards.shuffle();
     Navigator.of(context).push(
       MaterialPageRoute(

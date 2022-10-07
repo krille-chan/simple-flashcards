@@ -7,6 +7,7 @@ import 'package:fast_csv/fast_csv.dart' as csv;
 import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:simple_flashcards/config/app_constants.dart';
 import 'card_stack.dart';
@@ -14,13 +15,15 @@ import 'flash_card.dart';
 
 class SimpleFlashcards {
   final Box stacksBox;
+  final SharedPreferences preferences;
 
-  SimpleFlashcards(this.stacksBox);
+  SimpleFlashcards(this.stacksBox, this.preferences);
 
   static Future<SimpleFlashcards> init() async {
     await Hive.initFlutter();
     final box = await Hive.openBox(AppConstants.dbName);
-    return SimpleFlashcards(box);
+    final preferences = await SharedPreferences.getInstance();
+    return SimpleFlashcards(box, preferences);
   }
 
   Widget builder(BuildContext context, Widget? child) => Provider(
