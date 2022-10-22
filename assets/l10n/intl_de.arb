@@ -53,5 +53,7 @@
     "known": "Gewusst 👉",
     "notKnown": "👈 Nicht gewusst",
     "save": "Save",
-    "stack": "Stapel"
+    "stack": "Stapel",
+    "readOutLoudFront": "Vorderseite vorlesen",
+    "textToSpeechLanguage": "Vorlese-Sprache"
 }

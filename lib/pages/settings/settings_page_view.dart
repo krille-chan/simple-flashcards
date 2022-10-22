@@ -36,6 +36,19 @@ class SettingsPageView extends StatelessWidget {
                 .toString()),
             onTap: controller.setCardsPerSession,
           ),
+          SwitchListTile.adaptive(
+            value: controller.isTextToSpeechEnabled,
+            onChanged: controller.setTextToSpeech,
+            title: Text(L10n.of(context)!.readOutLoudFront),
+            controlAffinity: ListTileControlAffinity.trailing,
+            secondary: const Icon(Icons.volume_up_outlined),
+          ),
+          ListTile(
+            leading: const Icon(Icons.language_outlined),
+            title: Text(L10n.of(context)!.textToSpeechLanguage),
+            subtitle: Text(controller.textToSpeechlanguage),
+            onTap: controller.setTextToSpeechLanguage,
+          ),
           const Divider(height: 1),
           ListTile(
             leading: const Icon(Icons.download_outlined),

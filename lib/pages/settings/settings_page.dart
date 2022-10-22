@@ -6,6 +6,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:package_info/package_info.dart';
+import 'package:text_to_speech/text_to_speech.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:simple_flashcards/config/app_constants.dart';
@@ -63,6 +64,52 @@ class SettingsPageController extends State<SettingsPage> {
   void openWebsite() => launchUrl(Uri.parse(AppConstants.applicationWebsite));
 
   void openIssueSite() => launchUrl(Uri.parse(AppConstants.issueUrl));
+
+  void setTextToSpeech(bool enable) async {
+    await SimpleFlashcards.of(context)
+        .preferences
+        .setBool(SettingsKeys.enableTextToSpeechKey, enable);
+    setState(() {});
+  }
+
+  bool get isTextToSpeechEnabled =>
+      SimpleFlashcards.of(context)
+          .preferences
+          .getBool(SettingsKeys.enableTextToSpeechKey) ??
+      false;
+
+  String get textToSpeechlanguage =>
+      SimpleFlashcards.of(context)
+          .preferences
+          .getString(SettingsKeys.textToSpeechLanguageKey) ??
+      'en-US';
+
+  void setTextToSpeechLanguage() async {
+    final l10n = L10n.of(context)!;
+    final preferences = SimpleFlashcards.of(context).preferences;
+    final tts = TextToSpeech();
+    final languages = await TextToSpeech().getDisplayLanguages() ?? [];
+    final newLanguage = await showModalActionSheet(
+      context: context,
+      title: l10n.textToSpeechLanguage,
+      actions: languages
+          .map(
+            (lang) => SheetAction(
+              key: lang,
+              label: lang,
+            ),
+          )
+          .toList(),
+    );
+    if (newLanguage == null) return;
+    final newCode = await tts.getLanguageCodeByName(newLanguage);
+    if (newCode == null) return;
+    await preferences.setString(
+      SettingsKeys.textToSpeechLanguageKey,
+      newCode,
+    );
+    setState(() {});
+  }
 
   void setCardsPerSession() async {
     final l10n = L10n.of(context)!;

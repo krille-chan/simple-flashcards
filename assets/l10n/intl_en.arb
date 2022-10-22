@@ -54,5 +54,7 @@
     "notKnown": "👈 Not known",
     "save": "Save",
     "stack": "Stack",
-    "cardsPerSession": "Cards per session"
+    "cardsPerSession": "Cards per session",
+    "readOutLoudFront": "Read out loud front",
+    "textToSpeechLanguage": "Text to speech language"
 }
