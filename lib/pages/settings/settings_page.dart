@@ -89,12 +89,12 @@ class SettingsPageController extends State<SettingsPage> {
     final preferences = SimpleFlashcards.of(context).preferences;
     final tts = TextToSpeech();
     final languages = await TextToSpeech().getDisplayLanguages() ?? [];
-    final newLanguage = await showModalActionSheet(
+    final newLanguage = await showConfirmationDialog(
       context: context,
       title: l10n.textToSpeechLanguage,
       actions: languages
           .map(
-            (lang) => SheetAction(
+            (lang) => AlertDialogAction(
               key: lang,
               label: lang,
             ),
