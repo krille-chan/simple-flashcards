@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:simple_flashcards/config/settings_keys.dart';
 
+import 'package:text_to_speech/text_to_speech.dart';
+
+import 'package:simple_flashcards/config/settings_keys.dart';
 import 'package:simple_flashcards/models/flash_card.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/session/session_page_view.dart';
-import 'package:text_to_speech/text_to_speech.dart';
 
 class SessionPage extends StatefulWidget {
   final String stackName;
@@ -31,7 +32,7 @@ class SessionPageController extends State<SessionPage> {
 
   final tts = TextToSpeech();
 
-  void _readFront() {
+  void readFront() {
     if (SimpleFlashcards.of(context)
                 .preferences
                 .getBool(SettingsKeys.enableTextToSpeechKey) !=
@@ -50,7 +51,7 @@ class SessionPageController extends State<SessionPage> {
   void initState() {
     super.initState();
     cards.addAll(widget.flashCards);
-    _readFront();
+    readFront();
   }
 
   void cardKnown() {
@@ -66,7 +67,7 @@ class SessionPageController extends State<SessionPage> {
       cards.removeAt(0);
       flipped = false;
     });
-    _readFront();
+    readFront();
   }
 
   void cardNotKnown() {
@@ -82,14 +83,14 @@ class SessionPageController extends State<SessionPage> {
       notKnownCards.add(cards.removeAt(0));
       flipped = false;
     });
-    _readFront();
+    readFront();
   }
 
   void repeatAllCards() {
     setState(() {
       cards.addAll(widget.flashCards);
     });
-    _readFront();
+    readFront();
   }
 
   void repeatNotKnownCards() {
@@ -97,7 +98,7 @@ class SessionPageController extends State<SessionPage> {
       cards.addAll(notKnownCards);
       notKnownCards.clear();
     });
-    _readFront();
+    readFront();
   }
 
   @override
