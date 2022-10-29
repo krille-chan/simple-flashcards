@@ -35,6 +35,12 @@ class CardWidget extends StatelessWidget {
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.volume_up_outlined),
+                  onPressed: controller.readFront,
+                ),
+              ],
             ),
             Expanded(
               child: InkWell(

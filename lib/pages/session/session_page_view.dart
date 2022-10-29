@@ -15,12 +15,6 @@ class SessionPageView extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(L10n.of(context)!.allCardsFinished),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.volume_up_outlined),
-              onPressed: controller.readFront,
-            ),
-          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

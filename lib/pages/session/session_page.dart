@@ -32,7 +32,7 @@ class SessionPageController extends State<SessionPage> {
 
   final tts = TextToSpeech();
 
-  void readFront() {
+  void _readFrontOnStart() {
     if (SimpleFlashcards.of(context)
                 .preferences
                 .getBool(SettingsKeys.enableTextToSpeechKey) !=
@@ -40,6 +40,10 @@ class SessionPageController extends State<SessionPage> {
         cards.isEmpty) {
       return;
     }
+    readFront();
+  }
+
+  void readFront() {
     final lang = SimpleFlashcards.of(context)
         .preferences
         .getString(SettingsKeys.textToSpeechLanguageKey);
@@ -51,7 +55,7 @@ class SessionPageController extends State<SessionPage> {
   void initState() {
     super.initState();
     cards.addAll(widget.flashCards);
-    readFront();
+    _readFrontOnStart();
   }
 
   void cardKnown() {
@@ -67,7 +71,7 @@ class SessionPageController extends State<SessionPage> {
       cards.removeAt(0);
       flipped = false;
     });
-    readFront();
+    _readFrontOnStart();
   }
 
   void cardNotKnown() {
@@ -83,14 +87,14 @@ class SessionPageController extends State<SessionPage> {
       notKnownCards.add(cards.removeAt(0));
       flipped = false;
     });
-    readFront();
+    _readFrontOnStart();
   }
 
   void repeatAllCards() {
     setState(() {
       cards.addAll(widget.flashCards);
     });
-    readFront();
+    _readFrontOnStart();
   }
 
   void repeatNotKnownCards() {
@@ -98,7 +102,7 @@ class SessionPageController extends State<SessionPage> {
       cards.addAll(notKnownCards);
       notKnownCards.clear();
     });
-    readFront();
+    _readFrontOnStart();
   }
 
   @override
