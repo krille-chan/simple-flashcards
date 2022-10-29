@@ -37,7 +37,14 @@ class StackPageView extends StatelessWidget {
               icon: const Icon(Icons.school_outlined),
               onPressed:
                   controller.cards.isEmpty ? null : controller.startSession,
-              label: Text(L10n.of(context)!.startLearning),
+              label: Text(
+                L10n.of(context)!.startLearning(
+                  controller.cards
+                      .where((card) => card.selected)
+                      .length
+                      .toString(),
+                ),
+              ),
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -55,7 +62,13 @@ class StackPageView extends StatelessWidget {
             ),
             title: Text(name),
             subtitle: Text(
-              L10n.of(context)!.countCards(controller.cards.length.toString()),
+              L10n.of(context)!.countCards(
+                controller.cards.length.toString(),
+                controller.cards
+                    .where((card) => card.canLevelUp)
+                    .length
+                    .toString(),
+              ),
             ),
             trailing: IconButton(
               icon: const Icon(Icons.edit_outlined),
@@ -109,17 +122,21 @@ class StackPageView extends StatelessWidget {
                               children: [
                                 CircularProgressIndicator(
                                   value: card.level / 10,
+                                  color: card.selected && card.canLevelUp
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
                                   backgroundColor:
                                       Theme.of(context).colorScheme.background,
                                 ),
-                                Icon(
-                                  card.selected
-                                      ? Icons.check_circle
-                                      : Icons.check_circle_outline,
-                                  color: card.selected && card.canLevelUp
-                                      ? Theme.of(context).colorScheme.primary
-                                      : null,
-                                ),
+                                if (card.selected)
+                                  Icon(
+                                    Icons.check_circle,
+                                    color: card.canLevelUp
+                                        ? Theme.of(context).colorScheme.primary
+                                        : null,
+                                  ),
                               ],
                             ),
                           ),

@@ -67,7 +67,13 @@ class HomePageView extends StatelessWidget {
                   ),
                   title: Text(stack.name),
                   subtitle: Text(
-                    L10n.of(context)!.countCards(stack.cards.length.toString()),
+                    L10n.of(context)!.countCards(
+                      stack.cards.length.toString(),
+                      stack.cards
+                          .where((card) => card.canLevelUp)
+                          .length
+                          .toString(),
+                    ),
                   ),
                   onTap: () => controller.goToStack(stack.name),
                 );

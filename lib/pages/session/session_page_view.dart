@@ -24,7 +24,7 @@ class SessionPageView extends StatelessWidget {
               Center(
                 child: Text(
                   controller.notKnownCards.isEmpty ? '🎉' : '👍',
-                  style: const TextStyle(fontSize: 120),
+                  style: const TextStyle(fontSize: 60),
                 ),
               ),
               const SizedBox(height: 16),

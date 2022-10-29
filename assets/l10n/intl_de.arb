@@ -4,11 +4,12 @@
     "createNewStack": "Neuen Stapel erstellen",
     "newStack": "Neuer Stapel",
     "name": "Name",
-    "countCards": "{count} Karten",
+    "countCards": "{upgradeableCount}/{count} Karten",
     "@countCards": {
         "type": "text",
         "placeholders": {
-        "count": {}
+        "count": {},
+        "upgradeableCount": {}
         }
     },
     "longPressToReorder": "Gedrückt halten zum anordnen",
@@ -16,7 +17,13 @@
     "deleteStack": "Stapel löschen",
     "yes": "Ja",
     "cancel": "Abbrechen",
-    "startLearning": "Mit Lernen anfangen",
+    "startLearning": "{count} Karte(n) lernen",
+    "@startLearning": {
+        "type": "text",
+        "placeholders": {
+        "count": {}
+        }
+    },
     "addNewFlashCard": "Neue Karteikarte hinzufügen",
     "front": "Vorderseite",
     "back": "Rückseite",

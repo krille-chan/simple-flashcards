@@ -75,6 +75,9 @@ class SimpleFlashcards {
     return CardStack.fromJson(Map<String, dynamic>.from(stacks));
   }
 
+  int getCanLevelUpCardsCount(String name) =>
+      getStack(name)!.cards.where((card) => card.canLevelUp).length;
+
   Future<void> editStackName(String name, String newName) async {
     final stack = getStack(name)!;
     await stacksBox.delete(name);

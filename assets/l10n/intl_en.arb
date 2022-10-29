@@ -4,11 +4,12 @@
     "createNewStack": "Create new stack",
     "newStack": "New stack",
     "name": "Name",
-    "countCards": "{count} cards",
+    "countCards": "{upgradeableCount}/{count} cards",
     "@countCards": {
         "type": "text",
         "placeholders": {
-        "count": {}
+        "count": {},
+        "upgradeableCount": {}
         }
     },
     "longPressToReorder": "Long press to reorder",
@@ -16,7 +17,13 @@
     "deleteStack": "Delete stack",
     "yes": "Yes",
     "cancel": "Cancel",
-    "startLearning": "Start learning",
+    "startLearning": "Start learning {count} card(s)",
+    "@startLearning": {
+        "type": "text",
+        "placeholders": {
+        "count": {}
+        }
+    },
     "addNewFlashCard": "Add new flash card",
     "front": "Front",
     "back": "Back",
