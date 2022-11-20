@@ -60,11 +60,11 @@ class SessionPageController extends State<SessionPage> {
 
   void cardKnown() {
     final card = cards[0];
-    if (card.canLevelUp && card.level < 10) {
+    if (card.canLevelUp) {
       SimpleFlashcards.of(context).editCardLevel(
         widget.stackName,
         card.id,
-        card.level + 1,
+        card.level < 10 ? card.level + 1 : card.level,
       );
     }
     setState(() {
