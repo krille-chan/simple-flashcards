@@ -27,18 +27,21 @@ class HomePageView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Opacity(
-                    opacity: 0.33,
-                    child: Icon(
-                      CupertinoIcons.square_stack,
-                      size: 80,
-                    ),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    width: 128,
                   ),
                   const SizedBox(height: 16),
                   Text(
                     L10n.of(context)!.welcomeText,
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(height: 16),
+                  FloatingActionButton.extended(
+                    onPressed: controller.createStackAction,
+                    label: Text(L10n.of(context)!.newStack),
+                    icon: const Icon(Icons.add_outlined),
                   ),
                 ],
               ),
@@ -49,41 +52,56 @@ class HomePageView extends StatelessWidget {
               itemBuilder: (context, i) {
                 final stack = controller.stacks[i];
                 final emoji = stack.emoji;
-                return ListTile(
+                return Padding(
                   key: Key(stack.name),
-                  leading: CircleAvatar(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.surfaceVariant,
-                    child: emoji == null
-                        ? const Icon(CupertinoIcons.square_stack_fill)
-                        : Text(
-                            emoji,
-                            style: const TextStyle(fontSize: 28),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 6.0,
+                  ),
+                  child: Card(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.surfaceVariant,
+                            child: emoji == null
+                                ? const Icon(CupertinoIcons.square_stack_fill)
+                                : Text(
+                                    emoji,
+                                    style: const TextStyle(fontSize: 28),
+                                  ),
                           ),
-                  ),
-                  trailing: ReorderableDragStartListener(
-                    index: i,
-                    child: const Icon(Icons.drag_handle),
-                  ),
-                  title: Text(stack.name),
-                  subtitle: Text(
-                    L10n.of(context)!.countCards(
-                      stack.cards.length.toString(),
-                      stack.cards
-                          .where((card) => card.canLevelUp)
-                          .length
-                          .toString(),
+                          trailing: ReorderableDragStartListener(
+                            index: i,
+                            child: const Icon(Icons.drag_handle),
+                          ),
+                          title: Text(stack.name),
+                          subtitle: Text(
+                            L10n.of(context)!.countCards(
+                              stack.cards.length.toString(),
+                              stack.cards
+                                  .where((card) => card.canLevelUp)
+                                  .length
+                                  .toString(),
+                            ),
+                          ),
+                          onTap: () => controller.goToStack(stack.name),
+                        ),
+                      ],
                     ),
                   ),
-                  onTap: () => controller.goToStack(stack.name),
                 );
               },
             ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: controller.createStackAction,
-        label: Text(L10n.of(context)!.newStack),
-        icon: const Icon(Icons.add_outlined),
-      ),
+      floatingActionButton: controller.stacks.isEmpty
+          ? null
+          : FloatingActionButton.extended(
+              onPressed: controller.createStackAction,
+              label: Text(L10n.of(context)!.newStack),
+              icon: const Icon(Icons.add_outlined),
+            ),
     );
   }
 }

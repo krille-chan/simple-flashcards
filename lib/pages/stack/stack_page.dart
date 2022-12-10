@@ -20,20 +20,8 @@ class StackPage extends StatefulWidget {
 }
 
 class StackPageController extends State<StackPage> {
-  void deleteStackAction() async {
-    final simpleFlashcards = SimpleFlashcards.of(context);
-    final navigator = Navigator.of(context);
-    final confirm = await showOkCancelAlertDialog(
-      context: context,
-      title: L10n.of(context)!.areYouSure,
-      message: L10n.of(context)!.deleteStack,
-      okLabel: L10n.of(context)!.yes,
-      cancelLabel: L10n.of(context)!.cancel,
-    );
-    if (confirm != OkCancelResult.ok) return;
-    navigator.pop();
-    simpleFlashcards.deleteStack(widget.stackName);
-  }
+  final TextEditingController searchController = TextEditingController();
+  String? searchTerm;
 
   List<FlashCard> get cards =>
       (SimpleFlashcards.of(context).getStack(widget.stackName)?.cards ?? [])
@@ -42,6 +30,12 @@ class StackPageController extends State<StackPage> {
   void toggle(int id, bool selected) {
     SimpleFlashcards.of(context)
         .editCardSelected(widget.stackName, id, selected);
+  }
+
+  void onSearch(String? searchTerm) {
+    setState(() {
+      this.searchTerm = searchTerm?.trim().toLowerCase();
+    });
   }
 
   void toggleAll() {
@@ -118,20 +112,22 @@ class StackPageController extends State<StackPage> {
 
   void addFlashCard() async {
     final simpleFlashcards = SimpleFlashcards.of(context);
+    final l10n = L10n.of(context)!;
     final textInput = await showTextInputDialog(
       context: context,
       title: L10n.of(context)!.addNewFlashCard,
+      barrierDismissible: false,
       textFields: [
         DialogTextField(
           hintText: L10n.of(context)!.front,
-          maxLines: 2,
+          maxLines: 4,
           validator: (s) => s != null && s.isNotEmpty
               ? null
               : L10n.of(context)!.pleaseFillOut,
         ),
         DialogTextField(
           hintText: L10n.of(context)!.back,
-          maxLines: 2,
+          maxLines: 4,
           validator: (s) => s != null && s.isNotEmpty
               ? null
               : L10n.of(context)!.pleaseFillOut,
@@ -139,6 +135,16 @@ class StackPageController extends State<StackPage> {
       ],
     );
     if (textInput == null) return;
+    if (cards.any((c) =>
+        c.front.trim().toLowerCase() == textInput.first.trim().toLowerCase())) {
+      final duplicationConsent = await showOkCancelAlertDialog(
+        context: context,
+        title: l10n.cardAlreadyExists,
+        okLabel: l10n.createAnyway,
+        cancelLabel: l10n.cancel,
+      );
+      if (duplicationConsent != OkCancelResult.ok) return;
+    }
     simpleFlashcards.addCardToStack(
       widget.stackName,
       textInput.first,
@@ -177,11 +183,12 @@ class StackPageController extends State<StackPage> {
     final textInput = await showTextInputDialog(
       context: context,
       title: l10n.editFlashCard,
+      barrierDismissible: false,
       textFields: [
         DialogTextField(
           hintText: l10n.front,
           initialText: card.front,
-          maxLines: 2,
+          maxLines: 4,
           validator: (s) => s != null && s.isNotEmpty
               ? null
               : L10n.of(context)!.pleaseFillOut,
@@ -189,7 +196,7 @@ class StackPageController extends State<StackPage> {
         DialogTextField(
           hintText: l10n.back,
           initialText: card.back,
-          maxLines: 2,
+          maxLines: 4,
           validator: (s) => s != null && s.isNotEmpty
               ? null
               : L10n.of(context)!.pleaseFillOut,

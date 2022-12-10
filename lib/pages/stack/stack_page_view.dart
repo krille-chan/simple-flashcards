@@ -26,93 +26,96 @@ class StackPageView extends StatelessWidget {
             icon: const Icon(Icons.check_box_outlined),
             onPressed: controller.toggleAll,
           ),
-          IconButton(
-            icon: const Icon(Icons.delete_outlined),
-            onPressed: controller.deleteStackAction,
+        ],
+      ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (controller.cards.any((c) => c.selected))
+            FloatingActionButton(
+              heroTag: 'start',
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              onPressed:
+                  controller.cards.isEmpty ? null : controller.startSession,
+              child: const Icon(Icons.school_outlined),
+            ),
+          const SizedBox(height: 16),
+          FloatingActionButton(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            foregroundColor: Theme.of(context).colorScheme.onSecondary,
+            onPressed: controller.addFlashCard,
+            child: const Icon(Icons.add_outlined),
           ),
         ],
       ),
-      floatingActionButton: controller.cards.any((c) => c.selected)
-          ? FloatingActionButton.extended(
-              icon: const Icon(Icons.school_outlined),
-              onPressed:
-                  controller.cards.isEmpty ? null : controller.startSession,
-              label: Text(
-                L10n.of(context)!.startLearning(
+      body: SafeArea(
+        child: Column(
+          children: [
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                child: emoji == null
+                    ? const Icon(CupertinoIcons.square_stack_fill)
+                    : Text(
+                        emoji,
+                        style: const TextStyle(fontSize: 28),
+                      ),
+              ),
+              title: Text(name),
+              subtitle: Text(
+                L10n.of(context)!.countCards(
+                  controller.cards.length.toString(),
                   controller.cards
-                      .where((card) => card.selected)
+                      .where((card) => card.canLevelUp)
                       .length
                       .toString(),
                 ),
               ),
-            )
-          : null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Column(
-        children: [
-          ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-              child: emoji == null
-                  ? const Icon(CupertinoIcons.square_stack_fill)
-                  : Text(
-                      emoji,
-                      style: const TextStyle(fontSize: 28),
-                    ),
+              trailing: IconButton(
+                icon: const Icon(Icons.edit_outlined),
+                onPressed: controller.editName,
+              ),
+              onTap: controller.editName,
             ),
-            title: Text(name),
-            subtitle: Text(
-              L10n.of(context)!.countCards(
-                controller.cards.length.toString(),
-                controller.cards
-                    .where((card) => card.canLevelUp)
-                    .length
-                    .toString(),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 6.0,
+              ),
+              child: TextField(
+                controller: controller.searchController,
+                onChanged: controller.onSearch,
+                decoration: InputDecoration(
+                  border: const UnderlineInputBorder(),
+                  filled: true,
+                  prefixIcon: const Icon(Icons.search_outlined),
+                  hintText: L10n.of(context)!.search,
+                ),
               ),
             ),
-            trailing: IconButton(
-              icon: const Icon(Icons.edit_outlined),
-              onPressed: controller.editName,
-            ),
-            onTap: controller.editName,
-          ),
-          Expanded(
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Material(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
-                  elevation: 2,
-                  clipBehavior: Clip.hardEdge,
-                  borderRadius: BorderRadius.circular(16),
-                  child: ListView.builder(
-                    itemCount: controller.cards.length + 1,
-                    padding: const EdgeInsets.only(bottom: 32, top: 8),
-                    itemBuilder: (_, i) {
-                      if (i == 0) {
-                        return ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.onBackground,
-                            child: Icon(
-                              Icons.add_outlined,
-                              color: Theme.of(context).colorScheme.background,
-                            ),
-                          ),
-                          title: Text(
-                            L10n.of(context)!.addNewFlashCard,
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant,
-                            ),
-                          ),
-                          onTap: controller.addFlashCard,
-                        );
-                      }
-                      i--;
-                      final card = controller.cards[i];
-                      return InkWell(
+            Expanded(
+              child: ListView.builder(
+                itemCount: controller.cards.length,
+                padding: const EdgeInsets.only(bottom: 32),
+                itemBuilder: (_, i) {
+                  final card = controller.cards[i];
+                  if (controller.searchTerm?.isNotEmpty == true &&
+                      !(card.front
+                              .toLowerCase()
+                              .contains(controller.searchTerm ?? '') ||
+                          card.back
+                              .toLowerCase()
+                              .contains(controller.searchTerm ?? ''))) {
+                    return Container();
+                  }
+                  return InkWell(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 6.0,
+                      ),
+                      child: Card(
                         child: ListTile(
                           trailing: SizedBox(
                             height: 32,
@@ -144,16 +147,26 @@ class StackPageView extends StatelessWidget {
                               controller.toggle(card.id, !card.selected),
                           onLongPress: () => controller.editCard(i),
                           title: Text(card.front),
-                          subtitle: Text(card.back),
+                          subtitle: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Divider(),
+                              Text(
+                                card.back,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ],
+                          ),
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

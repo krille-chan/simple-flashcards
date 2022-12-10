@@ -63,5 +63,8 @@
     "stack": "Stack",
     "cardsPerSession": "Cards per session",
     "readOutLoudFront": "Read out loud front",
-    "textToSpeechLanguage": "Text to speech language"
+    "textToSpeechLanguage": "Text to speech language",
+    "cardAlreadyExists": "A card with this front already exists",
+    "createAnyway": "Create anyway",
+    "search": "Search"
 }

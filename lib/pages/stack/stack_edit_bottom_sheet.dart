@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
+import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/stack/edit_stack_input.dart';
 
 class StackEditBottomSheet extends StatefulWidget {
@@ -40,6 +42,21 @@ class _StackEditBottomSheetState extends State<StackEditBottomSheet> {
     );
   }
 
+  void _deleteStackAction() async {
+    final simpleFlashcards = SimpleFlashcards.of(context);
+    final navigator = Navigator.of(context);
+    final confirm = await showOkCancelAlertDialog(
+      context: context,
+      title: L10n.of(context)!.deleteStack,
+      message: L10n.of(context)!.areYouSure,
+      okLabel: L10n.of(context)!.yes,
+      cancelLabel: L10n.of(context)!.cancel,
+    );
+    if (confirm != OkCancelResult.ok) return;
+    navigator.popUntil((r) => r.isFirst);
+    simpleFlashcards.deleteStack(widget.currentName);
+  }
+
   @override
   Widget build(BuildContext context) {
     final emoji = _emoji;
@@ -50,6 +67,11 @@ class _StackEditBottomSheetState extends State<StackEditBottomSheet> {
           onPressed: Navigator.of(context).pop,
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.delete_outlined),
+            color: Colors.red,
+            onPressed: _deleteStackAction,
+          ),
           TextButton.icon(
             onPressed: _save,
             icon: const Icon(Icons.save_outlined),

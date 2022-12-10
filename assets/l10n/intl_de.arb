@@ -4,7 +4,7 @@
     "createNewStack": "Neuen Stapel erstellen",
     "newStack": "Neuer Stapel",
     "name": "Name",
-    "countCards": "{upgradeableCount}/{count} Karten",
+    "countCards": "{upgradeableCount} von {count} Karten zu lernen",
     "@countCards": {
         "type": "text",
         "placeholders": {
@@ -62,5 +62,8 @@
     "save": "Save",
     "stack": "Stapel",
     "readOutLoudFront": "Vorderseite vorlesen",
-    "textToSpeechLanguage": "Vorlese-Sprache"
+    "textToSpeechLanguage": "Vorlese-Sprache",
+    "cardAlreadyExists": "A card with this front already exists",
+    "createAnyway": "Create anyway",
+    "search": "Suchen"
 }
