@@ -55,7 +55,7 @@ class CardWidget extends StatelessWidget {
                             ? controller.cards.first.back
                             : controller.cards.first.front,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 32),
                       ),
                     ]),
                   ),
