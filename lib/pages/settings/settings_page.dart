@@ -24,6 +24,7 @@ class SettingsPage extends StatefulWidget {
 class SettingsPageController extends State<SettingsPage> {
   void aboutAction() async {
     final packageInfo = await PackageInfo.fromPlatform();
+    if (!mounted) return;
     showAboutDialog(
       context: context,
       applicationName: AppConstants.appName,
@@ -89,6 +90,7 @@ class SettingsPageController extends State<SettingsPage> {
     final preferences = SimpleFlashcards.of(context).preferences;
     final tts = TextToSpeech();
     final languages = await TextToSpeech().getDisplayLanguages() ?? [];
+    if (!mounted) return;
     final newLanguage = await showConfirmationDialog(
       context: context,
       title: l10n.textToSpeechLanguage,

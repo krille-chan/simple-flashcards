@@ -154,7 +154,7 @@ class StackPageView extends StatelessWidget {
                               const Divider(),
                               Text(
                                 card.back,
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
                           ),

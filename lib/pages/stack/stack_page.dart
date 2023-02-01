@@ -137,6 +137,7 @@ class StackPageController extends State<StackPage> {
     if (textInput == null) return;
     if (cards.any((c) =>
         c.front.trim().toLowerCase() == textInput.first.trim().toLowerCase())) {
+      if (!mounted) return;
       final duplicationConsent = await showOkCancelAlertDialog(
         context: context,
         title: l10n.cardAlreadyExists,
@@ -180,6 +181,7 @@ class StackPageController extends State<StackPage> {
       await simpleFlashcards.deleteCardFromStack(widget.stackName, front);
       return;
     }
+    if (!mounted) return;
     final textInput = await showTextInputDialog(
       context: context,
       title: l10n.editFlashCard,
