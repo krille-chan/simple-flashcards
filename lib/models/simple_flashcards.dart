@@ -20,7 +20,7 @@ class SimpleFlashcards {
   SimpleFlashcards(this.stacksBox, this.preferences);
 
   static Future<SimpleFlashcards> init() async {
-    await Hive.initFlutter();
+    await Hive.initFlutter('debug');
     final box = await Hive.openBox(AppConstants.dbName);
     final preferences = await SharedPreferences.getInstance();
     return SimpleFlashcards(box, preferences);

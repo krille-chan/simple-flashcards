@@ -9,6 +9,7 @@ import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/session/session_page.dart';
 import 'package:simple_flashcards/pages/stack/stack_edit_bottom_sheet.dart';
 import 'package:simple_flashcards/pages/stack/stack_page_view.dart';
+import 'package:simple_flashcards/pages/stack/text_input_scaffold.dart';
 import 'edit_stack_input.dart';
 
 class StackPage extends StatefulWidget {
@@ -113,30 +114,14 @@ class StackPageController extends State<StackPage> {
   void addFlashCard() async {
     final simpleFlashcards = SimpleFlashcards.of(context);
     final l10n = L10n.of(context)!;
-    final textInput = await showTextInputDialog(
-      context: context,
-      title: L10n.of(context)!.addNewFlashCard,
-      barrierDismissible: false,
-      textFields: [
-        DialogTextField(
-          hintText: L10n.of(context)!.front,
-          maxLines: 4,
-          validator: (s) => s != null && s.isNotEmpty
-              ? null
-              : L10n.of(context)!.pleaseFillOut,
-        ),
-        DialogTextField(
-          hintText: L10n.of(context)!.back,
-          maxLines: 4,
-          validator: (s) => s != null && s.isNotEmpty
-              ? null
-              : L10n.of(context)!.pleaseFillOut,
-        ),
-      ],
+    final newCard = await Navigator.of(context).push(
+      MaterialPageRoute<FlashCard?>(
+        builder: (_) => const TextInputScaffold(),
+      ),
     );
-    if (textInput == null) return;
+    if (newCard == null) return;
     if (cards.any((c) =>
-        c.front.trim().toLowerCase() == textInput.first.trim().toLowerCase())) {
+        c.front.trim().toLowerCase() == newCard.front.trim().toLowerCase())) {
       if (!mounted) return;
       final duplicationConsent = await showOkCancelAlertDialog(
         context: context,
@@ -148,14 +133,13 @@ class StackPageController extends State<StackPage> {
     }
     simpleFlashcards.addCardToStack(
       widget.stackName,
-      textInput.first,
-      textInput.last,
+      newCard.front,
+      newCard.back,
     );
   }
 
   void editCard(int index) async {
     final simpleFlashcards = SimpleFlashcards.of(context);
-    final l10n = L10n.of(context)!;
     final card = cards[index];
     String front = card.front;
     final action = await showModalActionSheet<FlashCardAction>(
@@ -182,43 +166,27 @@ class StackPageController extends State<StackPage> {
       return;
     }
     if (!mounted) return;
-    final textInput = await showTextInputDialog(
-      context: context,
-      title: l10n.editFlashCard,
-      barrierDismissible: false,
-      textFields: [
-        DialogTextField(
-          hintText: l10n.front,
-          initialText: card.front,
-          maxLines: 4,
-          validator: (s) => s != null && s.isNotEmpty
-              ? null
-              : L10n.of(context)!.pleaseFillOut,
+    final editedCard = await Navigator.of(context).push(
+      MaterialPageRoute<FlashCard?>(
+        builder: (_) => TextInputScaffold(
+          flashCard: card,
         ),
-        DialogTextField(
-          hintText: l10n.back,
-          initialText: card.back,
-          maxLines: 4,
-          validator: (s) => s != null && s.isNotEmpty
-              ? null
-              : L10n.of(context)!.pleaseFillOut,
-        ),
-      ],
+      ),
     );
-    if (textInput == null) return;
-    if (textInput.first != front) {
+    if (editedCard == null) return;
+    if (editedCard.front != front) {
       simpleFlashcards.editCardFront(
         widget.stackName,
         card.id,
-        textInput.first,
+        editedCard.front,
       );
-      front = textInput.first;
+      front = editedCard.front;
     }
-    if (textInput.last != card.back) {
+    if (editedCard.back != card.back) {
       simpleFlashcards.editCardBack(
         widget.stackName,
         card.id,
-        textInput.last,
+        editedCard.back,
       );
     }
   }

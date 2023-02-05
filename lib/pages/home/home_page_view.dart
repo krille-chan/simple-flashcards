@@ -47,6 +47,7 @@ class HomePageView extends StatelessWidget {
               ),
             )
           : ReorderableListView.builder(
+              buildDefaultDragHandles: false,
               onReorder: controller.onReorder,
               itemCount: controller.stacks.length,
               itemBuilder: (context, i) {
@@ -59,37 +60,33 @@ class HomePageView extends StatelessWidget {
                     vertical: 6.0,
                   ),
                   child: Card(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.surfaceVariant,
-                            child: emoji == null
-                                ? const Icon(CupertinoIcons.square_stack_fill)
-                                : Text(
-                                    emoji,
-                                    style: const TextStyle(fontSize: 28),
-                                  ),
-                          ),
-                          trailing: ReorderableDragStartListener(
-                            index: i,
-                            child: const Icon(Icons.drag_handle),
-                          ),
-                          title: Text(stack.name),
-                          subtitle: Text(
-                            L10n.of(context)!.countCards(
-                              stack.cards.length.toString(),
-                              stack.cards
-                                  .where((card) => card.canLevelUp)
-                                  .length
-                                  .toString(),
-                            ),
-                          ),
-                          onTap: () => controller.goToStack(stack.name),
+                    clipBehavior: Clip.hardEdge,
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.surfaceVariant,
+                        child: emoji == null
+                            ? const Icon(CupertinoIcons.square_stack_fill)
+                            : Text(
+                                emoji,
+                                style: const TextStyle(fontSize: 28),
+                              ),
+                      ),
+                      trailing: ReorderableDragStartListener(
+                        index: i,
+                        child: const Icon(Icons.drag_handle),
+                      ),
+                      title: Text(stack.name),
+                      subtitle: Text(
+                        L10n.of(context)!.countCards(
+                          stack.cards.length.toString(),
+                          stack.cards
+                              .where((card) => card.canLevelUp)
+                              .length
+                              .toString(),
                         ),
-                      ],
+                      ),
+                      onTap: () => controller.goToStack(stack.name),
                     ),
                   ),
                 );
