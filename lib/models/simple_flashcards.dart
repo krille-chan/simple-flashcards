@@ -106,8 +106,10 @@ class SimpleFlashcards {
   Future<void> addCardToStack(
     String stackName,
     String front,
-    String back,
-  ) async {
+    String back, {
+    int? level,
+    DateTime? lastLevelUp,
+  }) async {
     final stack = getStack(stackName)!;
     final id = stack.cards
             .fold<int>(0, (prev, card) => card.id > prev ? card.id : prev) +
@@ -117,6 +119,8 @@ class SimpleFlashcards {
       back: back,
       selected: true,
       id: id,
+      level: level ?? 0,
+      lastLevelUp: lastLevelUp,
     ));
     await stacksBox.put(stackName, stack.toJson());
   }
@@ -189,8 +193,10 @@ class SimpleFlashcards {
 
   void exportStack(String name) async {
     final stack = getStack(name)!;
-    final csvData =
-        stack.cards.map((card) => '"${card.front}","${card.back}"').join('\n');
+    final csvData = stack.cards
+        .map((card) =>
+            '"${card.front}","${card.back}","${card.level.toString()}","${card.lastLevelUp?.millisecondsSinceEpoch}"')
+        .join('\n');
     final csvBytes = Uint8List.fromList(utf8.encode(csvData));
 
     FilePickerCross(csvBytes, path: './$name.csv').exportToStorage();
@@ -204,11 +210,21 @@ class SimpleFlashcards {
     for (final cardRow in rows) {
       if (cardRow.length < 2) continue;
       final front = cardRow.first;
-      final back = cardRow
-          .sublist(1, cardRow.length)
-          .where((s) => s.isNotEmpty)
-          .join('\n');
-      await addCardToStack(name, front, back);
+      final back = cardRow[1];
+      final level = cardRow.length > 2 ? int.tryParse(cardRow[2]) : null;
+      final lastLevelUpMilliSeconds =
+          cardRow.length > 3 ? int.tryParse(cardRow[3]) : null;
+      final lastLevelUp = lastLevelUpMilliSeconds == null
+          ? null
+          : DateTime.fromMillisecondsSinceEpoch(lastLevelUpMilliSeconds);
+
+      await addCardToStack(
+        name,
+        front,
+        back,
+        level: level,
+        lastLevelUp: lastLevelUp,
+      );
     }
   }
 }
