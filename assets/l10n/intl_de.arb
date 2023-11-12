@@ -65,5 +65,7 @@
     "textToSpeechLanguage": "Vorlese-Sprache",
     "cardAlreadyExists": "A card with this front already exists",
     "createAnyway": "Create anyway",
-    "search": "Suchen"
+    "search": "Suchen",
+    "enableAiChatLearning": "Aktiviere Lernen mit K.I.-Chat",
+    "openAiApiKeyDescription": "Bitte gib deinen OpenAI-API-Schlüssel ein. Du kannst einen erhalten auf: https://platform.openai.com/api-keys."
 }

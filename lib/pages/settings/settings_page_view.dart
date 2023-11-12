@@ -36,6 +36,12 @@ class SettingsPageView extends StatelessWidget {
                 .toString()),
             onTap: controller.setCardsPerSession,
           ),
+          ListTile(
+            leading: const Icon(Icons.language_outlined),
+            title: Text(L10n.of(context)!.textToSpeechLanguage),
+            subtitle: Text(controller.textToSpeechlanguage),
+            onTap: controller.setTextToSpeechLanguage,
+          ),
           SwitchListTile.adaptive(
             value: controller.isTextToSpeechEnabled,
             onChanged: controller.setTextToSpeech,
@@ -43,19 +49,20 @@ class SettingsPageView extends StatelessWidget {
             controlAffinity: ListTileControlAffinity.trailing,
             secondary: const Icon(Icons.volume_up_outlined),
           ),
-          ListTile(
-            leading: const Icon(Icons.language_outlined),
-            title: Text(L10n.of(context)!.textToSpeechLanguage),
-            subtitle: Text(controller.textToSpeechlanguage),
-            onTap: controller.setTextToSpeechLanguage,
+          SwitchListTile.adaptive(
+            secondary: const Icon(Icons.smart_toy_outlined),
+            title: Text(L10n.of(context)!.enableAiChatLearning),
+            onChanged: (enable) => controller.setopenAiApiKey(enable),
+            controlAffinity: ListTileControlAffinity.trailing,
+            value: controller.openAiApiKeyEnabled,
           ),
-          const Divider(height: 1),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.download_outlined),
             title: Text(L10n.of(context)!.importStacks),
             onTap: controller.importStacks,
           ),
-          const Divider(height: 1),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.web_outlined),
             title: Text(L10n.of(context)!.website),

@@ -78,6 +78,46 @@ class SettingsPageController extends State<SettingsPage> {
     setState(() {});
   }
 
+  void setopenAiApiKey(bool enable) async {
+    final preferences = SimpleFlashcards.of(context).preferences;
+    if (!enable) {
+      await preferences.remove(SettingsKeys.openAiApiKey);
+      if (!mounted) return;
+      setState(() {});
+      return;
+    }
+
+    final input = await showTextInputDialog(
+      context: context,
+      title: L10n.of(context)!.enableAiChatLearning,
+      message: L10n.of(context)!.openAiApiKeyDescription,
+      textFields: [
+        DialogTextField(
+            hintText: 'abcd1234',
+            autocorrect: false,
+            validator: (token) {
+              if (token == null || token.isEmpty) {
+                return L10n.of(context)!.pleaseFillOut;
+              }
+              return null;
+            }),
+      ],
+      okLabel: L10n.of(context)!.ok,
+      cancelLabel: L10n.of(context)!.cancel,
+    );
+    if (input == null) return;
+
+    preferences.setString(SettingsKeys.openAiApiKey, input.single);
+    if (!mounted) return;
+    setState(() {});
+  }
+
+  bool get openAiApiKeyEnabled =>
+      SimpleFlashcards.of(context)
+          .preferences
+          .getString(SettingsKeys.openAiApiKey) !=
+      null;
+
   bool get isTextToSpeechEnabled =>
       SimpleFlashcards.of(context)
           .preferences

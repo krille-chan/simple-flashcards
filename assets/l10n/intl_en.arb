@@ -66,5 +66,7 @@
     "textToSpeechLanguage": "Text to speech language",
     "cardAlreadyExists": "A card with this front already exists",
     "createAnyway": "Create anyway",
-    "search": "Search"
+    "search": "Search",
+    "enableAiChatLearning": "Enable learning with AI Chat",
+    "openAiApiKeyDescription": "Please enter your OpenAI API key. You can retrieve one from https://platform.openai.com/api-keys."
 }
