@@ -4,9 +4,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import 'package:fast_csv/fast_csv.dart' as csv;
-import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:simple_flashcards/config/app_constants.dart';
@@ -199,7 +199,7 @@ class SimpleFlashcards {
         .join('\n');
     final csvBytes = Uint8List.fromList(utf8.encode(csvData));
 
-    FilePickerCross(csvBytes, path: './$name.csv').exportToStorage();
+    Share.shareXFiles([XFile.fromData(csvBytes, name: '$name.csv')]);
   }
 
   Future<void> importFromCsv(String name, String data) async {

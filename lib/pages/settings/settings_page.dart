@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:file_picker_cross/file_picker_cross.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:package_info/package_info.dart';
 import 'package:text_to_speech/text_to_speech.dart';
@@ -43,16 +43,19 @@ class SettingsPageController extends State<SettingsPage> {
     final l10n = L10n.of(context)!;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     try {
-      final picked =
-          await FilePickerCross.importFromStorage(type: FileTypeCross.any);
+      final picked = await FilePicker.platform.pickFiles(
+        type: FileType.any,
+        withData: true,
+      );
+      if (picked == null || picked.files.isEmpty) return;
       final data = utf8.decode(
-        picked.toUint8List(),
+        picked.files.first.bytes!,
         allowMalformed: true,
       );
       simpleFlashcards.importFromCsv(
-          picked.fileName?.split('.').first ??
-              'import ${DateTime.now().toIso8601String()}',
-          data);
+        picked.files.first.name.split('.').first,
+        data,
+      );
     } catch (_) {
       scaffoldMessenger.showSnackBar(SnackBar(
         content: Text(l10n.oopsSomethingWentWrong),
