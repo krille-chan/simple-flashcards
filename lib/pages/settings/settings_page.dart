@@ -40,6 +40,8 @@ class SettingsPageController extends State<SettingsPage> {
   void importStacks() async {
     final simpleFlashcards = SimpleFlashcards.of(context);
     final navigator = Navigator.of(context);
+    final l10n = L10n.of(context)!;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     try {
       final picked =
           await FilePickerCross.importFromStorage(type: FileTypeCross.any);
@@ -52,8 +54,8 @@ class SettingsPageController extends State<SettingsPage> {
               'import ${DateTime.now().toIso8601String()}',
           data);
     } catch (_) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(L10n.of(context)!.oopsSomethingWentWrong),
+      scaffoldMessenger.showSnackBar(SnackBar(
+        content: Text(l10n.oopsSomethingWentWrong),
       ));
       rethrow;
     }
