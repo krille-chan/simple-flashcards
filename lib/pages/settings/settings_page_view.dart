@@ -8,7 +8,7 @@ import 'package:simple_flashcards/pages/settings/settings_page.dart';
 
 class SettingsPageView extends StatelessWidget {
   final SettingsPageController controller;
-  const SettingsPageView(this.controller, {Key? key}) : super(key: key);
+  const SettingsPageView(this.controller, {super.key});
 
   @override
   Widget build(BuildContext context) {

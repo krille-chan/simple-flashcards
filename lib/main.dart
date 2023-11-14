@@ -15,8 +15,7 @@ void main() async {
 
 class SimpleFlashcardsApp extends StatelessWidget {
   final SimpleFlashcards simpleFlashcards;
-  const SimpleFlashcardsApp(this.simpleFlashcards, {Key? key})
-      : super(key: key);
+  const SimpleFlashcardsApp(this.simpleFlashcards, {super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -68,5 +68,8 @@
     "createAnyway": "Create anyway",
     "search": "Search",
     "enableAiChatLearning": "Enable learning with AI Chat",
-    "openAiApiKeyDescription": "Please enter your OpenAI API key. You can retrieve one from https://platform.openai.com/api-keys."
+    "openAiApiKeyDescription": "Please enter your OpenAI API key. You can retrieve one from https://platform.openai.com/api-keys.",
+    "aiChatBot": "AI chat bot",
+    "aiBotName": "Bot",
+    "yourAnswer": "Deine Antwort"
 }

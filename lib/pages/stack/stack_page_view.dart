@@ -8,7 +8,7 @@ import 'package:simple_flashcards/pages/stack/stack_page.dart';
 
 class StackPageView extends StatelessWidget {
   final StackPageController controller;
-  const StackPageView(this.controller, {Key? key}) : super(key: key);
+  const StackPageView(this.controller, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +31,24 @@ class StackPageView extends StatelessWidget {
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (controller.cards.any((c) => c.selected))
+          if (controller.cards.any((c) => c.selected)) ...[
+            if (controller.openAiApiKeyEnabled)
+              FloatingActionButton(
+                heroTag: null,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
+                foregroundColor: Theme.of(context).colorScheme.onTertiary,
+                onPressed: () => controller.startSession(SessionType.ai),
+                child: const Icon(Icons.smart_toy_outlined),
+              ),
+            const SizedBox(height: 16),
             FloatingActionButton(
               heroTag: 'start',
               backgroundColor: Theme.of(context).colorScheme.primary,
               foregroundColor: Theme.of(context).colorScheme.onPrimary,
-              onPressed:
-                  controller.cards.isEmpty ? null : controller.startSession,
+              onPressed: () => controller.startSession(SessionType.interrogate),
               child: const Icon(Icons.school_outlined),
             ),
+          ],
           const SizedBox(height: 16),
           FloatingActionButton(
             backgroundColor: Theme.of(context).colorScheme.secondary,

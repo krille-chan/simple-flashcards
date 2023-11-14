@@ -13,8 +13,8 @@ class SessionPage extends StatefulWidget {
   const SessionPage({
     required this.flashCards,
     required this.stackName,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   SessionPageController createState() => SessionPageController();

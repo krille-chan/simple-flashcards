@@ -67,5 +67,8 @@
     "createAnyway": "Create anyway",
     "search": "Suchen",
     "enableAiChatLearning": "Aktiviere Lernen mit K.I.-Chat",
-    "openAiApiKeyDescription": "Bitte gib deinen OpenAI-API-Schlüssel ein. Du kannst einen erhalten auf: https://platform.openai.com/api-keys."
+    "openAiApiKeyDescription": "Bitte gib deinen OpenAI-API-Schlüssel ein. Du kannst einen erhalten auf: https://platform.openai.com/api-keys.",
+    "aiChatBot": "K.I. Chat-Bot",
+    "aiBotName": "Bot",
+    "yourAnswer": "Deine Antwort"
 }

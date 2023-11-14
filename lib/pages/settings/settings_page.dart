@@ -15,7 +15,7 @@ import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/settings/settings_page_view.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   SettingsPageController createState() => SettingsPageController();

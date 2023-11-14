@@ -10,7 +10,7 @@ import 'package:simple_flashcards/pages/settings/settings_page.dart';
 import 'package:simple_flashcards/pages/stack/stack_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   HomePageController createState() => HomePageController();

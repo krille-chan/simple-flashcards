@@ -9,4 +9,11 @@ abstract class AppConstants {
   static const String privacyUrl = '$applicationWebsite/-/blob/main/PRIVACY.md';
   static const String issueUrl = '$applicationWebsite/issues';
   static const Color primaryColor = Colors.blueGrey;
+
+  static const String aiBotSystemPrompt = '''
+You will be used in a flashcard app. Your job is to teach the user the following
+flashcards. Ask the user only one question about one card per message. You
+can be creative and create little tasks and puzzles to teach the cards. Once
+a question is answered by the user, you must ask the next question.
+''';
 }

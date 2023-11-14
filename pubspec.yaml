@@ -4,7 +4,7 @@ publish_to: "none"
 version: 0.1.0+1
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 dependencies:
   adaptive_dialog: ^1.2.0
   flutter:
@@ -24,6 +24,7 @@ dependencies:
   chat_gpt_sdk: ^2.2.6
   file_picker: ^6.1.1
   share_plus: ^7.2.1
+  chat_bubbles: ^1.5.0
 
 dev_dependencies:
   flutter_test:

@@ -6,7 +6,7 @@ import 'package:simple_flashcards/models/flash_card.dart';
 
 class TextInputScaffold extends StatefulWidget {
   final FlashCard? flashCard;
-  const TextInputScaffold({this.flashCard, Key? key}) : super(key: key);
+  const TextInputScaffold({this.flashCard, super.key});
 
   @override
   State<TextInputScaffold> createState() => _TextInputScaffoldState();
@@ -95,8 +95,7 @@ class _FlashCardTextField extends StatelessWidget {
   const _FlashCardTextField({
     required this.controller,
     required this.hintText,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:simple_flashcards/config/settings_keys.dart';
 import 'package:simple_flashcards/models/flash_card.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
+import 'package:simple_flashcards/pages/ai_session/ai_session_page.dart';
 import 'package:simple_flashcards/pages/session/session_page.dart';
 import 'package:simple_flashcards/pages/stack/stack_edit_bottom_sheet.dart';
 import 'package:simple_flashcards/pages/stack/stack_page_view.dart';
@@ -14,7 +15,7 @@ import 'edit_stack_input.dart';
 
 class StackPage extends StatefulWidget {
   final String stackName;
-  const StackPage(this.stackName, {Key? key}) : super(key: key);
+  const StackPage(this.stackName, {super.key});
 
   @override
   StackPageController createState() => StackPageController();
@@ -61,10 +62,16 @@ class StackPageController extends State<StackPage> {
     }
   }
 
+  bool get openAiApiKeyEnabled =>
+      SimpleFlashcards.of(context)
+          .preferences
+          .getString(SettingsKeys.openAiApiKey) !=
+      null;
+
   void exportStack() =>
       SimpleFlashcards.of(context).exportStack(widget.stackName);
 
-  void startSession() {
+  void startSession(SessionType sessionType) {
     final selectedCards = cards.where((card) => card.selected).toList();
     selectedCards.sort((a, b) => a.canLevelUp && b.canLevelUp
         ? b.level.compareTo(a.level)
@@ -79,10 +86,20 @@ class StackPageController extends State<StackPage> {
     learningCards.shuffle();
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => SessionPage(
-          stackName: widget.stackName,
-          flashCards: learningCards,
-        ),
+        builder: (_) {
+          switch (sessionType) {
+            case SessionType.interrogate:
+              return SessionPage(
+                stackName: widget.stackName,
+                flashCards: learningCards,
+              );
+            case SessionType.ai:
+              return AiSessionPage(
+                stackName: widget.stackName,
+                flashCards: learningCards,
+              );
+          }
+        },
       ),
     );
   }
@@ -199,3 +216,5 @@ class StackPageController extends State<StackPage> {
 }
 
 enum FlashCardAction { edit, delete }
+
+enum SessionType { interrogate, ai }

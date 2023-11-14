@@ -6,7 +6,7 @@ import 'package:simple_flashcards/pages/session/session_page.dart';
 
 class CardWidget extends StatelessWidget {
   final SessionPageController controller;
-  const CardWidget(this.controller, {Key? key}) : super(key: key);
+  const CardWidget(this.controller, {super.key});
 
   @override
   Widget build(BuildContext context) {

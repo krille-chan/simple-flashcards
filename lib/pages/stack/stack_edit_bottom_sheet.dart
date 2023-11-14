@@ -9,8 +9,7 @@ import 'package:simple_flashcards/pages/stack/edit_stack_input.dart';
 
 class StackEditBottomSheet extends StatefulWidget {
   final String currentName;
-  const StackEditBottomSheet({required this.currentName, Key? key})
-      : super(key: key);
+  const StackEditBottomSheet({required this.currentName, super.key});
 
   @override
   State<StackEditBottomSheet> createState() => _StackEditBottomSheetState();

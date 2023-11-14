@@ -7,7 +7,7 @@ import 'package:simple_flashcards/pages/home/home_page.dart';
 
 class HomePageView extends StatelessWidget {
   final HomePageController controller;
-  const HomePageView(this.controller, {Key? key}) : super(key: key);
+  const HomePageView(this.controller, {super.key});
 
   @override
   Widget build(BuildContext context) {
