@@ -94,6 +94,8 @@ class AiSessionPageView extends StatelessWidget {
               readOnly: controller.botIsTyping,
               controller: controller.textEditingController,
               onSubmitted: controller.generateAiMessage,
+              autofocus: true,
+              textInputAction: TextInputAction.send,
               decoration: InputDecoration(
                 filled: true,
                 border: const UnderlineInputBorder(),

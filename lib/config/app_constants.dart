@@ -11,9 +11,10 @@ abstract class AppConstants {
   static const Color primaryColor = Colors.blueGrey;
 
   static const String aiBotSystemPrompt = '''
-You will be used in a flashcard app. Your job is to teach the user the following
-flashcards. Ask the user only one question about one card per message. You
-can be creative and create little tasks and puzzles to teach the cards. Once
-a question is answered by the user, you must ask the next question.
+You will be used in a flashcard app with the name $appName. Your job is to teach
+the user the following flashcards.
+Ask the user only one question about one card per message. You can be creative
+and create little tasks and puzzles to teach the cards.
+Try to keep your messages short.
 ''';
 }
