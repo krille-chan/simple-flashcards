@@ -23,10 +23,13 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
       - name: Prepare signing keys
         working-directory: android
+        env:
+          ANDROID_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
+          ANDROID_SIGNING_KEY_PASS: ${{ secrets.ANDROID_SIGNING_KEY_PASS }}
         run: |
-          echo ${{ secrets.ANDROID_SIGNING_KEY }} | base64 --decode --ignore-garbage > key.jks
-          echo "storePassword=${{ secrets.ANDROID_SIGNING_KEY_PASS }}" >> key.properties
-          echo "keyPassword=${{ secrets.ANDROID_SIGNING_KEY_PASS }}" >> key.properties
+          echo $ANDROID_SIGNING_KEY | base64 --decode --ignore-garbage > key.jks
+          echo "storePassword=${ ANDROID_SIGNING_KEY_PASS }" >> key.properties
+          echo "keyPassword=${ ANDROID_SIGNING_KEY_PASS }" >> key.properties
           echo "keyAlias=key" >> key.properties
           echo "storeFile=../key.jks" >> key.properties
       - run: flutter pub get
