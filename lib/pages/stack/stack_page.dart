@@ -71,7 +71,7 @@ class StackPageController extends State<StackPage> {
   void exportStack() =>
       SimpleFlashcards.of(context).exportStack(widget.stackName);
 
-  void startSession(SessionType sessionType) {
+  void startSession(SessionType sessionType) async {
     final selectedCards = cards.where((card) => card.selected).toList();
     selectedCards.sort((a, b) => a.canLevelUp && b.canLevelUp
         ? b.level.compareTo(a.level)
@@ -84,7 +84,7 @@ class StackPageController extends State<StackPage> {
         SettingsKeys.defaultCardsPerSessionKey;
     final learningCards = selectedCards.take(cardsPerSession).toList();
     learningCards.shuffle();
-    Navigator.of(context).push(
+    final rerun = await Navigator.of(context).push<bool>(
       MaterialPageRoute(
         builder: (_) {
           switch (sessionType) {
@@ -102,6 +102,7 @@ class StackPageController extends State<StackPage> {
         },
       ),
     );
+    if (rerun == true && mounted) startSession(sessionType);
   }
 
   void editName() async {

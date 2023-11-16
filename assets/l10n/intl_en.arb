@@ -71,5 +71,9 @@
     "openAiApiKeyDescription": "Please enter your OpenAI API key. You can retrieve one from https://platform.openai.com/api-keys.",
     "aiChatBot": "AI chat bot",
     "aiBotName": "Bot",
-    "yourAnswer": "Deine Antwort"
+    "yourAnswer": "Deine Antwort",
+    "markAllCardsAsLearned": "Mark all cards as “learned”?",
+    "nextCards": "Next cards",
+    "no": "No",
+    "tryAgain": "Try again"
 }

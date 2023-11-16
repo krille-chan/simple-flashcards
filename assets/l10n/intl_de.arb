@@ -70,5 +70,8 @@
     "openAiApiKeyDescription": "Bitte gib deinen OpenAI-API-Schlüssel ein. Du kannst einen erhalten auf: https://platform.openai.com/api-keys.",
     "aiChatBot": "K.I. Chat-Bot",
     "aiBotName": "Bot",
-    "yourAnswer": "Deine Antwort"
+    "yourAnswer": "Deine Antwort",
+    "markAllCardsAsLearned": "Alle Karten als “gelernt” markieren?",
+    "nextCards": "Nächste",
+    "no": "Nein"
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
@@ -33,6 +34,8 @@ class AiSessionPageController extends State<AiSessionPage> {
   late final OpenAI openAI;
 
   final TextEditingController textEditingController = TextEditingController();
+
+  Object? error;
 
   // ignore: unused_field
   Timer? _animationTimer;
@@ -70,6 +73,7 @@ class AiSessionPageController extends State<AiSessionPage> {
     if (prompt != null && prompt.isEmpty) return;
 
     setState(() {
+      error = null;
       botIsTyping = true;
       if (prompt != null) {
         messages.add(Messages(role: Role.user, content: prompt));
@@ -114,19 +118,37 @@ class AiSessionPageController extends State<AiSessionPage> {
       });
     } catch (e) {
       setState(() {
-        messages.add(
-          Messages(
-            role: Role.assistant,
-            content: e.toString(),
-          ),
-        );
+        error = e;
       });
-      rethrow;
     } finally {
       setState(() {
         botIsTyping = false;
       });
     }
+  }
+
+  void endSession(bool startNextSession) async {
+    final consent = await showOkCancelAlertDialog(
+      context: context,
+      title: L10n.of(context)!.markAllCardsAsLearned,
+      okLabel: L10n.of(context)!.yes,
+      cancelLabel: L10n.of(context)!.no,
+    );
+    if (consent == OkCancelResult.ok) {
+      if (!mounted) return;
+      final simpleFlashcards = SimpleFlashcards.of(context);
+      for (final card in widget.flashCards) {
+        if (!card.canLevelUp) continue;
+        await simpleFlashcards.editCardLevel(
+          widget.stackName,
+          card.id,
+          card.level < 10 ? card.level + 1 : card.level,
+        );
+      }
+    }
+
+    if (!mounted) return;
+    Navigator.of(context).pop<bool>(startNextSession);
   }
 
   @override

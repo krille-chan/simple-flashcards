@@ -16,6 +16,13 @@ class AiSessionPageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(L10n.of(context)!.aiChatBot),
+        leading: BackButton(onPressed: () => controller.endSession(false)),
+        actions: [
+          TextButton(
+            onPressed: () => controller.endSession(true),
+            child: Text(L10n.of(context)!.nextCards),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -86,6 +93,23 @@ class AiSessionPageView extends StatelessWidget {
                         );
                       }),
                 ],
+              ),
+            ),
+          if (controller.error != null)
+            ListTile(
+              leading: Icon(
+                Icons.error_outlined,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              title: Text(
+                L10n.of(context)!.oopsSomethingWentWrong,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+              trailing: OutlinedButton(
+                onPressed: controller.generateAiMessage,
+                child: Text(L10n.of(context)!.tryAgain),
               ),
             ),
           Padding(
