@@ -1,0 +1,39 @@
+name: Main Deploy Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: main_deploy
+  cancel-in-progress: true
+
+jobs:
+  build_apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cat .github/workflows/versions.env >> $GITHUB_ENV
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+      - name: Prepare signing keys
+        working-directory: android
+        run: |
+          echo ${{ secrets.ANDROID_SIGNING_KEY }} | base64 --decode --ignore-garbage > key.jks
+          echo "storePassword=${{ secrets.ANDROID_SIGNING_KEY_PASS }}" >> key.properties
+          echo "keyPassword=${{ secrets.ANDROID_SIGNING_KEY_PASS }}" >> key.properties
+          echo "keyAlias=key" >> key.properties
+          echo "storeFile=../key.jks" >> key.properties
+      - run: flutter pub get
+      - run: flutter build apk --debug
+      - name: Uploading artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.apk
+          path: build/app/outputs/apk/debug/app-release.apk
+          retention-days: 1
