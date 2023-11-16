@@ -16,5 +16,7 @@ the user the following flashcards.
 Ask the user only one question about one card per message. You can be creative
 and create little tasks and puzzles to teach the cards.
 Try to keep your messages short.
+When the user gave you an answer, directly proceed with the next question.
+Do not talk about other topics.
 ''';
 }

@@ -91,9 +91,9 @@ class AiSessionPageView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
-              readOnly: controller.botIsTyping,
               controller: controller.textEditingController,
-              onSubmitted: controller.generateAiMessage,
+              onSubmitted:
+                  controller.botIsTyping ? null : controller.generateAiMessage,
               autofocus: true,
               textInputAction: TextInputAction.send,
               decoration: InputDecoration(
@@ -102,9 +102,11 @@ class AiSessionPageView extends StatelessWidget {
                 hintText: L10n.of(context)!.yourAnswer,
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.send_outlined),
-                  onPressed: () => controller.generateAiMessage(
-                    controller.textEditingController.text,
-                  ),
+                  onPressed: controller.botIsTyping
+                      ? null
+                      : () => controller.generateAiMessage(
+                            controller.textEditingController.text,
+                          ),
                 ),
               ),
             ),

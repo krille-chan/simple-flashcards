@@ -98,7 +98,6 @@ class AiSessionPageController extends State<AiSessionPage> {
             ...messages,
           ],
           model: GptTurboChatModel(),
-          temperature: 1.5,
           maxToken: null,
         ),
       );
