@@ -28,8 +28,8 @@ jobs:
           ANDROID_SIGNING_KEY_PASS: ${{ secrets.ANDROID_SIGNING_KEY_PASS }}
         run: |
           echo $ANDROID_SIGNING_KEY | base64 --decode --ignore-garbage > key.jks
-          echo "storePassword=${ ANDROID_SIGNING_KEY_PASS }" >> key.properties
-          echo "keyPassword=${ ANDROID_SIGNING_KEY_PASS }" >> key.properties
+          echo "storePassword=${ANDROID_SIGNING_KEY_PASS}" >> key.properties
+          echo "keyPassword=${ANDROID_SIGNING_KEY_PASS}" >> key.properties
           echo "keyAlias=key" >> key.properties
           echo "storeFile=../key.jks" >> key.properties
       - run: flutter pub get
