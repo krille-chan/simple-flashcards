@@ -27,7 +27,7 @@ class SessionPageController extends State<SessionPage> {
 
   bool flipped = false;
 
-  void flip() async {
+  Future<void> flip() async {
     await flipCardcontroller.toggleCard();
     setState(() {
       flipped = !flipped;
@@ -77,11 +77,11 @@ class SessionPageController extends State<SessionPage> {
         card.level < 10 ? card.level + 1 : card.level,
       );
     }
+    await flip();
     cards.removeAt(0);
     await _audioPlayer.setAsset(
         'assets/sounds/${cards.isEmpty ? 'finished' : 'correct'}.mp3');
     _audioPlayer.play();
-    flip();
     _readFrontOnStart();
   }
 
@@ -94,8 +94,8 @@ class SessionPageController extends State<SessionPage> {
         card.level - 1,
       );
     }
+    await flip();
     cards.add(cards.removeAt(0));
-    flip();
     _readFrontOnStart();
   }
 
