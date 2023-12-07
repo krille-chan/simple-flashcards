@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flip_card/flip_card_controller.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
 import 'package:simple_flashcards/config/settings_keys.dart';
@@ -36,6 +37,8 @@ class SessionPageController extends State<SessionPage> {
   static const int maxCards = 10;
 
   final tts = TextToSpeech();
+
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   final FlipCardController flipCardcontroller = FlipCardController();
 
@@ -74,8 +77,10 @@ class SessionPageController extends State<SessionPage> {
         card.level < 10 ? card.level + 1 : card.level,
       );
     }
-
     cards.removeAt(0);
+    _audioPlayer.setAsset(
+        'assets/sounds/${cards.isEmpty ? 'finished' : 'correct'}.mp3');
+    _audioPlayer.play();
     flip();
     _readFrontOnStart();
   }
