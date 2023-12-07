@@ -37,12 +37,24 @@ class SessionPageView extends StatelessWidget {
                     ElevatedButton.icon(
                       onPressed: controller.repeatAllCards,
                       style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primaryContainer,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      icon: const Icon(Icons.repeat_outlined),
+                      label: Text(L10n.of(context)!.repeatAllCards),
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton.icon(
+                      onPressed: controller.nextCards,
+                      style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor:
                             Theme.of(context).colorScheme.onPrimary,
                       ),
-                      icon: const Icon(Icons.repeat_outlined),
-                      label: Text(L10n.of(context)!.repeatAllCards),
+                      icon: const Icon(Icons.send_outlined),
+                      label: Text(L10n.of(context)!.nextCards),
                     ),
                   ],
                 ),

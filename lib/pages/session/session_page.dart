@@ -78,7 +78,7 @@ class SessionPageController extends State<SessionPage> {
       );
     }
     cards.removeAt(0);
-    _audioPlayer.setAsset(
+    await _audioPlayer.setAsset(
         'assets/sounds/${cards.isEmpty ? 'finished' : 'correct'}.mp3');
     _audioPlayer.play();
     flip();
@@ -105,6 +105,8 @@ class SessionPageController extends State<SessionPage> {
     });
     _readFrontOnStart();
   }
+
+  void nextCards() => Navigator.of(context).pop<bool>(true);
 
   @override
   Widget build(BuildContext context) => SessionPageView(this);
