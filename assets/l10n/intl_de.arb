@@ -47,7 +47,6 @@
         "count": {}
         }
     },
-    "learnDescription": "Tippe nach 👉 rechts, wenn du die Antwort kennst. Tippe nach 👈 links wenn nicht. Tippe 👆 auf die Karte, um sie umzudrehen.",
     "allCardsFinished": "Alle Karten abgeschlossen",
     "repeatAllCards": "Alle Karten wiederholen",
     "repeatNotKnownCards": "Wiederhole {count} nicht gewusste Karten",
@@ -57,8 +56,7 @@
         "count": {}
         }
     },
-    "known": "Gewusst 👉",
-    "notKnown": "👈 Nicht gewusst",
+    "known": "Gewusst",
     "save": "Save",
     "stack": "Stapel",
     "readOutLoudFront": "Vorderseite vorlesen",
@@ -73,5 +71,7 @@
     "yourAnswer": "Deine Antwort",
     "markAllCardsAsLearned": "Alle Karten als “gelernt” markieren?",
     "nextCards": "Nächste",
-    "no": "Nein"
+    "no": "Nein",
+    "repeat": "Wiederholen",
+    "flip": "Umdrehen"
 }

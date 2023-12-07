@@ -16,6 +16,9 @@ ThemeData buildTheme(ColorScheme? scheme, bool isLight) => ThemeData(
       ),
       colorSchemeSeed: scheme == null ? AppConstants.primaryColor : null,
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(64)),
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size.fromHeight(56),
+          textStyle: const TextStyle(fontSize: 18),
+        ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
 import 'package:simple_flashcards/config/settings_keys.dart';
@@ -22,15 +23,21 @@ class SessionPage extends StatefulWidget {
 
 class SessionPageController extends State<SessionPage> {
   final List<FlashCard> cards = [];
-  final List<FlashCard> notKnownCards = [];
 
   bool flipped = false;
 
-  void flip() => setState(() => flipped = !flipped);
+  void flip() async {
+    await flipCardcontroller.toggleCard();
+    setState(() {
+      flipped = !flipped;
+    });
+  }
 
   static const int maxCards = 10;
 
   final tts = TextToSpeech();
+
+  final FlipCardController flipCardcontroller = FlipCardController();
 
   void _readFrontOnStart() {
     if (SimpleFlashcards.of(context)
@@ -58,7 +65,7 @@ class SessionPageController extends State<SessionPage> {
     _readFrontOnStart();
   }
 
-  void cardKnown() {
+  void cardKnown() async {
     final card = cards[0];
     if (card.canLevelUp) {
       SimpleFlashcards.of(context).editCardLevel(
@@ -67,14 +74,13 @@ class SessionPageController extends State<SessionPage> {
         card.level < 10 ? card.level + 1 : card.level,
       );
     }
-    setState(() {
-      cards.removeAt(0);
-      flipped = false;
-    });
+
+    cards.removeAt(0);
+    flip();
     _readFrontOnStart();
   }
 
-  void cardNotKnown() {
+  void cardNotKnown() async {
     final card = cards[0];
     if (card.level > 0) {
       SimpleFlashcards.of(context).editCardLevel(
@@ -83,24 +89,14 @@ class SessionPageController extends State<SessionPage> {
         card.level - 1,
       );
     }
-    setState(() {
-      notKnownCards.add(cards.removeAt(0));
-      flipped = false;
-    });
+    cards.add(cards.removeAt(0));
+    flip();
     _readFrontOnStart();
   }
 
   void repeatAllCards() {
     setState(() {
       cards.addAll(widget.flashCards);
-    });
-    _readFrontOnStart();
-  }
-
-  void repeatNotKnownCards() {
-    setState(() {
-      cards.addAll(notKnownCards);
-      notKnownCards.clear();
     });
     _readFrontOnStart();
   }

@@ -47,7 +47,6 @@
         "count": {}
         }
     },
-    "learnDescription": "Tap 👉 right if you know the answer or tap 👈 left if not. Tap 👆 on the card to flip it.",
     "allCardsFinished": "All cards finished",
     "repeatAllCards": "Repeat all cards",
     "repeatNotKnownCards": "Repeat {count} not known cards",
@@ -57,8 +56,7 @@
         "count": {}
         }
     },
-    "known": "Known 👉",
-    "notKnown": "👈 Not known",
+    "known": "Known",
     "save": "Save",
     "stack": "Stack",
     "cardsPerSession": "Cards per session",
@@ -75,5 +73,7 @@
     "markAllCardsAsLearned": "Mark all cards as “learned”?",
     "nextCards": "Next cards",
     "no": "No",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "repeat": "Repeat",
+    "flip": "Flip"
 }
