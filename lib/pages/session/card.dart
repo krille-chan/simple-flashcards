@@ -18,7 +18,7 @@ class CardWidget extends StatelessWidget {
       ),
       child: FlipCard(
         controller: controller.flipCardcontroller,
-        side: controller.flipped ? CardSide.BACK : CardSide.FRONT,
+        side: CardSide.FRONT,
         front: FlashCardWidget(
           data: controller.cards.first.front,
           title: L10n.of(context)!.front,
@@ -48,8 +48,12 @@ class FlashCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 10,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(
+            color: Theme.of(context).colorScheme.surfaceVariant,
+          )),
       shadowColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.2),
-      borderRadius: BorderRadius.circular(12),
       clipBehavior: Clip.hardEdge,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -73,7 +77,12 @@ class FlashCardWidget extends StatelessWidget {
                   child: SelectableText(
                     data,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 32),
+                    style: TextStyle(
+                        fontSize: data.length < 16
+                            ? 50
+                            : data.length > 64
+                                ? 24
+                                : 32),
                   ),
                 ),
               ),

@@ -25,15 +25,6 @@ class SessionPage extends StatefulWidget {
 class SessionPageController extends State<SessionPage> {
   final List<FlashCard> cards = [];
 
-  bool flipped = false;
-
-  Future<void> flip() async {
-    await flipCardcontroller.toggleCard();
-    setState(() {
-      flipped = !flipped;
-    });
-  }
-
   static const int maxCards = 10;
 
   final tts = TextToSpeech();
@@ -68,7 +59,7 @@ class SessionPageController extends State<SessionPage> {
     _readFrontOnStart();
   }
 
-  void cardKnown() async {
+  void cardKnown() {
     final card = cards[0];
     if (card.canLevelUp) {
       SimpleFlashcards.of(context).editCardLevel(
@@ -77,15 +68,28 @@ class SessionPageController extends State<SessionPage> {
         card.level < 10 ? card.level + 1 : card.level,
       );
     }
-    await flip();
-    cards.removeAt(0);
-    await _audioPlayer.setAsset(
-        'assets/sounds/${cards.isEmpty ? 'finished' : 'correct'}.mp3');
-    _audioPlayer.play();
+    if (flipCardcontroller.state?.isFront == false) {
+      flipCardcontroller.toggleCardWithoutAnimation();
+    }
+    setState(() {
+      cards.removeAt(0);
+    });
+    _playSound();
     _readFrontOnStart();
   }
 
-  void cardNotKnown() async {
+  void _playSound() async {
+    try {
+      await _audioPlayer.setAsset(
+          'assets/sounds/${cards.isEmpty ? 'finished' : 'correct'}.mp3');
+      await _audioPlayer.play();
+    } catch (e, s) {
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+    }
+  }
+
+  void cardNotKnown() {
     final card = cards[0];
     if (card.level > 0) {
       SimpleFlashcards.of(context).editCardLevel(
@@ -94,8 +98,12 @@ class SessionPageController extends State<SessionPage> {
         card.level - 1,
       );
     }
-    await flip();
-    cards.add(cards.removeAt(0));
+    if (flipCardcontroller.state?.isFront == false) {
+      flipCardcontroller.toggleCardWithoutAnimation();
+    }
+    setState(() {
+      cards.add(cards.removeAt(0));
+    });
     _readFrontOnStart();
   }
 

@@ -67,50 +67,31 @@ class SessionPageView extends StatelessWidget {
                       child: CardWidget(controller),
                     ),
                   ),
-                  if (controller.flipped) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: ElevatedButton.icon(
-                        onPressed: controller.cardNotKnown,
-                        icon: const Icon(Icons.repeat_outlined),
-                        label: Text(L10n.of(context)!.repeat),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.onPrimary,
-                        ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton.icon(
+                      onPressed: controller.cardNotKnown,
+                      icon: const Icon(Icons.repeat_outlined),
+                      label: Text(L10n.of(context)!.repeat),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ElevatedButton.icon(
-                        onPressed: controller.cardKnown,
-                        icon: const Icon(Icons.check_outlined),
-                        label: Text(L10n.of(context)!.known),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.white,
-                        ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ElevatedButton.icon(
+                      onPressed: controller.cardKnown,
+                      icon: const Icon(Icons.check_outlined),
+                      label: Text(L10n.of(context)!.known),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
                       ),
                     ),
-                  ] else ...[
-                    const SizedBox(height: 56),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ElevatedButton.icon(
-                        onPressed: controller.flip,
-                        icon: const Icon(Icons.navigate_next),
-                        label: Text(L10n.of(context)!.flip),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
-                  ]
+                  ),
                 ],
               ),
       ),
