@@ -107,6 +107,7 @@ class SimpleFlashcards {
     String stackName,
     String front,
     String back, {
+    required String? hint,
     int? level,
     DateTime? lastLevelUp,
   }) async {
@@ -117,6 +118,7 @@ class SimpleFlashcards {
     stack.cards.add(FlashCard(
       front: front,
       back: back,
+      hint: hint,
       selected: true,
       id: id,
       level: level ?? 0,
@@ -139,6 +141,7 @@ class SimpleFlashcards {
       front: newFront,
       back: card.back,
       id: card.id,
+      hint: card.hint,
       selected: card.selected,
       level: card.level,
       lastLevelUp: card.lastLevelUp,
@@ -154,6 +157,23 @@ class SimpleFlashcards {
       front: card.front,
       back: newBack,
       id: card.id,
+      hint: card.hint,
+      selected: card.selected,
+      level: card.level,
+      lastLevelUp: card.lastLevelUp,
+    ));
+    await stacksBox.put(stackName, stack.toJson());
+  }
+
+  Future<void> editCardHint(String stackName, int id, String? newHint) async {
+    final stack = getStack(stackName)!;
+    final card = stack.cards.singleWhere((card) => card.id == id);
+    stack.cards.removeWhere((card) => card.id == id);
+    stack.cards.add(FlashCard(
+      front: card.front,
+      back: card.back,
+      id: card.id,
+      hint: newHint,
       selected: card.selected,
       level: card.level,
       lastLevelUp: card.lastLevelUp,
@@ -168,6 +188,7 @@ class SimpleFlashcards {
     stack.cards.add(FlashCard(
       front: card.front,
       back: card.back,
+      hint: card.hint,
       id: card.id,
       selected: selected,
       level: card.level,
@@ -183,6 +204,7 @@ class SimpleFlashcards {
     stack.cards.add(FlashCard(
       front: card.front,
       back: card.back,
+      hint: card.hint,
       id: card.id,
       selected: card.selected,
       level: level,
@@ -211,6 +233,7 @@ class SimpleFlashcards {
       if (cardRow.length < 2) continue;
       final front = cardRow.first;
       final back = cardRow[1];
+      final hint = cardRow.length < 3 ? null : cardRow[2];
       final level = cardRow.length > 2 ? int.tryParse(cardRow[2]) : null;
       final lastLevelUpMilliSeconds =
           cardRow.length > 3 ? int.tryParse(cardRow[3]) : null;
@@ -222,6 +245,7 @@ class SimpleFlashcards {
         name,
         front,
         back,
+        hint: hint,
         level: level,
         lastLevelUp: lastLevelUp,
       );

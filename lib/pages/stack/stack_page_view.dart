@@ -116,6 +116,7 @@ class StackPageView extends StatelessWidget {
                   }
                   i--;
                   final card = controller.cards[i];
+                  final hint = card.hint;
                   if (controller.searchTerm?.isNotEmpty == true &&
                       !(card.front
                               .toLowerCase()
@@ -172,6 +173,11 @@ class StackPageView extends StatelessWidget {
                                 card.back,
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
+                              if (hint != null && hint.isNotEmpty)
+                                Text(
+                                  '${L10n.of(context)!.hint}: $hint',
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
                             ],
                           ),
                         ),

@@ -3,6 +3,7 @@ import 'dart:math';
 class FlashCard {
   final String front;
   final String back;
+  final String? hint;
   final bool selected;
   final int id;
   final int level;
@@ -13,6 +14,7 @@ class FlashCard {
     required this.front,
     required this.back,
     required this.selected,
+    required this.hint,
     this.level = 0,
     this.lastLevelUp,
   });
@@ -20,6 +22,7 @@ class FlashCard {
   factory FlashCard.fromJson(Map<String, dynamic> json) => FlashCard(
         front: json['front'],
         back: json['back'],
+        hint: json['hint'],
         selected: json['selected'],
         id: json['id'],
         level: json['level'] ?? 0,
@@ -32,6 +35,7 @@ class FlashCard {
         'front': front,
         'back': back,
         'selected': selected,
+        if (hint != null) 'hint': hint,
         'id': id,
         'level': level,
         if (lastLevelUp != null)

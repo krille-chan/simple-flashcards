@@ -26,6 +26,7 @@ class CardWidget extends StatelessWidget {
         ),
         back: FlashCardWidget(
           data: controller.cards.first.back,
+          hint: controller.cards.first.hint,
           title: L10n.of(context)!.back,
           readFront: controller.readFront,
         ),
@@ -37,15 +38,18 @@ class CardWidget extends StatelessWidget {
 class FlashCardWidget extends StatelessWidget {
   final String data;
   final String title;
+  final String? hint;
   final void Function() readFront;
   const FlashCardWidget(
       {required this.data,
       required this.title,
       required this.readFront,
+      this.hint,
       super.key});
 
   @override
   Widget build(BuildContext context) {
+    final hint = this.hint;
     return Material(
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -73,17 +77,28 @@ class FlashCardWidget extends StatelessWidget {
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  child: SelectableText(
-                    data,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: data.length < 16
-                            ? 50
-                            : data.length > 64
-                                ? 24
-                                : 32),
-                  ),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    SelectableText(
+                      data,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: data.length < 16
+                              ? 50
+                              : data.length > 64
+                                  ? 24
+                                  : 32),
+                    ),
+                    if (hint != null && hint.isNotEmpty) ...[
+                      const Divider(),
+                      SelectableText(
+                        '${L10n.of(context)!.hint}: $hint',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ),

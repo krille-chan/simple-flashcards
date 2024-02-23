@@ -75,5 +75,6 @@
     "no": "No",
     "tryAgain": "Try again",
     "repeat": "Repeat",
-    "flip": "Flip"
+    "flip": "Flip",
+    "hint": "Hint"
 }

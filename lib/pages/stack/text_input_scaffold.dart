@@ -17,6 +17,7 @@ class _TextInputScaffoldState extends State<TextInputScaffold> {
   void initState() {
     _frontController.text = widget.flashCard?.front ?? '';
     _backController.text = widget.flashCard?.back ?? '';
+    _hintController.text = widget.flashCard?.hint ?? '';
     super.initState();
   }
 
@@ -38,6 +39,7 @@ class _TextInputScaffoldState extends State<TextInputScaffold> {
         id: widget.flashCard?.id ?? 0,
         front: _frontController.text,
         back: _backController.text,
+        hint: _hintController.text.isEmpty ? '' : _hintController.text,
         selected: true,
         level: widget.flashCard?.level ?? 0,
         lastLevelUp: widget.flashCard?.lastLevelUp,
@@ -48,6 +50,8 @@ class _TextInputScaffoldState extends State<TextInputScaffold> {
   final TextEditingController _frontController = TextEditingController();
 
   final TextEditingController _backController = TextEditingController();
+
+  final TextEditingController _hintController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +79,16 @@ class _TextInputScaffoldState extends State<TextInputScaffold> {
             _FlashCardTextField(
               controller: _backController,
               hintText: L10n.of(context)!.back,
+            ),
+            const SizedBox(height: spacing),
+            TextField(
+              controller: _hintController,
+              keyboardType: TextInputType.text,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                hintText: L10n.of(context)!.hint,
+                border: const OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: spacing),
             ElevatedButton.icon(

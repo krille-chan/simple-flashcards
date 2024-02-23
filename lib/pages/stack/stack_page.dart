@@ -153,6 +153,7 @@ class StackPageController extends State<StackPage> {
       widget.stackName,
       newCard.front,
       newCard.back,
+      hint: newCard.hint,
     );
   }
 
@@ -205,6 +206,14 @@ class StackPageController extends State<StackPage> {
         widget.stackName,
         card.id,
         editedCard.back,
+      );
+    }
+
+    if (editedCard.hint != card.hint) {
+      simpleFlashcards.editCardHint(
+        widget.stackName,
+        card.id,
+        editedCard.hint,
       );
     }
   }
