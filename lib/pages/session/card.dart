@@ -93,9 +93,9 @@ class FlashCardWidget extends StatelessWidget {
                     if (hint != null && hint.isNotEmpty) ...[
                       const Divider(),
                       SelectableText(
-                        '${L10n.of(context)!.hint}: $hint',
+                        hint,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 14),
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ],
                   ],
