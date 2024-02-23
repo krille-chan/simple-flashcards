@@ -49,13 +49,6 @@ class StackPageView extends StatelessWidget {
               child: const Icon(Icons.school_outlined),
             ),
           ],
-          const SizedBox(height: 16),
-          FloatingActionButton(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            foregroundColor: Theme.of(context).colorScheme.onSecondary,
-            onPressed: controller.addFlashCard,
-            child: const Icon(Icons.add_outlined),
-          ),
         ],
       ),
       body: SafeArea(
@@ -105,9 +98,23 @@ class StackPageView extends StatelessWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: controller.cards.length,
+                itemCount: controller.cards.length + 1,
                 padding: const EdgeInsets.only(bottom: 32),
                 itemBuilder: (_, i) {
+                  if (i == 0) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: SizedBox(
+                        height: 42,
+                        child: OutlinedButton.icon(
+                          onPressed: controller.addFlashCard,
+                          icon: const Icon(Icons.add_outlined),
+                          label: Text(L10n.of(context)!.addNewFlashCard),
+                        ),
+                      ),
+                    );
+                  }
+                  i--;
                   final card = controller.cards[i];
                   if (controller.searchTerm?.isNotEmpty == true &&
                       !(card.front
