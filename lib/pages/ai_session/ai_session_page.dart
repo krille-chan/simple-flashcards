@@ -92,7 +92,7 @@ class AiSessionPageController extends State<AiSessionPage> {
             Messages(
               role: Role.system,
               content:
-                  '# Flashcard stack:\n\n"${widget.stackName}"\n${widget.flashCards.map((card) => 'Front: "${card.front}" Back: "${card.back}"').join('\n')}',
+                  '# Flashcard stack:\n\n"${widget.stackName}"\n${widget.flashCards.map((card) => 'Front: "${card.front}" Back: "${card.back}" Hint: "${card.hint}"').join('\n')}',
             ),
             Messages(
               role: Role.system,
