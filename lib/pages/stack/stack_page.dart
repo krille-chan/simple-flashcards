@@ -72,7 +72,8 @@ class StackPageController extends State<StackPage> {
       SimpleFlashcards.of(context).exportStack(widget.stackName);
 
   void startSession(SessionType sessionType) async {
-    final selectedCards = cards.where((card) => card.selected).toList();
+    final selectedCards =
+        List<FlashCard>.from(cards.where((card) => card.selected))..shuffle();
     selectedCards.sort((a, b) => a.canLevelUp && b.canLevelUp
         ? b.level.compareTo(a.level)
         : a.canLevelUp
