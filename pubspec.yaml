@@ -15,7 +15,7 @@ dependencies:
   provider: ^6.1.2
   hive_flutter: ^1.1.0
   package_info: ^2.0.2
-  url_launcher: ^6.2.1
+  url_launcher: ^6.2.6
   dynamic_color: ^1.7.0
   fast_csv: ^0.2.10
   emoji_picker_flutter: ^2.1.0
