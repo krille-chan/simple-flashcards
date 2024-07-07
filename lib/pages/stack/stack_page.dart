@@ -73,7 +73,7 @@ class StackPageController extends State<StackPage> {
 
   void startSession(SessionType sessionType) async {
     final selectedCards =
-        List<FlashCard>.from(cards.where((card) => card.selected))..shuffle();
+        List<FlashCard>.from(cards.where((card) => card.selected));
     selectedCards.sort((a, b) => a.canLevelUp && b.canLevelUp
         ? b.level.compareTo(a.level)
         : a.canLevelUp

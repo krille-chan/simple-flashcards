@@ -96,16 +96,17 @@ class HomePageView extends StatelessWidget {
                                   .toString(),
                             ),
                           ),
-                          LinearProgressIndicator(
-                            color: Colors.green,
-                            minHeight: 8,
-                            borderRadius: BorderRadius.circular(7),
-                            value: 1 -
-                                (stack.cards
-                                        .where((card) => card.canLevelUp)
-                                        .length /
-                                    stack.cards.length),
-                          ),
+                          if (stack.cards.isNotEmpty)
+                            LinearProgressIndicator(
+                              color: Colors.green,
+                              minHeight: 8,
+                              borderRadius: BorderRadius.circular(7),
+                              value: 1 -
+                                  (stack.cards
+                                          .where((card) => card.canLevelUp)
+                                          .length /
+                                      stack.cards.length),
+                            ),
                         ],
                       ),
                       onTap: () => controller.goToStack(stack.name),
