@@ -25,9 +25,13 @@ class SessionPage extends StatefulWidget {
 class SessionPageController extends State<SessionPage> {
   final List<FlashCard> cards = [];
 
+  final TextEditingController anserTextController = TextEditingController();
+
   static const int maxCards = 10;
 
   final tts = TextToSpeech();
+
+  bool wrongTypeAnswer = false;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
 
@@ -59,6 +63,34 @@ class SessionPageController extends State<SessionPage> {
     _readFrontOnStart();
   }
 
+  bool get typeAnswer =>
+      SimpleFlashcards.of(context)
+          .preferences
+          .getBool(SettingsKeys.typeAnswer) ??
+      false;
+
+  void checkTypeAnswer() {
+    final input = anserTextController.text
+        .trim()
+        .toLowerCase()
+        .replaceAll(' ', '')
+        .replaceAll('\n', '');
+    final correctAnswer = cards[0]
+        .back
+        .trim()
+        .toLowerCase()
+        .replaceAll(' ', '')
+        .replaceAll('\n', '');
+    if (input != correctAnswer) {
+      setState(() {
+        wrongTypeAnswer = true;
+      });
+      return;
+    }
+
+    cardKnown();
+  }
+
   void cardKnown() {
     final card = cards[0];
     if (card.canLevelUp) {
@@ -73,6 +105,7 @@ class SessionPageController extends State<SessionPage> {
     }
     setState(() {
       cards.removeAt(0);
+      wrongTypeAnswer = false;
     });
     _playSound();
     _readFrontOnStart();
@@ -103,6 +136,7 @@ class SessionPageController extends State<SessionPage> {
     }
     setState(() {
       cards.add(cards.removeAt(0));
+      wrongTypeAnswer = false;
     });
     _readFrontOnStart();
   }

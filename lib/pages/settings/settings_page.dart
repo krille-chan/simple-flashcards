@@ -78,6 +78,13 @@ class SettingsPageController extends State<SettingsPage> {
     setState(() {});
   }
 
+  void setTypeAnswer(bool enable) async {
+    await SimpleFlashcards.of(context)
+        .preferences
+        .setBool(SettingsKeys.typeAnswer, enable);
+    setState(() {});
+  }
+
   void setopenAiApiKey(bool enable) async {
     final preferences = SimpleFlashcards.of(context).preferences;
     if (!enable) {
@@ -117,6 +124,12 @@ class SettingsPageController extends State<SettingsPage> {
           .preferences
           .getString(SettingsKeys.openAiApiKey) !=
       null;
+
+  bool get typeAnswer =>
+      SimpleFlashcards.of(context)
+          .preferences
+          .getBool(SettingsKeys.typeAnswer) ??
+      false;
 
   bool get isTextToSpeechEnabled =>
       SimpleFlashcards.of(context)

@@ -74,5 +74,6 @@
     "no": "Nein",
     "repeat": "Wiederholen",
     "flip": "Umdrehen",
-    "hint": "Hinweis"
+    "hint": "Hinweis",
+    "typeAnswer": "Antwort eintippen"
 }

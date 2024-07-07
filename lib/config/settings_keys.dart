@@ -3,5 +3,6 @@ abstract class SettingsKeys {
   static const String enableTextToSpeechKey = 'enable_text_to_speach';
   static const String textToSpeechLanguageKey = 'text_to_speech_language';
   static const String openAiApiKey = 'open_ai_api_key';
+  static const String typeAnswer = 'type_answer';
   static const int defaultCardsPerSessionKey = 10;
 }

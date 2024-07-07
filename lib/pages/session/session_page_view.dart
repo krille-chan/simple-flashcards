@@ -80,18 +80,46 @@ class SessionPageView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ElevatedButton.icon(
-                      onPressed: controller.cardKnown,
-                      icon: const Icon(Icons.check_outlined),
-                      label: Text(L10n.of(context)!.known),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
+                  if (controller.typeAnswer)
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextField(
+                        maxLines: 1,
+                        autofocus: true,
+                        onSubmitted: (_) => controller.checkTypeAnswer,
+                        controller: controller.anserTextController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(90),
+                            borderSide: controller.wrongTypeAnswer
+                                ? const BorderSide(width: 1)
+                                : BorderSide.none,
+                          ),
+                          hintText: L10n.of(context)!.typeAnswer,
+                          filled: true,
+                          error: controller.wrongTypeAnswer
+                              ? const SizedBox.shrink()
+                              : null,
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.send_outlined),
+                            onPressed: controller.checkTypeAnswer,
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ElevatedButton.icon(
+                        onPressed: controller.cardKnown,
+                        icon: const Icon(Icons.check_outlined),
+                        label: Text(L10n.of(context)!.known),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
       ),

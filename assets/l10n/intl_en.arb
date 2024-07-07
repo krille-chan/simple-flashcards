@@ -76,5 +76,6 @@
     "tryAgain": "Try again",
     "repeat": "Repeat",
     "flip": "Flip",
-    "hint": "Hint"
+    "hint": "Hint",
+    "typeAnswer": "Type answer"
 }

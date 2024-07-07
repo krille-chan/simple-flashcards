@@ -50,6 +50,13 @@ class SettingsPageView extends StatelessWidget {
             secondary: const Icon(Icons.volume_up_outlined),
           ),
           SwitchListTile.adaptive(
+            value: controller.typeAnswer,
+            onChanged: controller.setTypeAnswer,
+            title: Text(L10n.of(context)!.typeAnswer),
+            controlAffinity: ListTileControlAffinity.trailing,
+            secondary: const Icon(Icons.keyboard_alt_outlined),
+          ),
+          SwitchListTile.adaptive(
             secondary: const Icon(Icons.smart_toy_outlined),
             title: Text(L10n.of(context)!.enableAiChatLearning),
             onChanged: (enable) => controller.setopenAiApiKey(enable),
