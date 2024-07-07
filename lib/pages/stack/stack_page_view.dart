@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-
 import 'package:simple_flashcards/config/settings_keys.dart';
+
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/stack/stack_page.dart';
 
@@ -43,6 +43,8 @@ class StackPageView extends StatelessWidget {
           ),
           title: Text(
             name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -118,6 +120,7 @@ class StackPageView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(90),
                   ),
                   filled: true,
+                  fillColor: Theme.of(context).colorScheme.surfaceContainer,
                   prefixIcon: const Icon(Icons.search_outlined),
                   hintText: L10n.of(context)!.search,
                 ),
@@ -133,7 +136,6 @@ class StackPageView extends StatelessWidget {
                       vertical: 6.0,
                     ),
                     child: Card(
-                      color: Theme.of(context).colorScheme.surfaceBright,
                       elevation: 4,
                       clipBehavior: Clip.hardEdge,
                       shadowColor:
@@ -171,7 +173,6 @@ class StackPageView extends StatelessWidget {
                       vertical: 6.0,
                     ),
                     child: Card(
-                      color: Theme.of(context).colorScheme.surfaceBright,
                       elevation: 4,
                       clipBehavior: Clip.hardEdge,
                       shadowColor:

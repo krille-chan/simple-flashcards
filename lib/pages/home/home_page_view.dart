@@ -62,7 +62,6 @@ class HomePageView extends StatelessWidget {
                     vertical: 6.0,
                   ),
                   child: Card(
-                    color: Theme.of(context).colorScheme.surfaceBright,
                     elevation: 4,
                     shadowColor:
                         Theme.of(context).colorScheme.onSurface.withAlpha(64),
