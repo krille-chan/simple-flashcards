@@ -26,6 +26,7 @@ class SessionPageController extends State<SessionPage> {
   final List<FlashCard> cards = [];
 
   final TextEditingController anserTextController = TextEditingController();
+  final FocusNode answerFocusNode = FocusNode();
 
   static const int maxCards = 10;
 
@@ -91,7 +92,7 @@ class SessionPageController extends State<SessionPage> {
     cardKnown();
   }
 
-  void cardKnown() {
+  void cardKnown() async {
     final card = cards[0];
     if (card.canLevelUp) {
       SimpleFlashcards.of(context).editCardLevel(
@@ -100,14 +101,18 @@ class SessionPageController extends State<SessionPage> {
         card.level < 10 ? card.level + 1 : card.level,
       );
     }
-    if (flipCardcontroller.state?.isFront == false) {
-      flipCardcontroller.toggleCardWithoutAnimation();
+    if (flipCardcontroller.state?.isFront != false) {
+      flipCardcontroller.toggleCard();
     }
+    _playSound();
+    await Future.delayed(const Duration(seconds: 2));
+
+    flipCardcontroller.toggleCardWithoutAnimation();
     setState(() {
       cards.removeAt(0);
       wrongTypeAnswer = false;
+      anserTextController.clear();
     });
-    _playSound();
     _readFrontOnStart();
   }
 
@@ -137,6 +142,7 @@ class SessionPageController extends State<SessionPage> {
     setState(() {
       cards.add(cards.removeAt(0));
       wrongTypeAnswer = false;
+      anserTextController.clear();
     });
     _readFrontOnStart();
   }

@@ -85,8 +85,13 @@ class SessionPageView extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: TextField(
                         maxLines: 1,
+                        focusNode: controller.answerFocusNode,
                         autofocus: true,
-                        onSubmitted: (_) => controller.checkTypeAnswer,
+                        textInputAction: TextInputAction.done,
+                        onSubmitted: (_) {
+                          controller.answerFocusNode.requestFocus();
+                          controller.checkTypeAnswer();
+                        },
                         controller: controller.anserTextController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
