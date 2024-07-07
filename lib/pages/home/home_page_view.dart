@@ -63,8 +63,9 @@ class HomePageView extends StatelessWidget {
                     clipBehavior: Clip.hardEdge,
                     child: ListTile(
                       leading: CircleAvatar(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.surfaceVariant,
+                        backgroundColor: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest,
                         child: emoji == null
                             ? const Icon(CupertinoIcons.square_stack_fill)
                             : Text(

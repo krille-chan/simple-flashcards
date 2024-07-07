@@ -55,9 +55,9 @@ class FlashCardWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
-            color: Theme.of(context).colorScheme.surfaceVariant,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
           )),
-      shadowColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.2),
+      shadowColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
       clipBehavior: Clip.hardEdge,
       child: Column(
         mainAxisSize: MainAxisSize.min,

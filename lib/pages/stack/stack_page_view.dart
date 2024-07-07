@@ -56,7 +56,8 @@ class StackPageView extends StatelessWidget {
           children: [
             ListTile(
               leading: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                backgroundColor:
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
                 child: emoji == null
                     ? const Icon(CupertinoIcons.square_stack_fill)
                     : Text(
@@ -144,11 +145,9 @@ class StackPageView extends StatelessWidget {
                                   value: card.level / 10,
                                   color: card.selected && card.canLevelUp
                                       ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context)
-                                          .colorScheme
-                                          .onBackground,
+                                      : Theme.of(context).colorScheme.onSurface,
                                   backgroundColor:
-                                      Theme.of(context).colorScheme.background,
+                                      Theme.of(context).colorScheme.surface,
                                 ),
                                 if (card.selected)
                                   Icon(
