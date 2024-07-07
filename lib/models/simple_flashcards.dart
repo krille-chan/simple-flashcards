@@ -229,7 +229,7 @@ class SimpleFlashcards {
 
     await createStack(name);
 
-    for (final cardRow in rows) {
+    for (final cardRow in rows.reversed) {
       if (cardRow.length < 2) continue;
       final front = cardRow.first;
       final back = cardRow[1];

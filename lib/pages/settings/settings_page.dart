@@ -52,7 +52,7 @@ class SettingsPageController extends State<SettingsPage> {
         picked.files.first.bytes!,
         allowMalformed: true,
       );
-      simpleFlashcards.importFromCsv(
+      await simpleFlashcards.importFromCsv(
         picked.files.first.name.split('.').first,
         data,
       );
