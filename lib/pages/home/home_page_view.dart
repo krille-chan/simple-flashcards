@@ -47,6 +47,9 @@ class HomePageView extends StatelessWidget {
               ),
             )
           : ReorderableListView.builder(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+              ),
               buildDefaultDragHandles: false,
               onReorder: controller.onReorder,
               itemCount: controller.stacks.length,
@@ -56,10 +59,13 @@ class HomePageView extends StatelessWidget {
                 return Padding(
                   key: Key(stack.name),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
                     vertical: 6.0,
                   ),
                   child: Card(
+                    color: Theme.of(context).colorScheme.surfaceBright,
+                    elevation: 4,
+                    shadowColor:
+                        Theme.of(context).colorScheme.onSurface.withAlpha(64),
                     clipBehavior: Clip.hardEdge,
                     child: ListTile(
                       leading: CircleAvatar(
@@ -78,14 +84,30 @@ class HomePageView extends StatelessWidget {
                         child: const Icon(Icons.drag_handle),
                       ),
                       title: Text(stack.name),
-                      subtitle: Text(
-                        L10n.of(context)!.countCards(
-                          stack.cards.length.toString(),
-                          stack.cards
-                              .where((card) => card.canLevelUp)
-                              .length
-                              .toString(),
-                        ),
+                      subtitle: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            L10n.of(context)!.countCards(
+                              stack.cards.length.toString(),
+                              stack.cards
+                                  .where((card) => card.canLevelUp)
+                                  .length
+                                  .toString(),
+                            ),
+                          ),
+                          LinearProgressIndicator(
+                            color: Colors.green,
+                            minHeight: 8,
+                            borderRadius: BorderRadius.circular(7),
+                            value: 1 -
+                                (stack.cards
+                                        .where((card) => card.canLevelUp)
+                                        .length /
+                                    stack.cards.length),
+                          ),
+                        ],
                       ),
                       onTap: () => controller.goToStack(stack.name),
                     ),
