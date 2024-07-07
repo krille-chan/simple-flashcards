@@ -1,11 +1,10 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:simple_flashcards/config/settings_keys.dart';
 
+import 'package:simple_flashcards/config/settings_keys.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/stack/stack_page.dart';
 
@@ -16,7 +15,6 @@ class StackPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final name = controller.widget.stackName;
-    final emoji = SimpleFlashcards.of(context).getStack(name)?.emoji;
     final cardsPerSession = SimpleFlashcards.of(context)
             .preferences
             .getInt(SettingsKeys.cardsPerSessionKey) ??
