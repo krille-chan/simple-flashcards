@@ -31,16 +31,6 @@ class StackPageView extends StatelessWidget {
         titleSpacing: 0,
         title: ListTile(
           contentPadding: EdgeInsets.zero,
-          leading: CircleAvatar(
-            backgroundColor:
-                Theme.of(context).colorScheme.surfaceContainerHighest,
-            child: emoji == null
-                ? const Icon(CupertinoIcons.square_stack_fill)
-                : Text(
-                    emoji,
-                    style: const TextStyle(fontSize: 28),
-                  ),
-          ),
           title: Text(
             name,
             maxLines: 1,
@@ -54,6 +44,8 @@ class StackPageView extends StatelessWidget {
               controller.cards.length.toString(),
               cardsToLearn.toString(),
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(fontSize: 12),
           ),
           trailing: IconButton(
