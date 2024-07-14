@@ -129,7 +129,7 @@ class StackPageView extends StatelessWidget {
                       elevation: 4,
                       clipBehavior: Clip.hardEdge,
                       shadowColor:
-                          Theme.of(context).colorScheme.onSurface.withAlpha(64),
+                          Theme.of(context).colorScheme.surface.withAlpha(64),
                       child: SizedBox(
                         height: 52,
                         child: TextButton.icon(
@@ -166,7 +166,7 @@ class StackPageView extends StatelessWidget {
                       elevation: 4,
                       clipBehavior: Clip.hardEdge,
                       shadowColor:
-                          Theme.of(context).colorScheme.onSurface.withAlpha(64),
+                          Theme.of(context).colorScheme.surface.withAlpha(64),
                       child: ListTile(
                         trailing: SizedBox(
                           height: 32,

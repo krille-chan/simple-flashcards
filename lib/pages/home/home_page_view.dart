@@ -64,7 +64,7 @@ class HomePageView extends StatelessWidget {
                   child: Card(
                     elevation: 4,
                     shadowColor:
-                        Theme.of(context).colorScheme.onSurface.withAlpha(64),
+                        Theme.of(context).colorScheme.surface.withAlpha(64),
                     clipBehavior: Clip.hardEdge,
                     child: ListTile(
                       leading: CircleAvatar(

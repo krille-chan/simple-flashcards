@@ -104,13 +104,13 @@ class SessionPageController extends State<SessionPage> {
     _playSound();
 
     if (typeAnswer) {
-      if (flipCardcontroller.state?.isFront != true) {
+      if (flipCardcontroller.state?.isFront == true) {
         flipCardcontroller.toggleCard();
       }
       await Future.delayed(const Duration(seconds: 2));
     }
 
-    if (flipCardcontroller.state?.isFront != false) {
+    if (flipCardcontroller.state?.isFront != true) {
       flipCardcontroller.toggleCardWithoutAnimation();
     }
     setState(() {
