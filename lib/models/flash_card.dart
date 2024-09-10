@@ -1,5 +1,3 @@
-import 'dart:math';
-
 class FlashCard {
   final String front;
   final String back;
@@ -42,15 +40,17 @@ class FlashCard {
           'last_level_up': lastLevelUp?.millisecondsSinceEpoch
       };
 
-  static const int levelUpWaitingHours = 2;
-
   bool get canLevelUp {
     final lastLevelUp = this.lastLevelUp;
     if (lastLevelUp == null) return true;
 
-    final waitingTime =
-        Duration(hours: pow(levelUpWaitingHours, level).round());
+    final waitingTime = Duration(hours: fibo(level));
 
     return DateTime.now().difference(lastLevelUp) > waitingTime;
   }
+}
+
+int fibo(int x) {
+  if (x <= 2) return 1;
+  return fibo(x - 2) + fibo(x - 1);
 }

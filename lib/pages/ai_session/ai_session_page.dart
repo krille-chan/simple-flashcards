@@ -142,7 +142,7 @@ class AiSessionPageController extends State<AiSessionPage> {
         await simpleFlashcards.editCardLevel(
           widget.stackName,
           card.id,
-          card.level < 10 ? card.level + 1 : card.level,
+          card.level + 1,
         );
       }
     }

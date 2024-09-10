@@ -98,7 +98,7 @@ class SessionPageController extends State<SessionPage> {
       SimpleFlashcards.of(context).editCardLevel(
         widget.stackName,
         card.id,
-        card.level < 10 ? card.level + 1 : card.level,
+        card.level + 1,
       );
     }
     _playSound();
@@ -138,7 +138,7 @@ class SessionPageController extends State<SessionPage> {
       SimpleFlashcards.of(context).editCardLevel(
         widget.stackName,
         card.id,
-        card.level - 1,
+        1,
       );
     }
     if (flipCardcontroller.state?.isFront == false) {
