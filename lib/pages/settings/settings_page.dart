@@ -1,12 +1,13 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:package_info/package_info.dart';
-import 'package:text_to_speech/text_to_speech.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:simple_flashcards/config/app_constants.dart';
@@ -146,8 +147,9 @@ class SettingsPageController extends State<SettingsPage> {
   void setTextToSpeechLanguage() async {
     final l10n = L10n.of(context)!;
     final preferences = SimpleFlashcards.of(context).preferences;
-    final tts = TextToSpeech();
-    final languages = await TextToSpeech().getDisplayLanguages() ?? [];
+    final tts = FlutterTts();
+    final languages = await tts.getLanguages;
+    inspect(languages);
     if (!mounted) return;
     final newLanguage = await showConfirmationDialog(
       context: context,
@@ -162,11 +164,9 @@ class SettingsPageController extends State<SettingsPage> {
           .toList(),
     );
     if (newLanguage == null) return;
-    final newCode = await tts.getLanguageCodeByName(newLanguage);
-    if (newCode == null) return;
     await preferences.setString(
       SettingsKeys.textToSpeechLanguageKey,
-      newCode,
+      newLanguage,
     );
     setState(() {});
   }

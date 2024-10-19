@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flip_card/flip_card_controller.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:text_to_speech/text_to_speech.dart';
 
 import 'package:simple_flashcards/config/settings_keys.dart';
 import 'package:simple_flashcards/models/flash_card.dart';
@@ -30,7 +30,7 @@ class SessionPageController extends State<SessionPage> {
 
   static const int maxCards = 10;
 
-  final tts = TextToSpeech();
+  final tts = FlutterTts();
 
   bool wrongTypeAnswer = false;
 
