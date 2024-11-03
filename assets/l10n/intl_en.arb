@@ -77,5 +77,6 @@
     "repeat": "Repeat",
     "flip": "Flip",
     "hint": "Hint",
-    "typeAnswer": "Type answer"
+    "typeAnswer": "Type answer",
+    "customAiPrompt": "Custom AI prompt"
 }

@@ -4,5 +4,6 @@ abstract class SettingsKeys {
   static const String textToSpeechLanguageKey = 'text_to_speech_language';
   static const String openAiApiKey = 'open_ai_api_key';
   static const String typeAnswer = 'type_answer';
+  static const String customAiPrompt = 'customAiPrompt';
   static const int defaultCardsPerSessionKey = 10;
 }

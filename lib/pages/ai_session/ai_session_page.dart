@@ -58,10 +58,16 @@ class AiSessionPageController extends State<AiSessionPage> {
     super.dispose();
   }
 
+  late final String? customSystemPrompt;
+
   void _initOpenAI() {
     final token = SimpleFlashcards.of(context)
         .preferences
         .getString(SettingsKeys.openAiApiKey);
+
+    customSystemPrompt = SimpleFlashcards.of(context)
+        .preferences
+        .getString(SettingsKeys.customAiPrompt);
     openAI = OpenAI.instance.build(
       token: token,
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 30)),
@@ -99,6 +105,11 @@ class AiSessionPageController extends State<AiSessionPage> {
               content:
                   'Please talk in this language: "${L10n.of(context)!.localeName}"',
             ),
+            if (customSystemPrompt != null)
+              Messages(
+                role: Role.system,
+                content: customSystemPrompt,
+              ),
             ...messages,
           ],
           model: GptTurboChatModel(),

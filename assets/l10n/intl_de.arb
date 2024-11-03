@@ -75,5 +75,6 @@
     "repeat": "Wiederholen",
     "flip": "Umdrehen",
     "hint": "Hinweis",
-    "typeAnswer": "Antwort eintippen"
+    "typeAnswer": "Antwort eintippen",
+    "customAiPrompt": "Custom AI prompt"
 }

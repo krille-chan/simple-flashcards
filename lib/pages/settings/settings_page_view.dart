@@ -63,6 +63,12 @@ class SettingsPageView extends StatelessWidget {
             controlAffinity: ListTileControlAffinity.trailing,
             value: controller.openAiApiKeyEnabled,
           ),
+          if (controller.openAiApiKeyEnabled)
+            ListTile(
+              leading: const Icon(Icons.keyboard_outlined),
+              title: Text(L10n.of(context)!.customAiPrompt),
+              onTap: controller.setCustomAiPrompt,
+            ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.download_outlined),

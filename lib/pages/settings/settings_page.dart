@@ -198,6 +198,27 @@ class SettingsPageController extends State<SettingsPage> {
     setState(() {});
   }
 
+  void setCustomAiPrompt() async {
+    final preferences = SimpleFlashcards.of(context).preferences;
+    final input = await showTextInputDialog(
+      context: context,
+      textFields: [
+        DialogTextField(
+          initialText: preferences.getString(SettingsKeys.customAiPrompt),
+          minLines: 2,
+          maxLines: 4,
+        )
+      ],
+      title: L10n.of(context)!.customAiPrompt,
+      okLabel: L10n.of(context)!.save,
+      cancelLabel: L10n.of(context)!.cancel,
+    );
+    final textInput = input?.singleOrNull;
+
+    if (textInput == null) return;
+    await preferences.setString(SettingsKeys.customAiPrompt, textInput);
+  }
+
   @override
   Widget build(BuildContext context) => SettingsPageView(this);
 }
