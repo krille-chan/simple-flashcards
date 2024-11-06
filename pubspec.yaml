@@ -42,6 +42,8 @@ flutter_icons:
   ios: true
   remove_alpha_ios: true
   image_path: "assets/images/logo.png"
+  adaptive_icon_foreground: "assets/images/logo.png"
+  adaptive_icon_background: "#f3ffdd"
 
 flutter:
   generate: true
