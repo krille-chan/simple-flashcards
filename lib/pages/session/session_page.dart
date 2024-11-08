@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:flip_card/flip_card_controller.dart';
+import 'package:flutter_confetti/flutter_confetti.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -118,6 +121,14 @@ class SessionPageController extends State<SessionPage> {
       anserTextController.clear();
     });
     _playSound();
+    if (!mounted) return;
+    Confetti.launch(
+      context,
+      options: ConfettiOptions(
+        particleCount: Random().nextInt(180) + 20,
+        spread: Random().nextInt(80).toDouble() + 20,
+      ),
+    );
     _readFrontOnStart();
   }
 

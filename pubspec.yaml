@@ -27,6 +27,7 @@ dependencies:
   chat_bubbles: ^1.5.0
   flip_card: ^0.7.0
   just_audio: ^0.9.36
+  flutter_confetti: ^0.3.4
 
 dev_dependencies:
   flutter_test:

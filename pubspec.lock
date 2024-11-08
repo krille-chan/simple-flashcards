@@ -246,6 +246,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_confetti:
+    dependency: "direct main"
+    description:
+      name: flutter_confetti
+      sha256: "22fc66984c17aea73e3cd300666609c4581176c00c31d4513b1e16758f75cb08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.4"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
