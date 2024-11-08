@@ -54,7 +54,7 @@ class StackPageView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.adaptive.share_outlined),
+            icon: const Icon(Icons.download_outlined),
             onPressed: controller.exportStack,
           ),
           IconButton(
@@ -122,25 +122,13 @@ class StackPageView extends StatelessWidget {
                 if (i == 0) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 6.0,
+                      horizontal: 16.0,
+                      vertical: 12.0,
                     ),
-                    child: Card(
-                      elevation: 4,
-                      clipBehavior: Clip.hardEdge,
-                      shadowColor:
-                          Theme.of(context).colorScheme.surface.withAlpha(64),
-                      child: SizedBox(
-                        height: 52,
-                        child: TextButton.icon(
-                          style: TextButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0))),
-                          onPressed: controller.addFlashCard,
-                          icon: const Icon(Icons.add_outlined),
-                          label: Text(L10n.of(context)!.addNewFlashCard),
-                        ),
-                      ),
+                    child: ElevatedButton.icon(
+                      onPressed: controller.addFlashCard,
+                      icon: const Icon(Icons.add_box_outlined),
+                      label: Text(L10n.of(context)!.addNewFlashCard),
                     ),
                   );
                 }
@@ -163,10 +151,9 @@ class StackPageView extends StatelessWidget {
                       vertical: 6.0,
                     ),
                     child: Card(
-                      elevation: 4,
+                      elevation: 0,
                       clipBehavior: Clip.hardEdge,
-                      shadowColor:
-                          Theme.of(context).colorScheme.surface.withAlpha(64),
+                      color: Theme.of(context).colorScheme.surfaceContainer,
                       child: ListTile(
                         trailing: SizedBox(
                           height: 32,

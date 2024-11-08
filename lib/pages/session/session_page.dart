@@ -101,7 +101,6 @@ class SessionPageController extends State<SessionPage> {
         card.level + 1,
       );
     }
-    _playSound();
 
     if (typeAnswer) {
       if (flipCardcontroller.state?.isFront == true) {
@@ -118,6 +117,7 @@ class SessionPageController extends State<SessionPage> {
       wrongTypeAnswer = false;
       anserTextController.clear();
     });
+    _playSound();
     _readFrontOnStart();
   }
 

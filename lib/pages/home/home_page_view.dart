@@ -62,15 +62,13 @@ class HomePageView extends StatelessWidget {
                     vertical: 6.0,
                   ),
                   child: Card(
-                    elevation: 4,
-                    shadowColor:
-                        Theme.of(context).colorScheme.surface.withAlpha(64),
+                    elevation: 0,
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     clipBehavior: Clip.hardEdge,
                     child: ListTile(
                       leading: CircleAvatar(
-                        backgroundColor: Theme.of(context)
-                            .colorScheme
-                            .surfaceContainerHighest,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondaryContainer,
                         child: emoji == null
                             ? const Icon(CupertinoIcons.square_stack_fill)
                             : Text(
