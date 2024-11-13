@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
+import 'package:simple_flashcards/config/app_constants.dart';
 import 'package:simple_flashcards/pages/session/card.dart';
 import 'package:simple_flashcards/pages/session/session_page.dart';
 
@@ -14,6 +15,8 @@ class SessionPageView extends StatelessWidget {
     const spacing = 20.0;
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         title: Text(
           controller.cards.isEmpty
               ? L10n.of(context)!.allCardsFinished
@@ -22,6 +25,7 @@ class SessionPageView extends StatelessWidget {
                 ),
         ),
       ),
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: SafeArea(
         child: controller.cards.isEmpty
             ? Padding(
@@ -40,6 +44,10 @@ class SessionPageView extends StatelessWidget {
                           ? null
                           : controller.repeatAllCards,
                       style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(AppConstants.borderRadius),
+                        ),
                         backgroundColor:
                             Theme.of(context).colorScheme.primaryContainer,
                         foregroundColor:
@@ -54,6 +62,10 @@ class SessionPageView extends StatelessWidget {
                           ? null
                           : controller.nextCards,
                       style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(AppConstants.borderRadius),
+                        ),
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor:
                             Theme.of(context).colorScheme.onPrimary,
@@ -82,6 +94,10 @@ class SessionPageView extends StatelessWidget {
                       icon: const Icon(Icons.repeat_outlined),
                       label: Text(L10n.of(context)!.repeat),
                       style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(AppConstants.borderRadius),
+                        ),
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor:
                             Theme.of(context).colorScheme.onPrimary,
@@ -131,6 +147,10 @@ class SessionPageView extends StatelessWidget {
                         icon: const Icon(Icons.check_outlined),
                         label: Text(L10n.of(context)!.known),
                         style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                AppConstants.borderRadius),
+                          ),
                           backgroundColor: Colors.green,
                           foregroundColor: Colors.white,
                         ),

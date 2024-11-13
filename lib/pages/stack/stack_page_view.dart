@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
+import 'package:simple_flashcards/config/app_constants.dart';
 import 'package:simple_flashcards/config/settings_keys.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/stack/stack_page.dart';
@@ -27,39 +28,64 @@ class StackPageView extends StatelessWidget {
       appBar: AppBar(
         leading: const Center(child: BackButton()),
         titleSpacing: 0,
-        title: ListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(
-            name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          subtitle: Text(
-            L10n.of(context)!.countCards(
-              controller.cards.length.toString(),
-              cardsToLearn.toString(),
+            Text(
+              L10n.of(context)!.countCards(
+                controller.cards.length.toString(),
+                cardsToLearn.toString(),
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 12),
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 12),
-          ),
-          trailing: IconButton(
-            icon: const Icon(Icons.edit_outlined),
-            onPressed: controller.editName,
-          ),
-          onTap: controller.editName,
+          ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.download_outlined),
-            onPressed: controller.exportStack,
-          ),
-          IconButton(
-            icon: const Icon(Icons.check_box_outlined),
-            onPressed: controller.toggleAll,
+          PopupMenuButton<PopupMenuStackAction>(
+            onSelected: controller.onPopupMenuStackAction,
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: PopupMenuStackAction.selectAll,
+                child: Row(
+                  children: [
+                    const Icon(Icons.edit_outlined),
+                    const SizedBox(width: 12),
+                    Text(L10n.of(context)!.editStack),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: PopupMenuStackAction.selectAll,
+                child: Row(
+                  children: [
+                    const Icon(Icons.check_box_outlined),
+                    const SizedBox(width: 12),
+                    Text(L10n.of(context)!.selectAll),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: PopupMenuStackAction.export,
+                child: Row(
+                  children: [
+                    const Icon(Icons.download_outlined),
+                    const SizedBox(width: 12),
+                    Text(L10n.of(context)!.export),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -101,18 +127,21 @@ class StackPageView extends StatelessWidget {
               surfaceTintColor: Colors.transparent,
               backgroundColor: Colors.transparent,
               toolbarHeight: 64,
-              title: TextField(
-                controller: controller.searchController,
-                onChanged: controller.onSearch,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(90),
+              title: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: TextField(
+                  controller: controller.searchController,
+                  onChanged: controller.onSearch,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(90),
+                    ),
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.surfaceContainer,
+                    prefixIcon: const Icon(Icons.search_outlined),
+                    hintText: L10n.of(context)!.search,
                   ),
-                  filled: true,
-                  fillColor: Theme.of(context).colorScheme.surfaceContainer,
-                  prefixIcon: const Icon(Icons.search_outlined),
-                  hintText: L10n.of(context)!.search,
                 ),
               ),
             ),
@@ -123,12 +152,22 @@ class StackPageView extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16.0,
-                      vertical: 12.0,
+                      vertical: 20.0,
                     ),
                     child: ElevatedButton.icon(
                       onPressed: controller.addFlashCard,
                       icon: const Icon(Icons.add_box_outlined),
                       label: Text(L10n.of(context)!.addNewFlashCard),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primaryContainer,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimaryContainer,
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(AppConstants.borderRadius),
+                        ),
+                      ),
                     ),
                   );
                 }

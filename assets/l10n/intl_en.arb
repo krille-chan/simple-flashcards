@@ -78,5 +78,8 @@
     "flip": "Flip",
     "hint": "Hint",
     "typeAnswer": "Type answer",
-    "customAiPrompt": "Custom AI prompt"
+    "customAiPrompt": "Custom AI prompt",
+    "selectAll": "Select all",
+    "editStack": "Edit stack",
+    "export": "Export"
 }

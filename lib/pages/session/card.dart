@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
+import 'package:simple_flashcards/config/app_constants.dart';
 import 'package:simple_flashcards/pages/session/session_page.dart';
 
 class CardWidget extends StatelessWidget {
@@ -51,13 +52,8 @@ class FlashCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final hint = this.hint;
     return Material(
-      elevation: 10,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
-          )),
-      shadowColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+      borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+      color: Theme.of(context).colorScheme.surfaceBright,
       clipBehavior: Clip.hardEdge,
       child: Column(
         mainAxisSize: MainAxisSize.min,

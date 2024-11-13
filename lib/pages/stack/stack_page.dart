@@ -219,6 +219,17 @@ class StackPageController extends State<StackPage> {
     }
   }
 
+  void onPopupMenuStackAction(PopupMenuStackAction action) {
+    switch (action) {
+      case PopupMenuStackAction.export:
+        exportStack();
+      case PopupMenuStackAction.selectAll:
+        toggleAll();
+      case PopupMenuStackAction.edit:
+        editName();
+    }
+  }
+
   @override
   Widget build(BuildContext context) => StreamBuilder<Object>(
         stream: SimpleFlashcards.of(context).stacksBox.watch(),
@@ -229,3 +240,5 @@ class StackPageController extends State<StackPage> {
 enum FlashCardAction { edit, delete }
 
 enum SessionType { interrogate, ai }
+
+enum PopupMenuStackAction { export, selectAll, edit }
