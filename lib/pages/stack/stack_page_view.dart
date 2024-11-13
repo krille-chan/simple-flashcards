@@ -52,7 +52,7 @@ class StackPageView extends StatelessWidget {
             onSelected: controller.onPopupMenuStackAction,
             itemBuilder: (context) => [
               PopupMenuItem(
-                value: PopupMenuStackAction.selectAll,
+                value: PopupMenuStackAction.edit,
                 child: Row(
                   children: [
                     const Icon(Icons.edit_outlined),
@@ -123,20 +123,6 @@ class StackPageView extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 if (controller.cards.any((c) => c.selected)) ...[
-                  if (controller.openAiApiKeyEnabled) ...[
-                    FloatingActionButton.extended(
-                      elevation: 0,
-                      heroTag: null,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.tertiaryContainer,
-                      foregroundColor:
-                          Theme.of(context).colorScheme.onTertiaryContainer,
-                      onPressed: () => controller.startSession(SessionType.ai),
-                      icon: const Icon(Icons.smart_toy_outlined),
-                      label: Text(L10n.of(context)!.aiChatBot),
-                    ),
-                    const SizedBox(width: 16),
-                  ],
                   FloatingActionButton.extended(
                     elevation: 0,
                     heroTag: null,
@@ -145,6 +131,19 @@ class StackPageView extends StatelessWidget {
                     icon: const Icon(Icons.school_outlined),
                     label: Text(L10n.of(context)!.learn),
                   ),
+                  if (controller.openAiApiKeyEnabled) ...[
+                    const SizedBox(width: 16),
+                    FloatingActionButton(
+                      elevation: 0,
+                      heroTag: null,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.tertiaryContainer,
+                      foregroundColor:
+                          Theme.of(context).colorScheme.onTertiaryContainer,
+                      onPressed: () => controller.startSession(SessionType.ai),
+                      child: const Icon(Icons.smart_toy_outlined),
+                    ),
+                  ],
                 ],
               ],
             ),
