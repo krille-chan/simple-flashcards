@@ -67,36 +67,38 @@ class _TextInputScaffoldState extends State<TextInputScaffold> {
               : L10n.of(context)!.editFlashCard,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(spacing),
-        child: Column(
-          children: [
-            _FlashCardTextField(
-              controller: _frontController,
-              hintText: L10n.of(context)!.front,
-            ),
-            const SizedBox(height: spacing),
-            _FlashCardTextField(
-              controller: _backController,
-              hintText: L10n.of(context)!.back,
-            ),
-            const SizedBox(height: spacing),
-            TextField(
-              controller: _hintController,
-              keyboardType: TextInputType.text,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                hintText: L10n.of(context)!.hint,
-                border: const OutlineInputBorder(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(spacing),
+          child: Column(
+            children: [
+              _FlashCardTextField(
+                controller: _frontController,
+                hintText: L10n.of(context)!.front,
               ),
-            ),
-            const SizedBox(height: spacing),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.save_outlined),
-              label: Text(L10n.of(context)!.save),
-              onPressed: () => saveAction(context),
-            ),
-          ],
+              const SizedBox(height: spacing),
+              _FlashCardTextField(
+                controller: _backController,
+                hintText: L10n.of(context)!.back,
+              ),
+              const SizedBox(height: spacing),
+              TextField(
+                controller: _hintController,
+                keyboardType: TextInputType.text,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  hintText: L10n.of(context)!.hint,
+                  border: const OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: spacing),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.save_outlined),
+                label: Text(L10n.of(context)!.save),
+                onPressed: () => saveAction(context),
+              ),
+            ],
+          ),
         ),
       ),
     );

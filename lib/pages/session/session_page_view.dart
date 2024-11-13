@@ -11,6 +11,7 @@ class SessionPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const spacing = 20.0;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -24,7 +25,7 @@ class SessionPageView extends StatelessWidget {
       body: SafeArea(
         child: controller.cards.isEmpty
             ? Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(spacing),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -33,9 +34,11 @@ class SessionPageView extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 60),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: spacing),
                     ElevatedButton.icon(
-                      onPressed: controller.repeatAllCards,
+                      onPressed: controller.isLoadingNextCard
+                          ? null
+                          : controller.repeatAllCards,
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             Theme.of(context).colorScheme.primaryContainer,
@@ -45,9 +48,11 @@ class SessionPageView extends StatelessWidget {
                       icon: const Icon(Icons.repeat_outlined),
                       label: Text(L10n.of(context)!.repeatAllCards),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: spacing),
                     ElevatedButton.icon(
-                      onPressed: controller.nextCards,
+                      onPressed: controller.isLoadingNextCard
+                          ? null
+                          : controller.nextCards,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor:
@@ -63,14 +68,17 @@ class SessionPageView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(spacing),
                       child: CardWidget(controller),
                     ),
                   ),
+                  const SizedBox(height: spacing),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: spacing),
                     child: ElevatedButton.icon(
-                      onPressed: controller.cardNotKnown,
+                      onPressed: controller.isLoadingNextCard
+                          ? null
+                          : controller.cardNotKnown,
                       icon: const Icon(Icons.repeat_outlined),
                       label: Text(L10n.of(context)!.repeat),
                       style: ElevatedButton.styleFrom(
@@ -82,8 +90,9 @@ class SessionPageView extends StatelessWidget {
                   ),
                   if (controller.typeAnswer)
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(spacing),
                       child: TextField(
+                        readOnly: controller.isLoadingNextCard,
                         maxLines: 1,
                         focusNode: controller.answerFocusNode,
                         autofocus: true,
@@ -114,9 +123,11 @@ class SessionPageView extends StatelessWidget {
                     )
                   else
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(spacing),
                       child: ElevatedButton.icon(
-                        onPressed: controller.cardKnown,
+                        onPressed: controller.isLoadingNextCard
+                            ? null
+                            : controller.cardKnown,
                         icon: const Icon(Icons.check_outlined),
                         label: Text(L10n.of(context)!.known),
                         style: ElevatedButton.styleFrom(

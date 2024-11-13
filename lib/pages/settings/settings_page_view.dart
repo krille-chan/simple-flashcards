@@ -19,10 +19,15 @@ class SettingsPageView extends StatelessWidget {
           Center(
               child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: 128,
-              height: 128,
+            child: Material(
+              borderRadius: BorderRadius.circular(9999),
+              elevation: 1,
+              shadowColor: Colors.grey.withAlpha(64),
+              clipBehavior: Clip.hardEdge,
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 128,
+              ),
             ),
           )),
           const Divider(height: 1),

@@ -33,6 +33,8 @@ class SessionPageController extends State<SessionPage> {
 
   static const int maxCards = 10;
 
+  bool isLoadingNextCard = false;
+
   final tts = FlutterTts();
 
   bool wrongTypeAnswer = false;
@@ -105,30 +107,34 @@ class SessionPageController extends State<SessionPage> {
       );
     }
 
-    if (typeAnswer) {
-      if (flipCardcontroller.state?.isFront == true) {
-        flipCardcontroller.toggleCard();
-      }
-      await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      isLoadingNextCard = true;
+    });
+
+    if (flipCardcontroller.state?.isFront == true) {
+      flipCardcontroller.toggleCard();
     }
+
+    _playSound();
+    Confetti.launch(
+      context,
+      options: ConfettiOptions(
+        particleCount: card.level * 16,
+        spread: Random().nextInt(80).toDouble() + 20,
+      ),
+    );
+    await Future.delayed(const Duration(seconds: 2));
 
     if (flipCardcontroller.state?.isFront != true) {
       flipCardcontroller.toggleCardWithoutAnimation();
     }
     setState(() {
+      isLoadingNextCard = false;
       cards.removeAt(0);
       wrongTypeAnswer = false;
       anserTextController.clear();
     });
-    _playSound();
     if (!mounted) return;
-    Confetti.launch(
-      context,
-      options: ConfettiOptions(
-        particleCount: Random().nextInt(180) + 20,
-        spread: Random().nextInt(80).toDouble() + 20,
-      ),
-    );
     _readFrontOnStart();
   }
 
@@ -143,7 +149,7 @@ class SessionPageController extends State<SessionPage> {
     }
   }
 
-  void cardNotKnown() {
+  void cardNotKnown() async {
     final card = cards[0];
     if (card.level > 0) {
       SimpleFlashcards.of(context).editCardLevel(
@@ -152,10 +158,21 @@ class SessionPageController extends State<SessionPage> {
         1,
       );
     }
+
+    setState(() {
+      isLoadingNextCard = true;
+    });
+
+    if (flipCardcontroller.state?.isFront == true) {
+      flipCardcontroller.toggleCard();
+    }
+    await Future.delayed(const Duration(seconds: 2));
     if (flipCardcontroller.state?.isFront == false) {
       flipCardcontroller.toggleCardWithoutAnimation();
     }
+
     setState(() {
+      isLoadingNextCard = false;
       cards.add(cards.removeAt(0));
       wrongTypeAnswer = false;
       anserTextController.clear();

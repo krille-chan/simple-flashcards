@@ -27,9 +27,15 @@ class HomePageView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/images/logo.png',
-                    width: 128,
+                  Material(
+                    borderRadius: BorderRadius.circular(9999),
+                    elevation: 1,
+                    shadowColor: Colors.grey.withAlpha(64),
+                    clipBehavior: Clip.hardEdge,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      width: 128,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Text(
