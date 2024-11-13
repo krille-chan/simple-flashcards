@@ -81,5 +81,7 @@
     "customAiPrompt": "Custom AI prompt",
     "selectAll": "Select all",
     "editStack": "Edit stack",
-    "export": "Export"
+    "export": "Export",
+    "card": "Card",
+    "learn": "Learn"
 }

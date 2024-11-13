@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
+import 'package:simple_flashcards/config/app_constants.dart';
 import 'package:simple_flashcards/models/flash_card.dart';
 
 class TextInputScaffold extends StatefulWidget {
@@ -96,6 +97,14 @@ class _TextInputScaffoldState extends State<TextInputScaffold> {
                 icon: const Icon(Icons.save_outlined),
                 label: Text(L10n.of(context)!.save),
                 onPressed: () => saveAction(context),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(AppConstants.borderRadius),
+                  ),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                ),
               ),
             ],
           ),
