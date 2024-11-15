@@ -76,5 +76,11 @@
     "flip": "Umdrehen",
     "hint": "Hinweis",
     "typeAnswer": "Antwort eintippen",
-    "customAiPrompt": "Custom AI prompt"
+    "customAiPrompt": "Eigener AI prompt",
+    "selectAll": "Alle auswählen",
+    "editStack": "Stapel bearbeiten",
+    "export": "Exportieren",
+    "card": "Karte",
+    "learn": "Lernen",
+    "stack": "Stapel"
 }

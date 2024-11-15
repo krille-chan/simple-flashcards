@@ -46,7 +46,7 @@ class HomePageView extends StatelessWidget {
                   const SizedBox(height: 16),
                   FloatingActionButton.extended(
                     onPressed: controller.createStackAction,
-                    label: Text(L10n.of(context)!.newStack),
+                    label: Text(L10n.of(context)!.stack),
                     icon: const Icon(Icons.add_outlined),
                   ),
                 ],

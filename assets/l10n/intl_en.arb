@@ -83,5 +83,6 @@
     "editStack": "Edit stack",
     "export": "Export",
     "card": "Card",
-    "learn": "Learn"
+    "learn": "Learn",
+    "stack": "Stack"
 }

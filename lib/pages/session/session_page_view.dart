@@ -25,7 +25,7 @@ class SessionPageView extends StatelessWidget {
                 ),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
       body: SafeArea(
         child: controller.cards.isEmpty
             ? Padding(

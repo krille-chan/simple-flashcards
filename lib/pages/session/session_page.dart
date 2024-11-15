@@ -115,7 +115,7 @@ class SessionPageController extends State<SessionPage> {
       flipCardcontroller.toggleCard();
     }
 
-    _playSound();
+    _playSound(true);
     Confetti.launch(
       context,
       options: ConfettiOptions(
@@ -138,10 +138,10 @@ class SessionPageController extends State<SessionPage> {
     _readFrontOnStart();
   }
 
-  void _playSound() async {
+  void _playSound([bool success = true]) async {
     try {
       await _audioPlayer.setAsset(
-          'assets/sounds/${cards.isEmpty ? 'finished' : 'correct'}.mp3');
+          'assets/sounds/${cards.length <= 1 && success ? 'finished' : !success ? 'skip' : 'correct'}.mp3');
       await _audioPlayer.play();
     } catch (e, s) {
       debugPrint(e.toString());
@@ -162,6 +162,7 @@ class SessionPageController extends State<SessionPage> {
     setState(() {
       isLoadingNextCard = true;
     });
+    _playSound(false);
 
     if (flipCardcontroller.state?.isFront == true) {
       flipCardcontroller.toggleCard();
