@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fast_csv/fast_csv.dart' as csv;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:simple_flashcards/config/app_constants.dart';
@@ -221,7 +221,12 @@ class SimpleFlashcards {
         .join('\n');
     final csvBytes = Uint8List.fromList(utf8.encode(csvData));
 
-    Share.shareXFiles([XFile.fromData(csvBytes, name: '$name.csv')]);
+    FilePicker.platform.saveFile(
+      bytes: csvBytes,
+      fileName: '$name.csv',
+      type: FileType.custom,
+      allowedExtensions: ['csv'],
+    );
   }
 
   Future<void> importFromCsv(String name, String data) async {

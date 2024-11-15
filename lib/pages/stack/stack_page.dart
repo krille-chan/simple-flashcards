@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import 'package:simple_flashcards/config/settings_keys.dart';
@@ -8,10 +9,8 @@ import 'package:simple_flashcards/models/flash_card.dart';
 import 'package:simple_flashcards/models/simple_flashcards.dart';
 import 'package:simple_flashcards/pages/ai_session/ai_session_page.dart';
 import 'package:simple_flashcards/pages/session/session_page.dart';
-import 'package:simple_flashcards/pages/stack/stack_edit_bottom_sheet.dart';
 import 'package:simple_flashcards/pages/stack/stack_page_view.dart';
 import 'package:simple_flashcards/pages/stack/text_input_scaffold.dart';
-import 'edit_stack_input.dart';
 
 class StackPage extends StatefulWidget {
   final String stackName;
@@ -107,27 +106,80 @@ class StackPageController extends State<StackPage> {
   }
 
   void editName() async {
-    final simpleFlashcards = SimpleFlashcards.of(context);
-    final navigator = Navigator.of(context);
-
-    final input = await showModalBottomSheet<EditStackInput>(
+    final input = await showTextInputDialog(
       context: context,
-      builder: (c) => StackEditBottomSheet(
-        currentName: widget.stackName,
+      title: L10n.of(context)!.editStack,
+      textFields: [
+        DialogTextField(
+            initialText: widget.stackName, hintText: L10n.of(context)!.name),
+      ],
+      okLabel: L10n.of(context)!.save,
+      cancelLabel: L10n.of(context)!.cancel,
+    );
+    final newName = input?.singleOrNull;
+    if (newName == null) return;
+    if (!mounted) return;
+    await SimpleFlashcards.of(context).editStackName(widget.stackName, newName);
+    if (!mounted) return;
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => StackPage(newName)),
+        (route) => route.isFirst);
+  }
+
+  void deleteStack() async {
+    final simpleFlashcards = SimpleFlashcards.of(context);
+    final consent = await showOkCancelAlertDialog(
+      context: context,
+      title: L10n.of(context)!.areYouSure,
+      message: L10n.of(context)!.deleteStack,
+      okLabel: L10n.of(context)!.deleteStack,
+      cancelLabel: L10n.of(context)!.cancel,
+      isDestructiveAction: true,
+    );
+    if (consent != OkCancelResult.ok) return;
+    if (!mounted) return;
+    await simpleFlashcards.deleteStack(widget.stackName);
+    if (!mounted) return;
+    Navigator.of(context).pop();
+  }
+
+  void editEmoji() async {
+    final simpleFlashcards = SimpleFlashcards.of(context);
+
+    final emoji = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: SizedBox(
+          width: 400,
+          height: 256,
+          child: EmojiPicker(
+            config: const Config(
+                emojiViewConfig: EmojiViewConfig(
+                  backgroundColor: Colors.transparent,
+                ),
+                categoryViewConfig: CategoryViewConfig(
+                  backgroundColor: Colors.transparent,
+                  initCategory: Category.OBJECTS,
+                ),
+                searchViewConfig: SearchViewConfig(
+                  backgroundColor: Colors.transparent,
+                )),
+            onEmojiSelected: (_, e) =>
+                Navigator.of(context).pop<String>(e.emoji),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(L10n.of(context)!.cancel),
+          )
+        ],
       ),
     );
-
-    if (input == null) return;
-    final emoji = input.emoji;
-    if (emoji != null) {
-      await simpleFlashcards.editStackEmoji(widget.stackName, input.emoji);
-    }
-    if (widget.stackName != input.name) {
-      await simpleFlashcards.editStackName(widget.stackName, input.name);
-      navigator.pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => StackPage(input.name)),
-          (route) => route.isFirst);
-    }
+    if (emoji == null) return;
+    if (!mounted) return;
+    await simpleFlashcards.editStackEmoji(widget.stackName, emoji);
+    setState(() {});
   }
 
   void addFlashCard() async {
@@ -227,6 +279,8 @@ class StackPageController extends State<StackPage> {
         toggleAll();
       case PopupMenuStackAction.edit:
         editName();
+      case PopupMenuStackAction.delete:
+        deleteStack();
     }
   }
 
@@ -241,4 +295,4 @@ enum FlashCardAction { edit, delete }
 
 enum SessionType { interrogate, ai }
 
-enum PopupMenuStackAction { export, selectAll, edit }
+enum PopupMenuStackAction { export, selectAll, edit, delete }

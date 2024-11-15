@@ -52,22 +52,22 @@ class StackPageView extends StatelessWidget {
             onSelected: controller.onPopupMenuStackAction,
             itemBuilder: (context) => [
               PopupMenuItem(
-                value: PopupMenuStackAction.edit,
-                child: Row(
-                  children: [
-                    const Icon(Icons.edit_outlined),
-                    const SizedBox(width: 12),
-                    Text(L10n.of(context)!.editStack),
-                  ],
-                ),
-              ),
-              PopupMenuItem(
                 value: PopupMenuStackAction.selectAll,
                 child: Row(
                   children: [
                     const Icon(Icons.check_box_outlined),
                     const SizedBox(width: 12),
                     Text(L10n.of(context)!.selectAll),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: PopupMenuStackAction.edit,
+                child: Row(
+                  children: [
+                    const Icon(Icons.edit_outlined),
+                    const SizedBox(width: 12),
+                    Text(L10n.of(context)!.editStack),
                   ],
                 ),
               ),
@@ -81,6 +81,16 @@ class StackPageView extends StatelessWidget {
                   ],
                 ),
               ),
+              PopupMenuItem(
+                value: PopupMenuStackAction.delete,
+                child: Row(
+                  children: [
+                    const Icon(Icons.delete_outlined),
+                    const SizedBox(width: 12),
+                    Text(L10n.of(context)!.deleteStack),
+                  ],
+                ),
+              ),
             ],
           ),
         ],
@@ -91,23 +101,36 @@ class StackPageView extends StatelessWidget {
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Material(
-                  borderRadius: BorderRadius.circular(9999),
-                  clipBehavior: Clip.hardEdge,
-                  color: Theme.of(context).colorScheme.surfaceBright,
-                  child: SizedBox(
-                    width: 128,
-                    height: 128,
-                    child: Center(
-                      child: Text(
-                        SimpleFlashcards.of(context)
-                                .getStack(controller.widget.stackName)
-                                ?.emoji ??
-                            name.substring(0, 1),
-                        style: const TextStyle(fontSize: 64),
+                child: Stack(
+                  children: [
+                    Material(
+                      borderRadius: BorderRadius.circular(9999),
+                      clipBehavior: Clip.hardEdge,
+                      color: Theme.of(context).colorScheme.surfaceBright,
+                      child: SizedBox(
+                        width: 128,
+                        height: 128,
+                        child: Center(
+                          child: Text(
+                            SimpleFlashcards.of(context)
+                                    .getStack(controller.widget.stackName)
+                                    ?.emoji ??
+                                name.substring(0, 1),
+                            style: const TextStyle(fontSize: 64),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: FloatingActionButton.small(
+                        heroTag: null,
+                        onPressed: controller.editEmoji,
+                        child: const Icon(Icons.edit_outlined),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
