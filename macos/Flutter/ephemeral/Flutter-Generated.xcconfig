@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/christianpauly/develop/flutter
-FLUTTER_APPLICATION_PATH=/Users/christianpauly/develop/simple-flashcards
+FLUTTER_ROOT=/home/krille/Applications/flutter
+FLUTTER_APPLICATION_PATH=/home/krille/HADTF/Flutter/simple_flashcards
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=0.1.0
