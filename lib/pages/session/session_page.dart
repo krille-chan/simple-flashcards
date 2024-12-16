@@ -119,7 +119,7 @@ class SessionPageController extends State<SessionPage> {
     Confetti.launch(
       context,
       options: ConfettiOptions(
-        particleCount: card.level * 16,
+        particleCount: card.level,
         spread: Random().nextInt(80).toDouble() + 20,
       ),
     );

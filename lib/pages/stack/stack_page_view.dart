@@ -244,7 +244,7 @@ class StackPageView extends StatelessWidget {
                                     alignment: Alignment.center,
                                     children: [
                                       CircularProgressIndicator(
-                                        value: card.level / 10,
+                                        value: card.level / 14,
                                         color: card.selected && card.canLevelUp
                                             ? Theme.of(context)
                                                 .colorScheme
