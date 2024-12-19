@@ -24,14 +24,12 @@ class CardWidget extends StatelessWidget {
           data: controller.cards.first.front,
           title: L10n.of(context)!.front,
           readFront: controller.readFront,
-          level: controller.cards.first.level,
         ),
         back: FlashCardWidget(
           data: controller.cards.first.back,
           hint: controller.cards.first.hint,
           title: L10n.of(context)!.back,
           readFront: controller.readFront,
-          level: controller.cards.first.level,
         ),
       ),
     );
@@ -42,13 +40,11 @@ class FlashCardWidget extends StatelessWidget {
   final String data;
   final String title;
   final String? hint;
-  final int level;
   final void Function() readFront;
   const FlashCardWidget(
       {required this.data,
       required this.title,
       required this.readFront,
-      required this.level,
       this.hint,
       super.key});
 
@@ -65,17 +61,19 @@ class FlashCardWidget extends StatelessWidget {
           AppBar(
             automaticallyImplyLeading: false,
             elevation: 1,
-            title: Text(title),
+            title: Text(
+              title,
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
             actions: [
-              IconButton(
-                icon: const Icon(Icons.volume_up_outlined),
-                onPressed: readFront,
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: IconButton(
+                  icon: const Icon(Icons.record_voice_over_outlined),
+                  onPressed: readFront,
+                ),
               ),
             ],
-          ),
-          LinearProgressIndicator(
-            value: level / 14,
-            borderRadius: BorderRadius.circular(16),
           ),
           Expanded(
             child: Center(

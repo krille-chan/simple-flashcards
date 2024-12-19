@@ -73,19 +73,42 @@ class HomePageView extends StatelessWidget {
                     color: Theme.of(context).colorScheme.surfaceContainer,
                     clipBehavior: Clip.hardEdge,
                     child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondaryContainer,
-                        child: emoji == null
-                            ? const Icon(CupertinoIcons.square_stack_fill)
-                            : Text(
-                                emoji,
-                                style: const TextStyle(fontSize: 28),
-                              ),
+                      leading: Stack(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.surfaceBright,
+                            child: emoji == null
+                                ? const Icon(CupertinoIcons.square_stack_fill)
+                                : Text(
+                                    emoji,
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
+                          ),
+                          SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: CircularProgressIndicator(
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              value: stack.cards.isEmpty
+                                  ? 1
+                                  : 1 -
+                                      (stack.cards
+                                              .where((card) => card.canLevelUp)
+                                              .length /
+                                          stack.cards.length),
+                            ),
+                          ),
+                        ],
                       ),
                       trailing: ReorderableDragStartListener(
                         index: i,
-                        child: const Icon(Icons.drag_handle),
+                        child: const Icon(
+                          Icons.drag_indicator_outlined,
+                          size: 16,
+                        ),
                       ),
                       title: Text(stack.name),
                       subtitle: Column(
@@ -95,23 +118,9 @@ class HomePageView extends StatelessWidget {
                           Text(
                             L10n.of(context)!.countCards(
                               stack.cards.length.toString(),
-                              stack.cards
-                                  .where((card) => card.canLevelUp)
-                                  .length
-                                  .toString(),
                             ),
+                            style: Theme.of(context).textTheme.labelSmall,
                           ),
-                          if (stack.cards.isNotEmpty)
-                            LinearProgressIndicator(
-                              color: Colors.green,
-                              minHeight: 8,
-                              borderRadius: BorderRadius.circular(7),
-                              value: 1 -
-                                  (stack.cards
-                                          .where((card) => card.canLevelUp)
-                                          .length /
-                                      stack.cards.length),
-                            ),
                         ],
                       ),
                       onTap: () => controller.goToStack(stack.name),

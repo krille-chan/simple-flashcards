@@ -13,19 +13,35 @@ class SessionPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const spacing = 20.0;
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text(
-          controller.cards.isEmpty
-              ? L10n.of(context)!.allCardsFinished
-              : L10n.of(context)!.cardsLeft(
-                  controller.cards.length.toString(),
-                ),
+        title: ListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(controller.widget.stackName),
+          subtitle: Text(
+            controller.cards.isEmpty
+                ? L10n.of(context)!.allCardsFinished
+                : L10n.of(context)!.cardsLeft(
+                    controller.cards.length.toString(),
+                  ),
+            style: theme.textTheme.labelSmall,
+          ),
         ),
+        actions: [
+          IconButton(
+            onPressed: controller.toggleSoundEffects,
+            icon: Icon(
+              controller.soundEffects
+                  ? Icons.volume_up_outlined
+                  : Icons.volume_off_outlined,
+            ),
+          )
+        ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+      backgroundColor: theme.colorScheme.surfaceContainerHighest,
       body: SafeArea(
         child: controller.cards.isEmpty
             ? Padding(
@@ -39,7 +55,7 @@ class SessionPageView extends StatelessWidget {
                       style: TextStyle(fontSize: 60),
                     ),
                     const SizedBox(height: spacing),
-                    ElevatedButton.icon(
+                    ElevatedButton(
                       onPressed: controller.isLoadingNextCard
                           ? null
                           : controller.repeatAllCards,
@@ -48,16 +64,13 @@ class SessionPageView extends StatelessWidget {
                           borderRadius:
                               BorderRadius.circular(AppConstants.borderRadius),
                         ),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.primaryContainer,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onPrimaryContainer,
+                        backgroundColor: theme.colorScheme.primaryContainer,
+                        foregroundColor: theme.colorScheme.onPrimaryContainer,
                       ),
-                      icon: const Icon(Icons.repeat_outlined),
-                      label: Text(L10n.of(context)!.repeatAllCards),
+                      child: Text(L10n.of(context)!.repeatAllCards),
                     ),
                     const SizedBox(height: spacing),
-                    ElevatedButton.icon(
+                    ElevatedButton(
                       onPressed: controller.isLoadingNextCard
                           ? null
                           : controller.nextCards,
@@ -66,12 +79,10 @@ class SessionPageView extends StatelessWidget {
                           borderRadius:
                               BorderRadius.circular(AppConstants.borderRadius),
                         ),
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onPrimary,
+                        backgroundColor: theme.colorScheme.primary,
+                        foregroundColor: theme.colorScheme.onPrimary,
                       ),
-                      icon: const Icon(Icons.send_outlined),
-                      label: Text(L10n.of(context)!.nextCards),
+                      child: Text(L10n.of(context)!.nextCards),
                     ),
                   ],
                 ),
@@ -84,24 +95,42 @@ class SessionPageView extends StatelessWidget {
                       child: CardWidget(controller),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: spacing),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        LinearProgressIndicator(
+                          value: controller.cards.first.level / 14,
+                          minHeight: 16,
+                          borderRadius: BorderRadius.circular(16),
+                          color: theme.colorScheme.tertiary,
+                          backgroundColor: theme.colorScheme.tertiaryContainer,
+                        ),
+                        Text(
+                          'Level: ${controller.cards.first.level}',
+                          style: theme.textTheme.labelSmall,
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: spacing),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: spacing),
-                    child: ElevatedButton.icon(
+                    child: ElevatedButton(
                       onPressed: controller.isLoadingNextCard
                           ? null
                           : controller.cardNotKnown,
-                      icon: const Icon(Icons.repeat_outlined),
-                      label: Text(L10n.of(context)!.repeat),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.circular(AppConstants.borderRadius),
                         ),
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onPrimary,
+                        backgroundColor: theme.colorScheme.primaryContainer,
+                        foregroundColor: theme.colorScheme.onPrimaryContainer,
                       ),
+                      child: Text(L10n.of(context)!.repeat),
                     ),
                   ),
                   if (controller.typeAnswer)
@@ -127,6 +156,7 @@ class SessionPageView extends StatelessWidget {
                           ),
                           hintText: L10n.of(context)!.typeAnswer,
                           filled: true,
+                          fillColor: theme.colorScheme.surfaceBright,
                           error: controller.wrongTypeAnswer
                               ? const SizedBox.shrink()
                               : null,
@@ -140,20 +170,19 @@ class SessionPageView extends StatelessWidget {
                   else
                     Padding(
                       padding: const EdgeInsets.all(spacing),
-                      child: ElevatedButton.icon(
+                      child: ElevatedButton(
                         onPressed: controller.isLoadingNextCard
                             ? null
                             : controller.cardKnown,
-                        icon: const Icon(Icons.check_outlined),
-                        label: Text(L10n.of(context)!.known),
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                                 AppConstants.borderRadius),
                           ),
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.white,
+                          backgroundColor: theme.colorScheme.primary,
+                          foregroundColor: theme.colorScheme.onPrimary,
                         ),
+                        child: Text(L10n.of(context)!.known),
                       ),
                     ),
                 ],

@@ -12,8 +12,6 @@ class StackPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final name = controller.widget.stackName;
-    final cardsToLearn =
-        controller.cards.where((card) => card.canLevelUp).length;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
       appBar: AppBar(
@@ -38,12 +36,11 @@ class StackPageView extends StatelessWidget {
             Text(
               L10n.of(context)!.countCards(
                 controller.cards.length.toString(),
-                cardsToLearn.toString(),
               ),
               maxLines: 1,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 12),
+              style: Theme.of(context).textTheme.labelSmall,
             ),
           ],
         ),

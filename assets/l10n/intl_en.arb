@@ -4,12 +4,11 @@
     "createNewStack": "Create new stack",
     "newStack": "New stack",
     "name": "Name",
-    "countCards": "{upgradeableCount}/{count} cards",
+    "countCards": "{count} cards",
     "@countCards": {
         "type": "text",
         "placeholders": {
-        "count": {},
-        "upgradeableCount": {}
+        "count": {}
         }
     },
     "longPressToReorder": "Long press to reorder",

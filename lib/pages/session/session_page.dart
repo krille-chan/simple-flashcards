@@ -43,12 +43,21 @@ class SessionPageController extends State<SessionPage> {
 
   final FlipCardController flipCardcontroller = FlipCardController();
 
+  bool get soundEffects =>
+      SimpleFlashcards.of(context)
+          .preferences
+          .getBool(SettingsKeys.enableTextToSpeechKey) ??
+      false;
+
+  void toggleSoundEffects() async {
+    await SimpleFlashcards.of(context)
+        .preferences
+        .setBool(SettingsKeys.enableTextToSpeechKey, !soundEffects);
+    setState(() {});
+  }
+
   void _readFrontOnStart() {
-    if (SimpleFlashcards.of(context)
-                .preferences
-                .getBool(SettingsKeys.enableTextToSpeechKey) !=
-            true ||
-        cards.isEmpty) {
+    if (soundEffects || cards.isEmpty) {
       return;
     }
     readFront();

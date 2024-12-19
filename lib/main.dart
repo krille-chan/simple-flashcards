@@ -26,6 +26,7 @@ class SimpleFlashcardsApp extends StatelessWidget {
       return MaterialApp(
         title: AppConstants.appName,
         home: const HomePage(),
+        debugShowCheckedModeBanner: false,
         theme: buildTheme(lightDynamic, true),
         darkTheme: buildTheme(darkDynamic, false),
         localizationsDelegates: L10n.localizationsDelegates,

@@ -4,12 +4,11 @@
     "createNewStack": "Neuen Stapel erstellen",
     "newStack": "Neuer Stapel",
     "name": "Name",
-    "countCards": "{upgradeableCount} von {count} Karten zu lernen",
+    "countCards": "{count} Karten",
     "@countCards": {
         "type": "text",
         "placeholders": {
-        "count": {},
-        "upgradeableCount": {}
+        "count": {}
         }
     },
     "longPressToReorder": "Gedrückt halten zum anordnen",
@@ -57,7 +56,7 @@
         }
     },
     "known": "Gewusst",
-    "save": "Save",
+    "save": "Speichern",
     "stack": "Stapel",
     "readOutLoudFront": "Vorderseite vorlesen",
     "textToSpeechLanguage": "Vorlese-Sprache",
