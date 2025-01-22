@@ -18,7 +18,7 @@ dependencies:
   url_launcher: ^6.2.1
   dynamic_color: ^1.7.0
   fast_csv: ^0.2.10
-  emoji_picker_flutter: ^2.1.0
+  emoji_picker_flutter: ^4.3.0
   shared_preferences: ^2.0.15
   flutter_tts: ^4.0.2
   chat_gpt_sdk: ^2.2.5
