@@ -1,6 +1,6 @@
 # Simple Flashcards
 
-Minimalistic flashcards app for all platforms
+Minimalistic flashcards app for all platforms.
 
 ## How to build:
 
